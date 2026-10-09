@@ -1,0 +1,284 @@
+/* CardioMap heart dashboard v2 - UI only. Never touches canvas/WebGL, heart model or vessel rendering. */
+#stage{--hd-ink:#0b3a4a;--hd-mut:#5b7f8c;--hd-acc:#0a9bb0;--hd-acc2:#14c8c0;--hd-card:rgba(255,255,255,.78);--hd-line:rgba(10,155,176,.16);--hd-sh:0 10px 30px rgba(10,110,140,.12);
+ position:relative;border-radius:26px;border:1px solid var(--hd-line);overflow:hidden;
+ background:radial-gradient(ellipse 60% 55% at 50% 38%,rgba(255,255,255,.85),transparent 70%),linear-gradient(180deg,#e9f9fd,#d3f0f7 62%,#e6f7fb);color:var(--hd-ink)}
+html[data-theme="dark"] #stage{--hd-ink:#e3f7fb;--hd-mut:#8fb4c0;--hd-acc:#4fd8dc;--hd-acc2:#2bb7c4;--hd-card:rgba(16,40,52,.72);--hd-line:rgba(100,227,220,.2);--hd-sh:0 10px 30px rgba(0,0,0,.35);
+ background:radial-gradient(ellipse 60% 55% at 50% 38%,rgba(40,120,140,.35),transparent 70%),linear-gradient(180deg,#0a1e29,#0c2431 62%,#0a1a24)}
+#stage:before,#stage:after{display:none!important}
+/* top toolbar as icon pills */
+#stage .tools{position:relative!important;inset:auto!important;order:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding:14px 16px 0;z-index:5}
+#stage .tools .right-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+#stage .tools button,#stage .tools label.b{display:inline-flex;align-items:center;gap:7px;border-radius:14px!important;padding:9px 14px!important;font:600 12.5px Inter,system-ui,sans-serif!important;color:var(--hd-ink)!important;background:var(--hd-card)!important;border:1px solid var(--hd-line)!important;box-shadow:var(--hd-sh);cursor:pointer;transition:transform .15s,box-shadow .15s}
+#stage .tools button:hover,#stage .tools label.b:hover{transform:translateY(-1px)}
+#stage .tools button svg,#stage .tools label.b svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#stage #loadReference{background:linear-gradient(135deg,var(--hd-acc),var(--hd-acc2))!important;color:#fff!important;border-color:transparent!important}
+#stage #haloToggle{background:rgba(255,184,77,.16)!important;border-color:rgba(214,140,30,.4)!important}
+#stage #whyToggle{background:rgba(20,200,192,.14)!important}
+#stage #tourStart{background:rgba(120,110,230,.14)!important;border-color:rgba(120,110,230,.35)!important}
+#stage .tools button:disabled{opacity:.5;cursor:not-allowed}
+/* canvas stage with side panels */
+#stage #cv{order:1;border-radius:0}
+#stage .hint{top:auto!important;bottom:calc(var(--hd-below,0px) + 12px)!important}
+.hd-side{position:absolute;top:78px;z-index:4;width:220px;padding:16px;border-radius:20px;background:var(--hd-card);border:1px solid var(--hd-line);box-shadow:var(--hd-sh);backdrop-filter:blur(14px)}
+.hd-left{left:16px}.hd-right{right:16px;max-height:calc(var(--cv-h,600px) - 40px)}
+.hd-side h4{margin:0 0 10px;font:700 11.5px Sora,Inter,sans-serif;letter-spacing:.12em;color:var(--hd-acc);display:flex;align-items:center;gap:7px}
+.hd-side h4 svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.hd-tip{display:flex;gap:10px;align-items:center;padding:6px 0;font-size:12px;color:var(--hd-mut)}
+.hd-tip svg{width:30px;height:30px;flex:none;fill:none;stroke:var(--hd-ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hd-tip b{display:block;color:var(--hd-ink);font-size:13px}
+.hd-sep{height:1px;background:var(--hd-line);margin:10px 0}
+.hd-qv{display:flex;flex-direction:column;gap:7px}
+.hd-qv button{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:12px;border:1px solid var(--hd-line);background:rgba(255,255,255,.55);color:var(--hd-ink);font:600 12.5px Inter,sans-serif;cursor:pointer;text-align:left}
+html[data-theme="dark"] .hd-qv button{background:rgba(255,255,255,.05)}
+.hd-qv button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
+.hd-qv button[aria-pressed="true"]{background:linear-gradient(135deg,rgba(10,155,176,.2),rgba(20,200,192,.16));border-color:var(--hd-acc);color:var(--hd-acc)}
+.hd-sw{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;font:600 12.5px Inter,sans-serif}
+.hd-sw span{display:flex;align-items:center;gap:8px}.hd-sw svg{width:17px;height:17px;fill:none;stroke:var(--hd-ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hd-sw button{position:relative;width:42px;height:24px;border-radius:99px;border:0;background:#b7ccd3;cursor:pointer;flex:none;transition:background .2s}
+.hd-sw button:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.hd-sw button[aria-checked="true"]{background:linear-gradient(135deg,var(--hd-acc),var(--hd-acc2))}
+.hd-sw button[aria-checked="true"]:after{transform:translateX(18px)}
+.hd-sw button:disabled{opacity:.45;cursor:not-allowed}
+.hd-info{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12px;color:var(--hd-mut);margin:0}
+.hd-info dd{margin:0;color:var(--hd-ink);font-weight:600;text-align:right}
+#stage input[type=range]{accent-color:var(--hd-acc)}
+/* vessel cards */
+#stage .chips{order:3;margin:12px 16px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#chips .chip{position:relative;border-radius:18px;padding:14px 16px 14px 18px;background:var(--hd-card);border:1px solid var(--hd-line);box-shadow:var(--hd-sh);color:var(--hd-ink);transition:transform .15s,border-color .15s}
+#chips .chip:hover{transform:translateY(-2px)}
+#chips .chip:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--vc,var(--hd-acc))}
+#chips .chip:nth-child(1){--vc:#ef4b4b}#chips .chip:nth-child(2){--vc:#8b5cf6}#chips .chip:nth-child(3){--vc:#3b82f6}
+#chips .chip.on,#chips .chip[aria-pressed="true"]{border-color:var(--vc);box-shadow:0 0 0 2px color-mix(in srgb,var(--vc) 25%,transparent),var(--hd-sh)}
+#chips .chip-top b{font-size:26px;background:linear-gradient(135deg,#16a34a,#22c55e);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* overlay sliders */
+#stage #align{order:4;margin:12px 16px 0;border-radius:18px;background:var(--hd-card)!important;border:1px solid var(--hd-line)!important;box-shadow:var(--hd-sh)}
+#stage #anat{order:5}
+@media(max-width:1180px){.hd-side{position:static;width:auto;margin:12px 16px 0;max-height:none}.hd-left{order:1}.hd-right{order:1}.hd-tip-group{display:grid;grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){#stage #chips,#stage .chips{grid-template-columns:1fr}.hd-tip-group{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#stage *{transition:none!important}}
+@media(min-width:1181px){#stage .hint{display:none!important}}
+
+/* ===== v2.1 fixes ===== */
+/* Hero spacing: two balanced lines instead of three, tighter vertical rhythm */
+html .hero{margin:6px 0 22px!important;padding:0 6px!important;gap:24px!important;align-items:center!important}
+html .hero h1{max-width:21ch!important;font-size:clamp(2.1rem,4.1vw,3.35rem)!important;line-height:1.08!important;margin:0 0 12px!important;text-wrap:balance}
+html .hero .lead{max-width:58ch!important;margin:0!important;line-height:1.55!important}
+/* Hidden toolbar buttons must stay hidden (display:inline-flex was overriding [hidden]) */
+#stage .tools [hidden]{display:none!important}
+/* Toolbar: Reset camera left, the rest wrapping to the right without colliding */
+#stage .tools{align-items:flex-start;row-gap:8px}
+#stage .tools .left-tools{flex:none}
+#stage .tools .right-tools{flex:1 1 0;min-width:0}
+/* Side panels sit BELOW the measured toolbar height (set by JS), never on top of it */
+#stage{container-type:inline-size}
+.hd-panels{display:contents}
+.hd-side{top:calc(var(--hd-tools-h,56px) + 22px)!important;width:210px}
+.hd-right{max-height:calc(var(--cv-h,600px) - var(--hd-tools-h,56px) - 40px);overflow:auto}
+/* Canvas stage must stay clear of the toolbar */
+#stage #cv{margin-top:calc(0px - var(--hd-tools-h,56px))}
+/* Narrow stage (container, not viewport): panels leave the canvas and go side by side under it */
+@container (max-width:980px){
+  #stage #cv{margin-top:0}
+  .hd-panels{display:grid;grid-template-columns:1fr 1fr;gap:12px;order:2;margin:12px 16px 0}
+  .hd-side{position:static!important;width:auto!important;max-height:none!important;margin:0!important;overflow:visible}
+  .hd-tip-group{display:block}
+  .hd-qv{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  #stage .chips{order:3}#stage #align{order:4}#stage #anat{order:5}
+  #stage .hint{display:none!important}
+}
+@container (max-width:620px){.hd-panels{grid-template-columns:1fr}.hd-qv{grid-template-columns:repeat(3,1fr)}}
+/* Vessel cards: percentage never overlaps the name; progress rows stay inside the card */
+#chips .chip-top{align-items:center}
+#chips .chip-bot{grid-template-columns:auto minmax(0,1fr)}
+#chips .chip-bot .range-label{justify-self:end}
+#chips .mini-range{grid-column:1/-1}
+
+/* ===== v2.2: hover colours (replaces the dull dark-slab hover) ===== */
+html{--hov-grad:linear-gradient(135deg,#14b5cc,#22d3c5);--hov-glow:0 8px 20px rgba(20,181,204,.34)}
+html[data-theme="dark"]{--hov-grad:linear-gradient(135deg,#1b9fb8,#27c9bb);--hov-glow:0 8px 22px rgba(39,201,187,.28)}
+html body button:hover:not(:disabled):not(#chips .chip),html body .tools label.b:hover,html body .section-rail a:hover,html body button.pri:hover:not(:disabled),html body .tabs button:hover{background:var(--hov-grad)!important;color:#fff!important;border-color:transparent!important;box-shadow:var(--hov-glow)!important}
+html body button:hover:not(:disabled):not(#chips .chip) *,html body .tools label.b:hover *{color:#fff!important;stroke:currentColor}
+html body .ai-fab:hover{background:var(--hov-grad)!important}
+/* vessel cards: soft tint on hover, always-readable text */
+html body #chips .chip:hover{background:color-mix(in srgb,var(--vc,#0a9bb0) 13%,var(--hd-card))!important;color:var(--hd-ink)!important;border-color:var(--vc,#0a9bb0)!important;box-shadow:0 10px 24px color-mix(in srgb,var(--vc,#0a9bb0) 26%,transparent)!important}
+html body #chips .chip:hover *{color:var(--hd-ink)!important}
+html body #chips .chip:hover .range-readout,html body #chips .chip:hover .range-label{color:var(--hd-mut)!important}
+#chips .chip-top b{-webkit-text-fill-color:transparent;color:transparent!important}
+/* selected vessel card: bright vessel-coloured gradient instead of dark slab */
+html body #chips .chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--vc),color-mix(in srgb,var(--vc) 60%,#22d3ee))!important;color:#fff!important;border-color:transparent!important;box-shadow:0 12px 26px color-mix(in srgb,var(--vc) 38%,transparent)!important}
+html body #chips .chip[aria-pressed="true"] *,html body #chips .chip[aria-pressed="true"]:hover *{color:#fff!important}
+html body #chips .chip[aria-pressed="true"] .chip-top b{-webkit-text-fill-color:#fff;background:none}
+html body #chips .chip[aria-pressed="true"]:hover{background:linear-gradient(135deg,var(--vc),color-mix(in srgb,var(--vc) 60%,#22d3ee))!important}
+/* quick-view / toggle pills keep the same bright hover */
+html body .hd-qv button:hover{background:var(--hov-grad)!important;color:#fff!important}
+
+/* ===== v2.2: backend connection control in the header ===== */
+.be{position:relative;flex:none;margin-left:auto;z-index:60}
+.be-btn{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass,rgba(255,255,255,.78));color:var(--ink);font:600 13px Inter,system-ui,sans-serif;cursor:pointer}
+.be-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.be-dot{width:9px;height:9px;border-radius:50%;background:#e0475b;box-shadow:0 0 0 3px rgba(224,71,91,.2)}
+.be[data-state="on"] .be-dot{background:#22c58b;box-shadow:0 0 0 3px rgba(34,197,139,.25)}
+.be-pop{position:absolute;right:0;top:calc(100% + 10px);width:min(360px,92vw);padding:16px;border-radius:18px;background:var(--glass,#fff);backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 18px 44px rgba(10,90,120,.22);display:none}
+html[data-theme="light"] .be-pop{background:rgba(255,255,255,.96)}
+html[data-theme="dark"] .be-pop{background:rgba(12,32,44,.96)}
+.be.open .be-pop{display:block}
+.be-pop h4{margin:0 0 4px;font:700 14px Sora,Inter,sans-serif;color:var(--ink)}
+.be-pop p{margin:0 0 12px;font-size:12px;line-height:1.5;color:var(--muted)}
+.be-pop .api{display:flex!important;gap:8px;width:100%;margin:0!important;flex:none}
+.be-pop .api input{flex:1;min-width:0;width:auto!important;min-height:40px;font-size:13px}
+.be-pop .src{display:flex!important;align-items:center;gap:8px;margin:12px 0 0;max-width:none!important;width:100%;min-height:0;padding:9px 12px;border-radius:12px;font-size:12px!important;line-height:1.4;white-space:normal;overflow:visible;text-overflow:clip}
+.be-pop .src:before{display:none!important}
+.be-row{display:flex;gap:8px;margin-top:10px}
+.be-row button{flex:1;min-height:36px;border-radius:12px;font:600 12.5px Inter,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--glass2,rgba(255,255,255,.6));color:var(--ink)}
+@media(max-width:860px){.be{margin-left:0}.be-btn span.be-lbl{display:none}}
+
+/* ===== v2.3: spacing between boxes ===== */
+#stage{--hd-gap:14px}
+#stage .hd-panels{gap:var(--hd-gap)}
+#stage .chips,#stage #align,#stage .hd-panels{margin-top:var(--hd-gap)!important}
+#stage #anat{margin-top:6px}
+#stage #align{margin-bottom:0}
+@container (max-width:980px){#stage .hd-panels{margin:var(--hd-gap) 16px 0!important}}
+
+/* ===== v2.3: clean range sliders (no box / dotted outline around the track) ===== */
+#stage input[type=range],#stage #align input[type=range]{
+ -webkit-appearance:none!important;appearance:none!important;background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0;height:22px;min-height:22px!important;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#stage input[type=range]:focus,#stage input[type=range]:focus-visible{outline:0!important;box-shadow:none!important}
+#stage input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:99px;border:0;background:linear-gradient(90deg,var(--hd-acc) var(--p,50%),var(--hd-track,rgba(120,160,175,.28)) var(--p,50%))}
+#stage input[type=range]::-moz-range-track{height:6px;border-radius:99px;border:0;background:var(--hd-track,rgba(120,160,175,.28))}
+#stage input[type=range]::-moz-range-progress{height:6px;border-radius:99px;background:var(--hd-acc)}
+#stage input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6px;border-radius:50%;background:#fff;border:3px solid var(--hd-acc);box-shadow:0 2px 8px rgba(10,100,125,.35);transition:transform .12s,box-shadow .12s}
+#stage input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--hd-acc);box-shadow:0 2px 8px rgba(10,100,125,.35)}
+#stage input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.12)}
+#stage input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--hd-acc) 35%,transparent)}
+#stage input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--hd-acc) 35%,transparent)}
+#stage input[type=range]:disabled{opacity:.45;cursor:not-allowed}
+html[data-theme="dark"] #stage{--hd-track:rgba(160,205,220,.2)}
+#stage #align label{gap:12px}
+
+/* ===== v2.3: vessel range bars (LAD / LCX / RCA) ===== */
+#chips .chip{display:flex;flex-direction:column;gap:9px}
+#chips .chip-bot{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 10px;margin:0}
+#chips .chip-bot .range-readout{font-size:11.5px;color:var(--hd-mut)}
+#chips .chip-bot .range-label{font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:3px 9px;border-radius:99px;color:var(--vc)!important;background:color-mix(in srgb,var(--vc) 14%,transparent);border:1px solid color-mix(in srgb,var(--vc) 30%,transparent)}
+#chips .mini-range{flex:1 1 100%;order:3;position:relative;height:8px!important;margin:2px 0 0!important;border-radius:99px;overflow:visible!important;background:var(--hd-track,rgba(120,160,175,.28))!important}
+#chips .mini-range .range-segment{top:0!important;bottom:0!important;border-radius:99px;background:linear-gradient(90deg,color-mix(in srgb,var(--vc) 70%,#fff),var(--vc))!important;opacity:.9}
+#chips .mini-range .range-tick{top:-3px!important;bottom:-3px!important;width:4px!important;border-radius:3px!important;background:#fff!important;border:1.5px solid var(--vc);box-shadow:0 1px 4px rgba(0,0,0,.3);transform:translateX(-2px)!important}
+#chips .chip-bot-solo{display:block!important}
+/* selected card (bright gradient): bar turns white-on-translucent */
+html body #chips .chip[aria-pressed="true"] .range-label{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5)}
+html body #chips .chip[aria-pressed="true"] .mini-range{background:rgba(255,255,255,.3)!important}
+html body #chips .chip[aria-pressed="true"] .mini-range .range-segment{background:#fff!important;opacity:.95}
+html body #chips .chip[aria-pressed="true"] .mini-range .range-tick{background:var(--vc)!important;border-color:#fff}
+
+/* ===== v2.4: backend popup - status text wraps inside the box ===== */
+.be-pop{box-sizing:border-box;overflow:hidden}
+.be-pop #beSlot{display:flex;flex-direction:column;gap:10px;min-width:0}
+.be-pop .src{display:block!important;box-sizing:border-box;width:100%;min-width:0;max-width:100%!important;padding:10px 12px;line-height:1.5;white-space:normal!important;overflow-wrap:anywhere;word-break:break-word;overflow:hidden;text-overflow:clip}
+.be-pop .src:after{display:block;margin-top:6px;white-space:normal;font-weight:700;font-size:12px}
+.be-row{min-width:0}
+.be-row button{min-width:0;padding:0 10px;white-space:nowrap}
+
+/* ===== v2.5: toolbar as an even grid (no stray wrapped button, equal gaps) ===== */
+#stage#stage .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch;justify-content:stretch;padding:16px 16px 0}
+#stage#stage .tools .left-tools,#stage#stage .tools .right-tools{display:contents}
+#stage#stage .tools button,#stage#stage .tools label.b{width:100%;min-width:0;min-height:44px;margin:0;justify-content:flex-start;padding:10px 16px!important;gap:9px;overflow:hidden;text-overflow:ellipsis}
+#stage#stage .tools label.b:not(.tb){background:var(--hd-card)!important;border:1px solid var(--hd-line)!important;color:var(--hd-ink)!important}
+#stage#stage .tools .tb{padding-right:38px!important}
+@container (min-width:1340px){#stage#stage .tools{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@container (max-width:640px){#stage#stage .tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:14px 14px 0}}
+@container (max-width:380px){#stage#stage .tools{grid-template-columns:1fr}}
+
+/* ===== v2.6: canvas + Why-Beams layer start BELOW the toolbar (no overlap with the taller grid toolbar) ===== */
+#stage#stage #cv{margin-top:0}
+@media(min-width:641px){#stage#stage #whyLayer{top:var(--hd-tools-h,56px)}}
+
+/* Backend popover: undo the header-pill rules (fixed 38px height, font-size:0, nowrap) that made the status text overflow onto the buttons */
+body>.wrap>header .be .be-pop{max-height:calc(100vh - 140px);overflow:auto;z-index:60}
+body>.wrap>header .be .be-pop #beSlot{display:flex;flex-direction:column;gap:12px}
+body>.wrap>header .be .be-pop .api{display:flex!important;flex-wrap:nowrap;align-items:stretch;gap:8px;margin:0!important}
+body>.wrap>header .be .be-pop .api input{width:auto!important;flex:1 1 auto;min-width:0}
+body>.wrap>header .be .be-pop .api button{flex:none;width:auto;min-height:40px;padding:0 16px}
+body>.wrap>header .be .be-pop .src{display:flex!important;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:4px;height:auto!important;min-height:0!important;width:100%;max-width:100%!important;margin:0;padding:11px 14px;border-radius:14px;font-size:12px!important;line-height:1.45;white-space:normal!important;overflow:visible!important;overflow-wrap:anywhere;word-break:normal}
+body>.wrap>header .be .be-pop .src:before{display:none!important}
+body>.wrap>header .be .be-pop .src:after{display:inline-flex;align-items:center;gap:7px;margin:0;font-size:12px;font-weight:700;white-space:normal;order:-1}
+body>.wrap>header .be .be-pop .src:after{content:"Using in-browser model"}
+body>.wrap>header .be .be-pop .src.api:after{content:"\25CF  API connected"}
+body>.wrap>header .be .be-pop .src.api:after{color:#7ff3c0}
+html[data-theme=light] body>.wrap>header .be .be-pop .src.api:after{color:#0b7a53}
+html[data-theme=light] body>.wrap>header .be .be-pop .src{background:rgba(10,143,166,.07);color:#355b69;border-color:rgba(10,143,166,.25)}
+html[data-theme=light] body>.wrap>header .be .be-pop .src.api{background:rgba(34,197,139,.1);border-color:rgba(34,197,139,.4)}
+html[data-theme=dark] body>.wrap>header .be .be-pop .src{background:rgba(255,255,255,.04);color:#b9d0dc;border-color:rgba(120,190,230,.25)}
+html[data-theme=dark] body>.wrap>header .be .be-pop .src.api{background:rgba(71,230,161,.08);border-color:rgba(71,230,161,.4)}
+body>.wrap>header .be .be-pop .be-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+body>.wrap>header .be .be-pop .be-row button{width:100%;white-space:nowrap}
+
+/* ===== v2.9: toolbar with real ON / OFF feedback =====
+   Before: six flat pills, three of them tinted but none showing whether it was on. The script already published the state
+   (aria-pressed on the toggles, data-on on every .tb button) and reserved 38px of padding for an indicator that was never drawn.
+   Now: icon tile + label on every button; the three TOGGLES (HRA heart, Confidence halo, Why-Beams) also get a switch, and when ON the
+   whole button lights up in its own hue (tinted surface, filled icon tile, ring, switch knob on the right). Actions (Reset camera,
+   Load anatomy, Start case tour) stay switch-less so "do something" and "stay on" never look alike. State is never colour-only:
+   knob position + the ON ring + aria-pressed all change together. */
+#stage#stage{--tb-off:rgba(120,150,170,.32);--tb-ink:#06202c}
+html[data-theme="light"] #stage#stage,:root:not([data-theme="dark"]) #stage#stage{--tb-off:rgba(60,100,125,.26);--tb-ink:#fff}
+#stage#stage .tools #loadReference{--tb:#5aa2ff}
+#stage#stage .tools #haloToggle{--tb:#ffb84d}
+#stage#stage .tools #whyToggle{--tb:#3fe0d0}
+#stage#stage .tools #tourStart{--tb:#9b8cff}
+#stage#stage .tools #rc,#stage#stage .tools label.b{--tb:#4fd8dc}
+html[data-theme="light"] #stage#stage .tools #loadReference,:root:not([data-theme="dark"]) #stage#stage .tools #loadReference{--tb:#1d62d6}
+html[data-theme="light"] #stage#stage .tools #haloToggle,:root:not([data-theme="dark"]) #stage#stage .tools #haloToggle{--tb:#b46a0f}
+html[data-theme="light"] #stage#stage .tools #whyToggle,:root:not([data-theme="dark"]) #stage#stage .tools #whyToggle{--tb:#0a8a96}
+html[data-theme="light"] #stage#stage .tools #tourStart,:root:not([data-theme="dark"]) #stage#stage .tools #tourStart{--tb:#5b4bd6}
+html[data-theme="light"] #stage#stage .tools #rc,html[data-theme="light"] #stage#stage .tools label.b,:root:not([data-theme="dark"]) #stage#stage .tools #rc,:root:not([data-theme="dark"]) #stage#stage .tools label.b{--tb:#0a8aa0}
+
+/* base surface (same for all six, so the grid reads as one family) */
+#stage#stage .tools button,#stage#stage .tools label.b{position:relative;gap:11px;min-height:48px;padding:7px 12px 7px 8px!important;border-radius:15px!important;font-weight:650;letter-spacing:.005em;
+ color:var(--hd-ink)!important;border:1px solid var(--hd-line)!important;
+ background:linear-gradient(180deg,color-mix(in srgb,var(--hd-card) 100%,#fff 4%),var(--hd-card))!important;
+ box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 6px 16px rgba(0,0,0,.14);
+ transition:transform .15s,box-shadow .2s,border-color .2s,background-color .2s,color .2s}
+html[data-theme="light"] #stage#stage .tools button,html[data-theme="light"] #stage#stage .tools label.b,:root:not([data-theme="dark"]) #stage#stage .tools button,:root:not([data-theme="dark"]) #stage#stage .tools label.b{box-shadow:0 1px 0 #fff inset,0 6px 16px rgba(10,110,140,.10)}
+#stage#stage .tools button:hover:not(:disabled),#stage#stage .tools label.b:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--tb) 55%,var(--hd-line))!important}
+#stage#stage .tools button:active:not(:disabled),#stage#stage .tools label.b:active{transform:translateY(0) scale(.985)}
+#stage#stage .tools button:focus-visible,#stage#stage .tools label.b:focus-within{outline:2px solid var(--tb);outline-offset:2px}
+#stage#stage .tools button>span,#stage#stage .tools label.b>span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+
+/* icon tile */
+#stage#stage .tools button svg,#stage#stage .tools label.b svg{box-sizing:content-box;flex:none;width:16px;height:16px;padding:7px;border-radius:11px;color:var(--tb);
+ background:color-mix(in srgb,var(--tb) 15%,transparent);transition:background-color .2s,color .2s,transform .25s cubic-bezier(.3,1.5,.5,1)}
+#stage#stage .tools button:hover:not(:disabled) svg,#stage#stage .tools label.b:hover svg{transform:scale(1.08) rotate(-4deg)}
+
+/* TOGGLES: switch on the right */
+#stage#stage .tools :is(#loadReference,#haloToggle,#whyToggle)[aria-pressed]::after{content:"";flex:none;margin-left:auto;width:38px;height:22px;border-radius:99px;
+ background-color:var(--tb-off);background-image:radial-gradient(circle,#fff 0 7px,transparent 7.6px);background-size:18px 18px;background-repeat:no-repeat;background-position:2px 50%;
+ box-shadow:inset 0 1px 2px rgba(0,0,0,.25);transition:background-color .22s,background-position .24s cubic-bezier(.3,.8,.3,1.2),box-shadow .22s}
+#stage#stage .tools :is(#loadReference,#haloToggle,#whyToggle)[aria-pressed="true"]::after{background-color:var(--tb);background-position:calc(100% - 2px) 50%;box-shadow:inset 0 1px 2px rgba(0,0,0,.2),0 0 12px color-mix(in srgb,var(--tb) 55%,transparent)}
+/* OFF: calm, slightly receded */
+#stage#stage .tools :is(#loadReference,#haloToggle,#whyToggle)[aria-pressed="false"]{color:color-mix(in srgb,var(--hd-ink) 78%,transparent)!important}
+#stage#stage .tools :is(#loadReference,#haloToggle,#whyToggle)[aria-pressed="false"] svg{color:var(--hd-mut);background:color-mix(in srgb,var(--hd-mut) 14%,transparent)}
+/* ON: the whole button takes its hue */
+#stage#stage .tools :is(#loadReference,#haloToggle,#whyToggle)[aria-pressed="true"]{color:var(--hd-ink)!important;
+ border-color:color-mix(in srgb,var(--tb) 62%,transparent)!important;
+ background:linear-gradient(135deg,color-mix(in srgb,var(--tb) 20%,var(--hd-card)),color-mix(in srgb,var(--tb) 7%,var(--hd-card)))!important;
+ box-shadow:0 0 0 3px color-mix(in srgb,var(--tb) 17%,transparent),0 10px 24px color-mix(in srgb,var(--tb) 22%,transparent)}
+#stage#stage .tools :is(#loadReference,#haloToggle,#whyToggle)[aria-pressed="true"] svg{background:var(--tb);color:var(--tb-ink)}
+
+/* ACTIONS */
+#stage#stage .tools #tourStart:not(:disabled)::after{content:"\2192";margin-left:auto;flex:none;font-size:15px;line-height:1;color:var(--tb);transition:transform .2s}
+#stage#stage .tools #tourStart:not(:disabled):hover::after{transform:translateX(3px)}
+#stage#stage .tools #tourStart:not(:disabled){border-color:color-mix(in srgb,var(--tb) 38%,var(--hd-line))!important}
+#stage#stage .tools #tourStart[data-on="1"]{border-color:var(--tb)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--tb) 20%,var(--hd-card)),color-mix(in srgb,var(--tb) 7%,var(--hd-card)))!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--tb) 17%,transparent)}
+#stage#stage .tools #tourStart[data-on="1"] svg{background:var(--tb);color:var(--tb-ink)}
+#stage#stage .tools #tourStart[data-on="1"]::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--tb);animation:tbLive 1.6s ease-out infinite}
+@keyframes tbLive{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--tb) 60%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
+#stage#stage .tools #rc[data-on="1"] svg{background:color-mix(in srgb,var(--tb) 30%,transparent)}
+#stage#stage .tools label.b[data-on="1"]::after{content:"\2713";margin-left:auto;flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:12px;font-weight:800;background:var(--tb);color:var(--tb-ink)}
+#stage#stage .tools label.b[data-on="1"]{border-color:color-mix(in srgb,var(--tb) 50%,transparent)!important}
+
+/* DISABLED: clearly unavailable, not just "off" */
+#stage#stage .tools button:disabled{opacity:1;cursor:not-allowed;color:var(--hd-mut)!important;border-style:dashed!important;box-shadow:none;background:color-mix(in srgb,var(--hd-card) 55%,transparent)!important;transform:none}
+#stage#stage .tools button:disabled svg{color:var(--hd-mut);background:color-mix(in srgb,var(--hd-mut) 10%,transparent);opacity:.8;transform:none}
+#stage#stage .tools button:disabled::after{opacity:.5}
+@media(prefers-reduced-motion:reduce){#stage#stage .tools *,#stage#stage .tools *::after{transition:none!important;animation:none!important}#stage#stage .tools button:hover svg{transform:none!important}}

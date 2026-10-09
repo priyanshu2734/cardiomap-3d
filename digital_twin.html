@@ -1,0 +1,2042 @@
+<!doctype html>
+
+
+
+<html lang="en"><head><meta charset="utf-8"><script>try{document.documentElement.dataset.theme=localStorage.getItem("cm-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script><meta name="viewport" content="width=device-width,initial-scale=1"><script src="/static/history.js?v=20261007a"></script><meta name="color-scheme" content="light dark"><title>Coronary Digital Twin Lab · CardioMap 3D</title>
+
+
+
+<style>
+
+
+
+:root{--bg:#07111e;--panel:#0e1d2c;--panel2:#122638;--line:#254257;--ink:#eaf5fb;--muted:#9bb4c4;--aqua:#64e3dc;--blue:#72b9ff;--amber:#ffc878;--red:#ff8792;--green:#7ce7b0}*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 5% -10%,#164052 0,transparent 65%),radial-gradient(700px 500px at 100% 0,#152d4d 0,transparent 65%),var(--bg);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}a{color:var(--aqua);text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:15px max(18px,calc((100vw - 1440px)/2));border-bottom:1px solid var(--line);background:#091827d9;backdrop-filter:blur(12px)}.brand{font-weight:800;letter-spacing:.02em}.brand small{display:block;color:var(--muted);font-weight:500;font-size:11px}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{padding:7px 10px;border:1px solid var(--line);border-radius:9px;font-size:12px}.wrap{max-width:1440px;margin:auto;padding:28px 20px 60px}.eyebrow{color:var(--aqua);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:end;margin-bottom:22px}h1{font-size:clamp(30px,4vw,49px);line-height:1.04;letter-spacing:-.04em;margin:9px 0 13px}p{margin:0;color:var(--muted)}.hero-note{padding:16px 18px;border:1px solid #5f6c4e;border-radius:15px;background:#372f1a55;color:#f8dca9}.hero-note strong{display:block;margin-bottom:5px;color:#ffe9bd}.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.85fr);gap:18px}.panel{background:linear-gradient(155deg,#112437e8,#0a1827f2);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 18px 45px #0002;min-width:0}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:14px}.panel h2{font-size:17px;margin:0 0 5px}.panel h3{font-size:14px;margin:0 0 10px}.sub{color:var(--muted);font-size:12px}.model-frame{height:430px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#07131e}.model-frame iframe{width:100%;height:100%;border:0}.map-label{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:12px 0 0}.status{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}.forms{display:grid;gap:14px}.form-section{border:1px solid var(--line);border-radius:13px;padding:13px;background:#08172588}.form-section h3{margin:0 0 5px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field label{display:block;color:#b9cbd6;font-size:11px;margin-bottom:5px}.field input,.field select,.override-row select,.override-row input{width:100%;background:#071522;color:var(--ink);border:1px solid #315065;border-radius:8px;padding:9px;min-width:0}.field input:focus,.field select:focus{outline:2px solid #64e3dc66;border-color:var(--aqua)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border:1px solid #315065;background:#122638;color:var(--ink);border-radius:9px;padding:10px 13px;font-weight:700;font-size:12px}.btn.primary{background:var(--aqua);border-color:var(--aqua);color:#052027}.btn:disabled{opacity:.5;cursor:wait}.scenarios{display:grid;grid-template-columns:1fr 1fr;gap:10px}.scenario{border:1px solid var(--line);border-radius:12px;padding:12px;background:#08172588;min-width:0}.scenario h3{margin:0 0 4px}.override-list{display:grid;gap:8px;margin-top:10px}.override-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(75px,.8fr) 28px;gap:6px;align-items:center}.override-row button{border:1px solid #5a3842;background:#2c1722;color:#ffb5bc;border-radius:8px}.small-btn{padding:7px 9px;font-size:11px}.results{margin-top:18px}.result-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:12px;padding:12px;background:#08172588;min-width:0}.metric .k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.metric .v{font-size:22px;font-weight:800;letter-spacing:-.03em;margin:4px 0}.metric .d{font-size:11px;color:var(--muted)}.bar{height:6px;border-radius:10px;background:#26394a;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--aqua));width:0}.compare{overflow:auto;margin-top:13px}table{border-collapse:collapse;width:100%;min-width:500px;font-size:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}td strong{font-variant-numeric:tabular-nums}.delta-pos{color:var(--red)}.delta-neg{color:var(--green)}.empty{padding:18px;border:1px dashed #315065;border-radius:12px;color:var(--muted);font-size:12px}.notice{margin-top:14px;padding:12px 14px;border:1px solid var(--cm-warn-line);border-radius:12px;background:var(--cm-warn-bg);color:var(--cm-warn-ink);font-size:12px}.error{color:var(--red)}.footer{margin-top:24px;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.hidden{display:none!important}@media(max-width:980px){.hero,.grid{grid-template-columns:1fr}.model-frame{height:350px}}@media(max-width:580px){.wrap{padding:20px 12px 40px}.panel{padding:13px}.fields{grid-template-columns:1fr}.scenarios{grid-template-columns:1fr}.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.model-frame{height:300px}.top{padding:12px}}
+
+
+
+.twin-stage{position:relative;width:100%;height:100%;min-height:430px;overflow:hidden;background:radial-gradient(circle at 50% 46%,#153b55 0,#091c2c 48%,#06121f 100%);border-radius:16px;isolation:isolate}.twin-stage #cv{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;outline:none;z-index:0}.twin-stage:before{content:"CARDIAC ATLAS  /  CORONARY EXPLORATION";position:absolute;left:18px;bottom:14px;z-index:1;color:rgba(181,224,239,.28);font:600 9px Inter,sans-serif;letter-spacing:.18em;pointer-events:none}.twin-stage:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;background:radial-gradient(circle at 50% 47%,rgba(58,220,214,.09),transparent 42%),linear-gradient(180deg,rgba(8,20,34,.02),rgba(5,12,22,.3));box-shadow:inset 0 0 70px rgba(0,0,0,.34)}.twin-stage .twin-tools,.twin-stage .twin-hint,.twin-stage .twin-anat,.twin-stage .twin-align,.twin-stage .twin-chips{position:absolute;z-index:3}.twin-stage .twin-tools{top:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:8px;padding:0}.twin-tool-group{display:flex;gap:7px;flex-wrap:wrap}.twin-stage .twin-align{top:68px;left:14px;right:14px;display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 14px;border:1px solid rgba(100,227,220,.18);border-radius:12px;background:rgba(5,18,30,.80);backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(0,0,0,.16)}.twin-align label{display:flex;align-items:center;gap:9px;color:#b9ced8;font-size:11px;font-weight:650;white-space:nowrap}.twin-align input{width:112px;accent-color:#64e3dc;margin:0}.twin-align output{min-width:42px;text-align:right;color:#7de8e2;font-weight:800;font-variant-numeric:tabular-nums}.twin-stage .twin-chips{top:124px;left:14px;display:flex;gap:7px}.twin-chips button{border:1px solid rgba(73,103,125,.8);background:rgba(7,24,39,.9);color:#d9e9f0;border-radius:9px;padding:7px 13px;font-weight:750;font-size:11px}.twin-chips button[aria-pressed="true"]{border-color:#64e3dc;background:rgba(26,91,104,.82);color:#fff;box-shadow:0 0 16px rgba(100,227,220,.18)}.twin-stage .twin-hint{left:50%;transform:translateX(-50%);bottom:11px;display:flex;gap:15px;padding:6px 10px;border-radius:999px;background:rgba(4,14,24,.7);color:#9eb7c5;font-size:10px;white-space:nowrap}.twin-stage .twin-anat{left:14px;right:14px;bottom:42px;padding:7px 10px;border-radius:9px;background:rgba(4,14,24,.66);color:#b8cad4;font-size:10px;line-height:1.35;text-align:center}.twin-stage .btn{background:rgba(11,34,52,.88);backdrop-filter:blur(7px)}.twin-stage .btn:hover{border-color:#64e3dc;transform:translateY(-1px)}.model-frame{height:500px}@media(max-width:700px){.twin-stage .twin-align{justify-content:flex-start;overflow:auto}.twin-align input{width:88px}.twin-stage .twin-hint{gap:8px;font-size:9px}.twin-stage .twin-tools{gap:4px}.twin-tool-group{gap:4px}}
+
+.twin-stage .twin-align output{display:inline-block}
+
+@media(max-width:700px){.twin-stage .twin-align{top:66px;justify-content:flex-start;overflow:auto}.twin-stage .twin-chips{top:122px}}
+
+
+/* --- Digital Twin: clean control deck and larger anatomy stage --- */
+.model-frame{height:600px!important}.twin-stage{min-height:560px!important}
+.twin-stage .twin-align{top:58px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(700px,calc(100% - 28px))!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;padding:9px 12px!important;box-sizing:border-box!important}
+.twin-align label{min-width:0!important;display:grid!important;grid-template-columns:auto 1fr auto!important;align-items:center!important;gap:7px!important}.twin-align input{width:100%!important;min-width:60px!important}
+.twin-stage .twin-chips{top:120px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;justify-content:center!important}
+@media(max-width:760px){.model-frame{height:520px!important}.twin-stage{min-height:480px!important}.twin-stage .twin-align{width:calc(100% - 18px)!important;grid-template-columns:1fr!important;top:58px!important}.twin-stage .twin-chips{top:206px!important}}
+
+
+/* --- Stage layout v3: canvas on top, controls docked below (nothing overlaps) --- */
+.model-frame{height:auto!important;overflow:visible!important}
+.twin-stage{--cv-h:600px;display:flex!important;flex-direction:column;height:auto!important;min-height:0!important;border-radius:20px}
+.twin-stage #cv{position:relative!important;inset:auto!important;width:100%!important;height:var(--cv-h)!important;flex:none}
+.twin-stage:before{top:calc(var(--cv-h) - 28px);bottom:auto}
+.twin-stage .twin-tools{top:12px;left:12px;right:12px}
+.twin-stage .twin-hint{top:58px!important;bottom:auto!important;left:50%!important;transform:translateX(-50%)!important}
+.twin-stage .twin-chips,.twin-stage .twin-align,.twin-stage .twin-anat{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;width:auto!important;margin:0 14px!important}
+.twin-stage .twin-chips{order:2;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.twin-chips button{padding:10px 12px;font-size:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+.twin-chips button:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--vc)}
+.twin-chips [data-vessel-select=LAD]{--vc:#ff6685}.twin-chips [data-vessel-select=LCX]{--vc:#53c9ff}.twin-chips [data-vessel-select=RCA]{--vc:#b59aff}
+.twin-stage .twin-align{order:3;margin-top:12px!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.twin-stage .twin-anat{order:4;margin:10px 14px 14px!important;background:none;text-align:left;padding:0}
+.grid>.panel.results{grid-column:1/-1}
+@media(min-width:1101px){.grid>.panel:first-child{position:sticky;top:84px;align-self:start}}
+@media(max-width:760px){.twin-stage{--cv-h:470px}.twin-stage .twin-align,.twin-stage .twin-chips{grid-template-columns:1fr!important}}
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap"><link rel="stylesheet" href="/static/cardiomap.css?v=20261004a"><style id="layout-theme-fix">
+/* ===== Theme tokens (work with or without /static/cardiomap.css) ===== */
+html[data-theme="dark"]{--bg:#07111e;--panel:#0e1d2c;--panel2:#122638;--card:#0a1827;--line:#254257;--ink:#eaf5fb;--muted:#9bb4c4;--aqua:#64e3dc;--blue:#72b9ff;--field:#071522;--field-line:#315065;--glass:rgba(8,22,36,.86);--accent-ink:#052027;--glow:rgba(100,227,220,.10);--shadow:0 18px 45px rgba(0,0,0,.2);--chip-on:rgba(26,91,104,.85);--chip-on-ink:#fff}
+html[data-theme="light"]{--bg:#f1f6fa;--panel:#ffffff;--panel2:#eef4f8;--card:#f6fafc;--line:#d2e0ea;--ink:#12283a;--muted:#546b7c;--aqua:#0b8f8c;--blue:#2f7fd1;--amber:#b7791f;--red:#c4384a;--green:#168a58;--field:#ffffff;--field-line:#b9ccda;--glass:rgba(255,255,255,.88);--accent-ink:#ffffff;--glow:rgba(11,143,140,.08);--shadow:0 12px 32px rgba(30,60,90,.08);--chip-on:#d7f1f0;--chip-on-ink:#06403f}
+html[data-theme="light"] body.cm-lab{background:radial-gradient(900px 500px at 5% -10%,#dcecf4 0,transparent 65%),radial-gradient(700px 500px at 100% 0,#e3ebf8 0,transparent 65%),var(--bg)!important;color:var(--ink)}
+html[data-theme="light"] .top{background:rgba(255,255,255,.85)!important}
+html[data-theme="light"] .hero-note{background:#fff6e2!important;border-color:#e6cf9b!important;color:#6b4a0c!important}
+html[data-theme="light"] .hero-note strong{color:#5a3c05!important}
+html[data-theme="light"] .notice{background:#fff6e2;border-color:#e6cf9b;color:#6b4a0c}
+html[data-theme="light"] .error{color:var(--red)}
+
+/* ===== Icons ===== */
+.ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
+.ic-lg{width:20px;height:20px;margin-top:1px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px}
+.hero-note strong{display:flex;align-items:center;gap:8px}
+
+/* ===== Panels ===== */
+.panel{background:var(--panel)!important;border-color:var(--line)!important;box-shadow:var(--shadow)!important;padding:20px!important}
+.panel-head{align-items:center!important;margin-bottom:16px!important}
+.panel h2{display:flex;align-items:center;gap:10px;margin:0 0 4px!important;font-size:17px;color:var(--ink)}
+.h-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--glow);color:var(--aqua);border:1px solid var(--line)}
+.h-ic .ic{width:18px;height:18px;vertical-align:0}
+.h-num{font-variant-numeric:tabular-nums;color:var(--aqua);font-weight:800;margin-right:-2px}
+.h-num:after{content:"·";margin-left:8px;color:var(--muted)}
+.panel-head .sub{padding-left:44px}
+.status{background:var(--panel2);white-space:nowrap}
+.status .ic{width:13px;height:13px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;line-height:1.1;background:var(--panel2);border-color:var(--field-line);color:var(--ink)}
+.btn:hover{border-color:var(--aqua)}
+.btn.primary{background:var(--aqua);border-color:var(--aqua);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn .ic{width:15px;height:15px;vertical-align:0}
+.small-btn{padding:8px 11px!important}
+.map-label{margin-top:14px!important;flex-wrap:wrap}
+.explore-link{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--aqua)}
+
+/* ===== 01 Anatomical context: stage ===== */
+.model-frame{background:transparent!important;border:0!important}
+.twin-stage{--cv-h:560px;background:var(--bg)!important;border:1px solid var(--line);border-radius:16px!important;padding-bottom:6px;
+  background-image:radial-gradient(circle at 50% calc(var(--cv-h) * .46),var(--glow) 0,transparent 55%)!important}
+.twin-stage:before,.twin-stage:after{display:none!important}
+.twin-stage #cv{border-radius:0}
+
+/* toolbar: one tidy row, left = view actions, right = file actions */
+.twin-stage .twin-tools{position:relative!important;order:-1;inset:auto!important;z-index:3;display:flex!important;flex-wrap:wrap;justify-content:space-between!important;align-items:center;gap:8px 12px;padding:12px!important;border-bottom:1px solid var(--line)}
+.twin-tool-group{display:flex;gap:8px!important;flex-wrap:wrap}
+.twin-stage .btn{background:var(--glass)!important;backdrop-filter:blur(8px);height:34px;border-color:var(--field-line)}
+.twin-stage .btn:hover:not(:disabled){border-color:var(--aqua)!important;transform:none!important}
+.twin-stage .btn:disabled{opacity:.45;cursor:not-allowed}
+.twin-file{cursor:pointer!important}
+
+/* how-to pill: icons for drag / scroll / click */
+.twin-stage .twin-hint{position:relative!important;order:1;top:auto!important;left:auto!important;bottom:auto!important;transform:none!important;align-self:center;margin:-50px 0 14px!important;z-index:3;display:flex!important;gap:4px!important;padding:5px!important;border-radius:999px!important;background:var(--glass)!important;border:1px solid var(--line);backdrop-filter:blur(8px);color:var(--muted)!important;font-size:12px!important;white-space:nowrap}
+.tip{display:inline-flex;align-items:center;gap:7px;padding:5px 12px 5px 9px;border-radius:999px}
+.tip+.tip{border-left:1px solid var(--line);border-radius:0}
+.tip .ic{width:18px;height:18px;color:var(--aqua);vertical-align:0}
+.tip b{color:var(--ink);font-weight:700}
+.tip em{font-style:normal}
+
+/* vessel chips */
+.chips-title{order:2;display:flex;align-items:center;gap:7px;margin:4px 14px 8px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.chips-title .ic{width:14px;height:14px;color:var(--aqua)}
+.twin-stage .twin-chips{order:3!important;margin:0 14px!important;gap:10px!important}
+.twin-chips button{background:var(--panel)!important;color:var(--ink)!important;border:1px solid var(--field-line)!important;border-radius:10px!important;height:40px;padding:0 12px!important;font-weight:750;letter-spacing:.04em}
+.twin-chips button:before{display:none!important}
+.vdot{width:10px;height:10px;border-radius:50%;background:var(--vc);box-shadow:0 0 0 3px color-mix(in srgb,var(--vc) 22%,transparent)}
+.twin-chips button[aria-pressed="true"]{background:var(--chip-on)!important;color:var(--chip-on-ink)!important;border-color:var(--aqua)!important;box-shadow:0 0 0 1px var(--aqua) inset!important}
+
+/* alignment sliders: three identical cards (name | value / slider) */
+.twin-stage .twin-align{order:4!important;margin:12px 14px 0!important;gap:10px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;align-items:stretch!important}
+.twin-align .sl{display:grid!important;grid-template-columns:18px minmax(0,1fr) auto!important;grid-template-areas:"ic name val" "rng rng rng";column-gap:8px!important;row-gap:10px!important;align-items:center!important;padding:11px 13px 13px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--muted)!important;font-size:12px!important;font-weight:650;white-space:nowrap;min-width:0}
+.twin-align .sl .ic{grid-area:ic;color:var(--aqua);width:16px;height:16px;vertical-align:0}
+.twin-align .sl-name{grid-area:name;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+.twin-align .sl output{grid-area:val;min-width:46px!important;text-align:right;color:var(--aqua)!important;font-weight:800;font-variant-numeric:tabular-nums}
+.twin-align .sl input{grid-area:rng;width:100%!important;min-width:0!important;margin:0!important;height:18px;accent-color:var(--aqua)}
+.twin-stage .twin-anat{order:5!important;margin:10px 14px 12px!important;padding:0!important;color:var(--muted)!important;font-size:11.5px!important;line-height:1.45!important;text-align:left!important;background:none!important}
+
+/* ===== 02 Baseline form ===== */
+.form-section{background:var(--card)!important;border-color:var(--line)!important;padding:14px!important}
+.form-section h3{display:flex;align-items:center;gap:8px;margin:0 0 12px!important;font-size:13px;letter-spacing:.02em;color:var(--ink)}
+.form-section h3 .ic{color:var(--aqua)}
+.fields{gap:12px!important}
+.field label{color:var(--muted)!important;font-size:11.5px!important;font-weight:600;min-height:32px;display:flex;align-items:flex-end;line-height:1.25;margin-bottom:5px!important}
+.field input,.field select,.override-row select,.override-row input{background:var(--field)!important;color:var(--ink)!important;border-color:var(--field-line)!important;height:38px;padding:0 10px!important}
+.field input:focus,.field select:focus,.override-row select:focus,.override-row input:focus{outline:2px solid color-mix(in srgb,var(--aqua) 40%,transparent);border-color:var(--aqua)!important}
+.empty{background:var(--card);border-color:var(--field-line)!important;text-align:center}
+.actions{gap:10px!important}
+
+/* ===== 03 Scenarios ===== */
+.scenarios{gap:14px!important;align-items:stretch}
+.scenario{background:var(--card)!important;border-color:var(--line)!important;padding:16px!important;display:flex;flex-direction:column}
+.scenario h3{display:flex;align-items:center;gap:8px;margin:0 0 4px!important}
+.scenario h3>.ic{color:var(--aqua)}
+.vtag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid currentColor}
+.vtag.a{color:var(--blue)}.vtag.b{color:var(--aqua)}
+.override-list{flex:1;margin:12px 0 4px!important}
+.override-row{grid-template-columns:minmax(0,1.3fr) minmax(90px,.7fr) 38px!important;gap:8px!important}
+.override-row button{height:38px;display:grid;place-items:center;background:color-mix(in srgb,var(--red) 10%,var(--panel))!important;border-color:color-mix(in srgb,var(--red) 40%,var(--line))!important;color:var(--red)!important}
+.scenario .actions{margin-top:12px!important}
+.results .actions{margin-top:16px!important}
+
+/* ===== Results ===== */
+.metric{background:var(--card)!important;border-color:var(--line)!important}
+.metric .bar{background:var(--line)}
+th{color:var(--muted)}
+.notice{display:flex;gap:12px;align-items:flex-start;line-height:1.55}
+.notice .ic{color:inherit}
+.footer{padding-top:14px;border-top:1px solid var(--line)}
+
+/* ===== Responsive ===== */
+@media(max-width:760px){
+  .twin-stage{--cv-h:440px}
+  .twin-stage .twin-hint{margin:-50px auto 14px!important;order:1;max-width:calc(100% - 20px);overflow:auto}
+  .tip em{display:none}
+  .twin-stage .twin-align{grid-template-columns:1fr!important}
+  .twin-stage .twin-chips{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .panel-head .sub{padding-left:0}
+  .override-row{grid-template-columns:minmax(0,1fr) 38px!important}
+  .override-row select:nth-child(2),.override-row input{grid-column:1}
+}
+@media(max-width:520px){.btn .lbl{font-size:11px}.twin-stage .twin-tools .twin-tool-group{gap:6px!important}}
+
+
+/* ===== v2.4: roomier form controls (text no longer hugs the box edges) ===== */
+.form-section{padding:18px 18px 20px!important;border-radius:16px}
+.form-section h3{margin:0 0 16px!important;padding-bottom:12px;border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.fields{gap:16px 14px!important}
+.field label{min-height:34px;margin-bottom:8px!important;padding:0 2px;letter-spacing:.01em}
+.field input,.field select,.override-row select,.override-row input{height:46px!important;padding:0 16px!important;border-radius:12px!important;font-size:14px!important;line-height:46px;text-overflow:ellipsis}
+.field input::placeholder,.override-row input::placeholder{color:color-mix(in srgb,var(--muted) 70%,transparent);padding-left:2px}
+.field select,.override-row select{-webkit-appearance:none;appearance:none;padding-right:40px!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%239bb4c4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.override-row{gap:10px!important}
+.override-row button{height:46px!important}
+.scenario{padding:20px!important}
+.override-list{gap:12px}
+.twin-align .sl{padding:14px 16px 16px}
+.metric{padding:16px 18px!important}
+td,th{padding:10px 14px!important}
+
+/* 02 Build a baseline: breathing room for fields (no cramped box-in-box) */
+body.cm-lab .form-section .field{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important;min-width:0}
+body.cm-lab .form-section .fields{gap:20px 18px!important}
+body.cm-lab .form-section .field label{padding:0 4px!important;min-height:36px;margin-bottom:8px!important;line-height:1.3}
+body.cm-lab .form-section .field input,body.cm-lab .form-section .field select{width:100%;padding-left:18px!important;padding-right:18px!important}
+body.cm-lab .form-section .field select{padding-right:42px!important}
+body.cm-lab .form-section .field small{display:block;margin:6px 4px 0}
+body.cm-lab .form-section{padding:20px 22px 24px!important}
+</style><link rel="stylesheet" href="/static/yesno.css?v=20261004a"><link rel="stylesheet" href="/static/global-drivers.css?v=20261007b"><style id="twin-parity">
+/* ===== Digital Twin parity styles (ported from the dashboard) ===== */
+.vessel-explorer{padding:18px;margin-top:16px}
+.vessel-explorer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.vessel-explorer-head h3{margin:0 0 4px}
+.vessel-selected-badge{white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--muted);font-size:11px}
+.vessel-selectors{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.vessel-selectors button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);padding:9px 13px;cursor:pointer}
+.vessel-selectors button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.vessel-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.vessel-dot.lad{background:#ff6685}
+.vessel-dot.lcx{background:#53c9ff}
+.vessel-dot.rca{background:#b59aff}
+.vessel-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vessel-info-grid>div{display:flex;flex-direction:column;gap:5px;padding:12px;border:1px solid var(--line);border-radius:12px;min-width:0}
+.vessel-info-grid strong{font-size:1rem;overflow-wrap:anywhere}
+.vessel-estimate strong{font-size:1.35rem;font-variant-numeric:tabular-nums}
+.vessel-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.vessel-actions button{border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:transparent;color:var(--ink);cursor:pointer}
+.vessel-actions button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.vessel-disclaimer{margin:12px 0 0}
+@media(max-width:520px){.vessel-info-grid{grid-template-columns:1fr}.vessel-explorer-head{flex-direction:column}}
+.twin-stage .vessel-picker{order:2;margin:10px 16px 0;padding:12px 14px;border:1px solid var(--art-line,var(--line));border-radius:14px;background:var(--glass,rgba(255,255,255,.05));display:grid;gap:8px;position:relative;z-index:2}
+.twin-stage .vessel-picker .vessel-explorer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.twin-stage .vessel-picker .vessel-explorer-head h3{margin:0;font-size:13px}
+.twin-stage .vessel-picker h3:before{display:none}
+.twin-stage .vessel-picker .vessel-explorer-head .mini{margin:2px 0 0;font-size:11px}
+.twin-stage .vessel-picker .vessel-selectors{margin:0}
+.twin-stage .vessel-picker .vessel-info-grid{margin:0;gap:6px 18px}
+.twin-stage .vessel-picker .vessel-live{min-height:0;margin:0}
+.twin-stage .vessel-picker .vessel-actions{margin:0}
+.twin-stage .vessel-picker .vessel-disclaimer{margin:0;font-size:10.5px;line-height:1.45}
+#haloToggle{border:1px solid rgba(255,184,77,.28);background:rgba(255,184,77,.07);color:var(--ink);padding:8px 11px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer}
+#haloToggle[aria-pressed="false"]{opacity:.78}
+#haloToggle:disabled{opacity:.48;cursor:not-allowed}
+html[data-theme="light"] #haloToggle,:root:not([data-theme="dark"]) #haloToggle{border-color:#b9741a}
+/* ===== 3D cross-section slicing: styles ===== */
+.slice-panel{position:relative;z-index:3;display:flex;flex-direction:column;gap:8px;padding:10px 14px 12px;border-top:1px solid var(--edge,var(--line,rgba(255,255,255,.12)));background:var(--glass,rgba(7,14,29,.62));color:var(--ink);border-radius:0 0 inherit inherit}
+.slice-panel[hidden]{display:none}
+.slice-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.slice-seg{display:flex;flex-wrap:wrap;gap:6px}
+.slice-panel button{min-height:36px;min-width:36px;padding:6px 11px;font-size:12px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line,rgba(255,255,255,.2));border-radius:10px;background:transparent;color:var(--ink);cursor:pointer}
+.slice-panel button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.slice-panel button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);font-weight:700}
+.slice-panel button:disabled{opacity:.5;cursor:not-allowed}
+.slice-panel button:focus-visible,.slice-panel input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.slice-sl{flex-wrap:nowrap}
+.slice-sl input[type=range]{flex:1 1 120px;min-width:80px;min-height:36px;accent-color:var(--accent);background:transparent}
+.slice-end{font-size:11px;color:var(--muted);white-space:nowrap}
+.slice-val{font-size:11px;color:var(--ink);min-width:3ch;text-align:right}
+.slice-help{margin:0;font-size:11px;color:var(--muted)}
+@media(max-width:560px){.slice-panel{padding:10px}.slice-panel button{font-size:11px;padding:6px 8px}.slice-end{font-size:10px}}
+/* ===== /3D cross-section slicing: styles ===== */
+/* WHY-BEAMS:CSS */
+#whyToggle{border:1px solid rgba(100,227,220,.24);background:rgba(100,227,220,.08);color:var(--ink);padding:8px 11px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer}
+#whyToggle[aria-pressed="false"]{opacity:.78}
+#whyToggle:disabled{opacity:.48;cursor:not-allowed}
+html[data-theme="light"] #whyToggle,:root:not([data-theme="dark"]) #whyToggle{border-color:#0a8aa0;color:#064a58;background:rgba(10,155,176,.12)}
+
+/* Why-Beams layer: absolutely positioned over the canvas */
+#whyLayer{position:absolute;top:0;left:0;right:0;height:var(--cv-h,600px);pointer-events:none;z-index:3;overflow:hidden}
+#whyLayer[hidden]{display:none}
+
+/* SVG beams canvas inside the layer */
+#whySvg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.why-beam{fill:none;stroke-linecap:round;transition:opacity .18s}
+.why-beam.dim{opacity:.22}
+.why-beam.hi{opacity:.92}
+@keyframes whyDash{to{stroke-dashoffset:0}}
+@media not (prefers-reduced-motion:reduce){.why-beam{animation:whyDash 2s linear infinite}}
+
+/* Header strip at top of layer */
+#whyHeader{position:absolute;top:10px;left:50%;transform:translateX(-50%);pointer-events:none;background:var(--panel,rgba(15,25,50,.82));border:1px solid var(--line,rgba(130,200,255,.2));border-radius:10px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--ink);white-space:nowrap;max-width:calc(100% - 60px);overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(10px)}
+
+/* Tag slots: left column, right column */
+#whyTags{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+#whyTags ol{list-style:none;margin:0;padding:0}
+#whyTags li{position:absolute;pointer-events:auto}
+.why-tag{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:9px;border:1px solid var(--line,rgba(130,200,255,.2));background:var(--panel,rgba(15,25,50,.88));color:var(--ink);font:600 11px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap;backdrop-filter:blur(8px);transition:border-color .15s,box-shadow .15s}
+.why-tag:hover,.why-tag:focus-visible{border-color:rgba(100,227,220,.55);box-shadow:0 0 0 2px rgba(100,227,220,.28);outline:none}
+.why-tag .wt-dir{font-size:12px;line-height:1}
+.why-tag .wt-dir.up{color:#ff6b7d}
+.why-tag .wt-dir.down{color:#37c8ff}
+.why-tag .wt-val{font-weight:400;color:var(--muted);font-size:10px}
+.why-tag .wt-share{font-weight:700;font-size:10px;opacity:.8}
+
+/* Caption */
+#whyCaption{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:9.5px;color:var(--muted);pointer-events:none;line-height:1.4;padding:0 10px}
+
+/* Why-Live announcer (SR-only) */
+#whyLive{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Mobile: <=640px hide beams, show list below canvas */
+@media(max-width:640px){
+  #whySvg{display:none}
+  #whyTags{position:static;margin:8px 16px 0;height:auto}
+  #whyTags ol{display:flex;flex-wrap:wrap;gap:6px;position:static}
+  #whyTags li{position:static}
+  #whyLayer{height:auto;overflow:visible;position:static;pointer-events:auto}
+  #whyHeader{position:static;transform:none;margin:8px 16px 0;display:block;white-space:normal;text-overflow:clip;overflow:visible}
+  #whyCaption{position:static;margin:4px 16px 8px;text-align:left}
+}
+/* WHY-BEAMS:CSS END */
+
+/* v2.7 why-beams: contribution cards (icon, name, category, share, bar), thin beams with end dots, glow base, info-pill caption */
+#whyTags li.why-slot{width:min(262px,27%);max-width:none}
+#whyTags .why-tag{display:grid;grid-template-columns:40px minmax(0,1fr) auto;grid-template-areas:"ic main side" "bar bar bar";gap:8px 12px;align-items:center;width:100%;text-align:left;padding:13px 14px 14px;border-radius:16px;white-space:normal;font:inherit;color:var(--ink);background:color-mix(in srgb,var(--panel,#0e1d2c) 80%,transparent);border:1px solid color-mix(in srgb,#22d3ee 30%,var(--line,#254257));box-shadow:0 8px 24px rgba(0,0,0,.26);backdrop-filter:blur(10px)}
+#whyTags .why-tag:hover,#whyTags .why-tag:focus-visible{border-color:rgba(100,227,220,.7);box-shadow:0 8px 24px rgba(0,0,0,.3),0 0 0 2px rgba(100,227,220,.25)}
+#whyTags .wt-ic{grid-area:ic;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,.13);color:#5fe3f5}
+#whyTags .why-tag[data-dir="up"] .wt-ic{background:rgba(255,107,125,.14);color:#ff8f9d}
+#whyTags .wt-main{grid-area:main;min-width:0;display:grid;gap:2px}
+#whyTags .wt-lbl{font-size:13px;font-weight:700;line-height:1.25;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#whyTags .wt-sub{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#whyTags .wt-side{grid-area:side;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+#whyTags .why-tag .wt-dir{font-size:11px;line-height:1}
+#whyTags .why-tag .wt-share{font-size:20px;font-weight:800;line-height:1;opacity:1;color:#5fe3f5;font-variant-numeric:tabular-nums}
+#whyTags .why-tag[data-dir="up"] .wt-share{color:#ff8f9d}
+#whyTags .wt-bar{grid-area:bar;display:block;height:5px;border-radius:99px;background:rgba(127,150,190,.22);overflow:hidden}
+#whyTags .wt-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#1fb5d3,#5fe3f5)}
+#whyTags .why-tag[data-dir="up"] .wt-bar i{background:linear-gradient(90deg,#e5566b,#ff8f9d)}
+.why-beam{opacity:.7;animation:whyDash .9s ease-out 1 both!important}
+.why-beam.hi{opacity:.85}
+.why-beam.dim{opacity:.16}
+.why-dot{stroke:rgba(255,255,255,.75);stroke-width:1.5;filter:drop-shadow(0 0 5px currentColor);transition:opacity .18s}
+#whyTags ol{display:block}
+#whyHeader{font-size:13.5px;font-weight:700;padding:9px 22px;border-radius:99px;background:color-mix(in srgb,var(--panel,#0e1d2c) 82%,transparent);border-color:color-mix(in srgb,#22d3ee 35%,var(--line,#254257));backdrop-filter:blur(10px)}
+#whyCaption{bottom:12px;left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:min(92%,640px);display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:99px;font-size:11.5px;line-height:1.45;text-align:left;color:var(--muted);opacity:1;background:color-mix(in srgb,var(--panel,#0e1d2c) 80%,transparent);border:1px solid color-mix(in srgb,#22d3ee 22%,var(--line,#254257));backdrop-filter:blur(10px)}
+#whyCaption::before{content:"i";flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;border:1.5px solid #5fe3f5;color:#5fe3f5;font:700 11px Inter,system-ui,sans-serif}
+html[data-theme="light"] #whyTags .why-tag .wt-share,:root:not([data-theme="dark"]) #whyTags .why-tag .wt-share{color:#0a7f94}
+html[data-theme="light"] #whyTags .why-tag[data-dir="up"] .wt-share,:root:not([data-theme="dark"]) #whyTags .why-tag[data-dir="up"] .wt-share{color:#c23a50}
+html[data-theme="light"] #whyTags .why-tag,:root:not([data-theme="dark"]) #whyTags .why-tag{box-shadow:0 8px 22px rgba(10,90,120,.14)}
+@media(max-width:640px){#whyTags li.why-slot{width:100%;transform:none!important;right:auto!important;left:auto!important;top:auto!important}#whyTags li.why-slot .why-tag{width:100%}#whyCaption{position:static;transform:none;width:auto;margin:6px 16px 8px;border-radius:14px}}
+/* v2.8 why-beams polish: slightly smaller cards/labels, pedestal ring below the heart, caption in normal flow under the canvas */
+#whyTags li.why-slot{width:min(246px,26%)}
+#whyTags .why-tag{grid-template-columns:36px minmax(0,1fr) auto;gap:6px 10px;padding:11px 12px 12px;border-radius:15px}
+#whyTags .wt-ic{width:36px;height:36px;border-radius:11px}
+#whyTags .wt-ic svg{width:17px;height:17px}
+#whyTags .wt-lbl{font-size:12px}
+#whyTags .wt-sub{font-size:10px}
+#whyTags .why-tag .wt-share{font-size:17px}
+#whyTags .why-tag .wt-dir{font-size:10px}
+#whyTags .wt-bar{height:4px}
+#stage #whyCaption{order:1;position:static;transform:none;left:auto;right:auto;bottom:auto;width:fit-content;max-width:calc(100% - 32px);margin:12px auto 10px;z-index:2;pointer-events:none}
+#stage #whyCaption[hidden]{display:none!important}
+#whyLayer::after,#whyLayer::before{display:none!important;content:none!important}
+.why-dot[data-back="1"]{opacity:.12}
+
+/* Why-Beams summary pill now sits in normal flow above the 3D stage, so enlarging the heart can never overlap it */
+#whyHeader.wh-flow{position:static!important;transform:none!important;top:auto!important;left:auto!important;display:flex;align-items:center;justify-content:center;gap:10px;width:max-content;max-width:100%;margin:0 auto 14px;padding:9px 20px;font-size:13px;line-height:1.35;white-space:normal;text-align:center;overflow:visible;text-overflow:clip;z-index:auto;border-radius:999px;box-shadow:0 6px 20px rgba(10,60,85,.10);backdrop-filter:none}
+#whyHeader.wh-flow:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#22d3ee;box-shadow:0 0 0 4px rgba(34,211,238,.2)}
+#whyHeader.wh-flow[hidden]{display:none!important}
+html[data-theme=light] #whyHeader.wh-flow{background:#fff;color:#0a3547;border-color:rgba(10,120,150,.28)}
+html[data-theme=dark] #whyHeader.wh-flow{background:#0d1c33;color:#e8f4ff;border-color:rgba(79,216,238,.35)}
+@media(max-width:560px){#whyHeader.wh-flow{border-radius:16px;padding:8px 14px;font-size:12px}}
+body>.wrap>header .hd-actions .src,body>.wrap>header .hd-actions .api input,body>.wrap>header .hd-actions .api button{border:1px solid rgba(10,100,130,.2)}html[data-theme=dark] body>.wrap>header .hd-actions .src,html[data-theme=dark] body>.wrap>header .hd-actions .api input,html[data-theme=dark] body>.wrap>header .hd-actions .api button{border-color:rgba(120,190,230,.28)}
+
+/* Visually hidden, still announced by screen readers (this class was previously undefined, so the live-region text rendered as a big visible paragraph). */
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.territory{scroll-margin-top:var(--cm-hdr-clear);scroll-margin-bottom:96px;overflow:visible;padding:22px 24px 20px}
+.territory-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px 14px;flex-wrap:wrap;margin-bottom:8px}
+.territory-head h3{margin:0;font-size:16px}
+.territory-chip{font-size:10px;line-height:1.2;padding:5px 9px;border-radius:999px;border:1px solid var(--line,rgba(130,200,255,.2));background:rgba(127,150,190,.07);color:var(--muted);font-weight:700;white-space:nowrap}
+.territory-sub{margin:0 0 20px;color:var(--muted);font-size:12px;line-height:1.55;max-width:60ch}
+.terr-body{display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr);gap:20px 32px;align-items:start}
+.terr-map-wrap{position:relative;min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+#terrSvg{display:block;width:100%;max-width:330px;height:auto;margin-inline:auto;overflow:visible}
+.terr-orient{margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-size:10.5px;line-height:1.4;color:var(--muted)}
+.terr-orient b{color:var(--ink);font-weight:800;margin-right:3px}
+#terrSvg .terr-seg{vector-effect:non-scaling-stroke;cursor:pointer;stroke:var(--glass,#0e1728);stroke-width:1.5px;transition:opacity .12s ease,stroke .12s ease,stroke-width .12s ease}
+#terrSvg .terr-seg:focus-visible{outline:none;stroke:var(--accent,#6ce3df);stroke-width:2.5px}
+#terrSvg .terr-seg.dim{opacity:.38}
+#terrSvg .terr-seg.selected{stroke:var(--accent,#6ce3df);stroke-width:2px}
+#terrSvg .terr-seg.variable{stroke-dasharray:4 3}
+#terrSvg .terr-hatch{pointer-events:none;vector-effect:non-scaling-stroke}
+#terrSvg .terr-num{fill:var(--ink);font-size:10.5px;font-weight:800;pointer-events:none;paint-order:stroke;stroke:var(--glass,#0e1728);stroke-width:2.5px}
+#terrSvg .terr-var{fill:var(--ink);font-size:11px;font-weight:900;pointer-events:none;paint-order:stroke;stroke:var(--glass,#0e1728);stroke-width:2.5px}
+#terrSvg .terr-edge{fill:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;pointer-events:none}
+#terrSvg .terr-apex{vector-effect:non-scaling-stroke;cursor:pointer;stroke:var(--glass,#0e1728);stroke-width:1.5px}
+#terrSvg .terr-apex.selected{stroke:var(--accent,#6ce3df);stroke-width:2px}
+#terrSvg .terr-apex:focus-visible{outline:none;stroke:var(--accent,#6ce3df);stroke-width:2.5px}
+.terr-side{min-width:0;display:flex;flex-direction:column;gap:18px}
+.terr-readout{border:1px solid var(--line,rgba(130,200,255,.18));background:rgba(127,150,190,.06);border-radius:14px;padding:14px 16px}
+.terr-readout .eyebrow{display:block;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.terr-readout strong{display:block;font-size:22px;line-height:1.15;font-variant-numeric:tabular-nums}
+.terr-readout .terr-level{display:flex;align-items:center;gap:5px;margin-top:8px;font-size:11.5px;font-weight:800;line-height:1.35}
+.terr-readout .terr-range{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);line-height:1.55}
+.terr-legend{display:grid;gap:16px}
+.terr-legend-group{display:grid;gap:8px}
+.terr-legend-title{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+.terr-legend-row{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--ink);line-height:1.3}
+.terr-legend-text{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 7px;min-width:0}
+.terr-legend-text b{font-weight:700}
+.terr-legend-text small{font-size:11px;color:var(--muted)}
+.terr-swatch{width:16px;height:16px;flex:0 0 16px;border-radius:5px;border:1px solid var(--line,rgba(130,200,255,.2));background:var(--glass,rgba(255,255,255,.08))}
+.terr-swatch.dash{border:1.5px dashed var(--muted);background:transparent}
+.terr-swatch.hatch-light{background:repeating-linear-gradient(135deg,var(--muted) 0 1px,transparent 1px 6px);border-color:var(--muted)}
+.terr-swatch.hatch-dense{background:repeating-linear-gradient(135deg,var(--muted) 0 1.5px,transparent 1.5px 4px);border-color:var(--muted)}
+.terr-toggle{display:flex;align-items:center;gap:10px;min-height:36px;padding:6px 2px;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
+.terr-toggle input{width:18px;height:18px;flex:0 0 18px;accent-color:var(--accent,#6ce3df);cursor:pointer}
+.terr-toggle input:focus-visible{outline:2px solid var(--accent,#6ce3df);outline-offset:2px}
+.terr-swatch.v-LAD{background:#ff6685;border-color:#ff6685}.terr-swatch.v-LCX{background:#53c9ff;border-color:#53c9ff}.terr-swatch.v-RCA{background:#b59aff;border-color:#b59aff}
+.terr-swatch.v-mix2{background:repeating-linear-gradient(135deg,#53c9ff 0 3px,#0b2a3a 3px 4px,#b59aff 4px 7px,#0b2a3a 7px 8px);border-color:var(--muted)}
+.terr-swatch.v-mix3{background:repeating-linear-gradient(135deg,#ff6685 0 3px,#0b2a3a 3px 4px,#b59aff 4px 7px,#0b2a3a 7px 8px,#53c9ff 8px 11px,#0b2a3a 11px 12px);border-color:var(--muted)}
+#terrSvg.terr-all .terr-seg:not(.selected),#terrSvg.terr-all .terr-apex:not(.selected){stroke:var(--muted);stroke-width:1.5px}
+#terrSvg .terr-ves{fill:var(--ink);font-size:8px;font-weight:800;letter-spacing:.04em;pointer-events:none;paint-order:stroke;stroke:var(--glass,#0e1728);stroke-width:2.2px}
+.terr-rwma{font-size:11.5px;line-height:1.5;color:var(--muted);padding-top:14px;border-top:1px solid var(--line,rgba(130,200,255,.14))}
+.terr-rwma b{color:var(--ink)}
+.terr-rwma small{display:block;margin-top:4px;font-size:10.5px;line-height:1.5;color:var(--muted)}
+.terr-foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--line,rgba(130,200,255,.14));display:grid;gap:8px}
+.terr-note{margin:0;font-size:11px;line-height:1.6;color:var(--muted);max-width:90ch}
+.terr-ref{margin:0;font-size:10px;line-height:1.5;color:var(--muted);opacity:.9}
+.terr-tooltip{position:absolute;z-index:5;pointer-events:none;max-width:min(260px,calc(100% - 16px));padding:8px 10px;border:1px solid var(--line,rgba(130,200,255,.22));background:var(--panel,rgba(14,24,45,.97));border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.22);color:var(--ink);font-size:10.5px;line-height:1.4;opacity:0;transform:translate(-50%,8px);transition:opacity .12s ease,transform .12s ease}
+.terr-tooltip.show{opacity:1;transform:translate(-50%,0)}
+.terr-neutral{padding:12px;border:1px dashed var(--line,rgba(130,200,255,.2));border-radius:10px;font-size:11px;color:var(--muted);line-height:1.5}
+@media(max-width:860px){.terr-body{grid-template-columns:minmax(0,1fr);gap:22px}#terrSvg{max-width:330px}.terr-side{width:100%}.terr-legend{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px 20px}}
+@media(max-width:760px){.territory{border-left:0;border-right:0;border-radius:0;padding:18px 16px}.terr-foot{margin-top:18px}}
+@media(max-width:520px){#terrSvg{width:min(100%,320px);min-width:260px}.terr-tooltip{max-width:calc(100% - 10px)}.terr-legend{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#terrSvg .terr-seg,#terrSvg .terr-apex,.terr-tooltip{transition:none}}
+html[data-theme="light"] .terr-tooltip,:root:not([data-theme="dark"]) .terr-tooltip{background:#f8fbff;border-color:#9eb4d1;color:#17304f}
+html[data-theme="light"] #terrSvg .terr-num,html[data-theme="light"] #terrSvg .terr-var,:root:not([data-theme="dark"]) #terrSvg .terr-num,:root:not([data-theme="dark"]) #terrSvg .terr-var{stroke:#f6f9ff}
+
+/* v2.4 territory map: softer fills on dark, cleaner label hierarchy */
+#terrSvg{overflow:visible}
+#terrSvg .terr-seg,#terrSvg .terr-apex{fill-opacity:.9;transition:opacity .15s ease,stroke .15s ease,stroke-width .15s ease,filter .15s ease}
+html[data-theme="dark"] #terrSvg .terr-seg,html[data-theme="dark"] #terrSvg .terr-apex{filter:saturate(.62) brightness(.72);fill-opacity:.88;stroke:rgba(7,17,30,.92);stroke-width:2px}
+html[data-theme="dark"] #terrSvg .terr-seg:hover,html[data-theme="dark"] #terrSvg .terr-apex:hover{filter:saturate(.8) brightness(.9)}
+html[data-theme="dark"] #terrSvg .terr-seg.selected,html[data-theme="dark"] #terrSvg .terr-apex.selected{filter:saturate(.75) brightness(.86);stroke:var(--accent,#6ce3df);stroke-width:2px}
+html[data-theme="dark"] #terrSvg.terr-all .terr-seg,html[data-theme="dark"] #terrSvg.terr-all .terr-apex{filter:saturate(.7) brightness(.8)}
+html[data-theme="dark"] #terrSvg{filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+#terrSvg .terr-num{font-size:10px;font-weight:800;fill:#fff;stroke:rgba(5,14,26,.75);stroke-width:2.2px;letter-spacing:0}
+#terrSvg .terr-var{font-size:9px;font-weight:800;fill:rgba(255,255,255,.85);stroke:rgba(5,14,26,.7);stroke-width:2px}
+#terrSvg .terr-ves{font-size:6.8px;font-weight:700;letter-spacing:.06em;fill:rgba(255,255,255,.9);stroke:rgba(5,14,26,.75);stroke-width:2px}
+#terrSvg .terr-edge{font-size:9.5px;fill:var(--muted);opacity:.85}
+#terrSvg .terr-hatch{opacity:.7}
+.terr-readout{background:linear-gradient(180deg,rgba(127,150,190,.09),rgba(127,150,190,.04))}
+.terr-body{gap:24px 36px}
+.terr-legend{gap:18px}
+
+/* v2.6 territory map, light mode: dark labels with a thin soft halo (were white on pale green) */
+html[data-theme="light"] #terrSvg .terr-num,:root:not([data-theme="dark"]) #terrSvg .terr-num{fill:#06261b!important;stroke:rgba(255,255,255,.55)!important;stroke-width:1.6px!important;font-size:11px!important;font-weight:800!important;paint-order:stroke}
+html[data-theme="light"] #terrSvg .terr-var,:root:not([data-theme="dark"]) #terrSvg .terr-var{fill:#06261b!important;stroke:rgba(255,255,255,.55)!important;stroke-width:1.4px!important;font-size:10px!important;font-weight:900!important;paint-order:stroke}
+html[data-theme="light"] #terrSvg .terr-ves,:root:not([data-theme="dark"]) #terrSvg .terr-ves{fill:#06261b!important;stroke:rgba(255,255,255,.6)!important;stroke-width:1.4px!important;font-size:7px!important;font-weight:800!important;paint-order:stroke}
+html[data-theme="light"] #terrSvg .terr-edge,:root:not([data-theme="dark"]) #terrSvg .terr-edge{fill:#2f4a57!important;opacity:1!important;font-size:10.5px!important;font-weight:800!important}
+html[data-theme="light"] #terrSvg .terr-seg,html[data-theme="light"] #terrSvg .terr-apex,:root:not([data-theme="dark"]) #terrSvg .terr-seg,:root:not([data-theme="dark"]) #terrSvg .terr-apex{fill-opacity:.92;stroke:#f4faf9;stroke-width:2px}
+html[data-theme="dark"] #terrSvg .terr-num,html[data-theme="dark"] #terrSvg .terr-var,html[data-theme="dark"] #terrSvg .terr-ves{fill:#fff}
+
+.territory{padding:14px 18px 12px}
+.territory .territory-head{margin-bottom:4px}
+.territory .territory-sub{margin:0 0 10px}
+.territory .terr-body{grid-template-columns:minmax(170px,220px) minmax(0,1fr);gap:12px 22px}
+.territory #terrSvg{max-width:220px}
+.territory .terr-map-wrap{gap:6px}
+.territory .terr-about{margin-top:10px;padding-top:8px}
+.territory .terr-about>summary{cursor:pointer;font-size:11.5px;font-weight:700;color:var(--muted)}
+.territory .terr-about[open]>summary{margin-bottom:8px}
+@media(max-width:760px){.territory .terr-body{grid-template-columns:1fr}.territory #terrSvg{max-width:240px}}
+
+/* ===== Twin parity layout ===== */
+.twin-stage{--accent:var(--aqua);--accent-soft:rgba(100,227,220,.14);--edge:var(--line);--ed:var(--line);--art-line:var(--line);--glass:rgba(8,22,36,.55)}
+html[data-theme="light"] .twin-stage{--glass:rgba(255,255,255,.72)}
+.twin-stage .mini{font-size:11px;line-height:1.45;color:var(--muted);margin:0}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.twin-cvwrap{position:relative;flex:none;order:0;width:100%}
+.twin-stage #whyHeader.wh-flow{order:1;margin:10px auto 0}
+.twin-stage #whyCaption{position:static;order:1;margin:6px 16px 0;text-align:center}
+.twin-stage .slice-host{order:2;margin:10px 14px 0}
+.twin-stage .slice-host .slice-panel{border:1px solid var(--line);border-radius:14px;background:var(--glass)}
+.twin-stage .vessel-picker{order:3;margin:10px 14px 0}
+.twin-stage .vessel-picker .vessel-info-grid>div{background:rgba(127,150,190,.07);border:1px solid var(--line);border-radius:12px}
+.twin-stage .vessel-picker button{color:var(--ink);background:rgba(127,150,190,.08);cursor:pointer;font:inherit;font-size:13px}
+.twin-stage .vessel-picker button:disabled{opacity:.5;cursor:not-allowed}
+.twin-stage .vessel-selected-badge{color:var(--muted);font-size:11px}
+.twin-stage .twin-align{order:4!important}
+.twin-stage .twin-anat{order:5!important}
+.twin-tools .btn[aria-pressed="true"]{border-color:var(--aqua);box-shadow:inset 0 0 0 1px var(--aqua)}
+.twin-tools .btn:disabled{opacity:.5;cursor:not-allowed}
+@media(min-width:1101px){.grid>.panel:first-child{position:static!important}}
+.grid>.panel.territory{grid-column:1/-1}
+.grid>.panel.territory .panel-head{margin-bottom:6px}
+.panel.territory .terr-body{align-items:center}
+
+
+/* ===== Twin parity fixes: compact Why-Beams cards, hint pill no longer overlaps the caption ===== */
+.twin-stage .twin-hint{margin:10px auto 0!important;order:1!important}
+.twin-stage #whyHeader.wh-flow{order:1!important;margin:10px auto 0!important}
+.twin-stage #whyCaption{order:1!important;margin:8px 16px 0!important;position:static!important}
+.twin-stage .why-tag{grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"main side" "bar bar"!important;padding:9px 10px 10px!important;gap:5px 8px!important;border-radius:12px!important}
+.twin-stage .why-tag .wt-ic{display:none!important}
+.twin-stage .why-tag .wt-share{font-size:15px!important}
+.twin-stage .why-tag .wt-lbl{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;font-size:11.5px!important;line-height:1.2!important}
+.twin-stage #whyTags li.why-slot{width:min(190px,32%)!important}
+@media(max-width:640px){.twin-stage #whyTags li.why-slot{width:100%!important}}
+</style><style id="cm-twin-polish">
+#haloToggle[aria-pressed="true"]{border-color:var(--aqua)!important;box-shadow:0 0 0 1px var(--aqua) inset}
+.twin-stage .twin-align{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))!important}
+.twin-align .sl-name{overflow:visible!important;text-overflow:clip!important;white-space:normal!important;font-size:12.5px!important;font-weight:700!important;line-height:1.2;color:var(--ink)!important}
+.twin-align .sl output{font-size:12.5px!important;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,var(--aqua) 16%,transparent);border:1px solid color-mix(in srgb,var(--aqua) 45%,transparent)}
+.twin-align .sl input[type=range]{-webkit-appearance:none;appearance:none;height:22px!important;background:transparent;cursor:pointer;--p:50%}
+.twin-align .sl input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--aqua) var(--p),color-mix(in srgb,var(--ink) 22%,transparent) var(--p));border:1px solid var(--field-line,var(--line))}
+.twin-align .sl input[type=range]::-moz-range-track{height:8px;border-radius:999px;background:color-mix(in srgb,var(--ink) 22%,transparent);border:1px solid var(--field-line,var(--line))}
+.twin-align .sl input[type=range]::-moz-range-progress{height:8px;border-radius:999px;background:var(--aqua)}
+.twin-align .sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6px;border-radius:50%;background:#fff;border:3px solid var(--aqua);box-shadow:0 1px 4px rgba(0,0,0,.45)}
+.twin-align .sl input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid var(--aqua)}
+.twin-align .sl input[type=range]:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:8px}
+.cm-next-card{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:14px 0 0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(127,150,190,.07)}
+.cm-next-card b{display:block;font-size:14px;color:var(--ink)}
+.cm-next-card small{display:block;margin-top:2px;color:var(--muted);font-size:12px;line-height:1.45;max-width:58ch}
+.cm-next-card a{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--accent,var(--aqua));color:var(--ink);font-weight:750;font-size:13px;text-decoration:none;white-space:nowrap}
+.cm-next-card a:hover,.cm-next-card a:focus-visible{background:rgba(108,227,223,.14)}
+</style>
+<style id="cm-twin-layout">
+/* ---- box 01 toolbar: fresh classes, one tidy grid ---- */
+.twin-stage .cm-bar{order:-1;position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:12px;padding:14px;border-bottom:1px solid var(--line)}
+.cm-bar-group{position:relative;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px;flex:1 1 auto;min-width:0;padding:28px 12px 12px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel,#0e1728) 55%,transparent)}
+.cm-bar-group:before{content:attr(data-label);position:absolute;top:10px;left:14px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cm-bar-view{flex-basis:100%}
+.cm-bar-group .btn{flex:1 1 auto;width:auto;min-width:max-content;margin:0;justify-content:center;white-space:nowrap;height:38px;padding:0 14px;font-size:12.5px;overflow:visible}
+.cm-bar-group .btn .lbl{overflow:visible;text-overflow:clip}
+.cm-bar-group .btn[hidden]{display:none!important}
+.cm-bar-status{flex:1 1 100%;margin:0;font-size:11.5px;line-height:1.4;color:var(--muted)}
+.cm-bar-status:empty{display:none}
+@media(max-width:560px){.cm-bar-group{flex-basis:100%}.cm-bar-group .btn{flex:1 1 calc(50% - 8px)}}
+/* ---- page layout: left column stacks anatomy + insight cards, right column is the form ---- */
+.grid{align-items:stretch}
+.twin-col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.twin-col>.panel{margin:0}
+.twin-col>.panel.territory{grid-column:auto}
+.twin-col>.panel:last-child{flex:1 1 auto}
+@media(min-width:1101px){.grid>.twin-col>.panel:first-child{position:static}}
+@media(max-width:1000px){.grid{align-items:start}.twin-col{display:contents}.twin-col-l>.panel:first-child{order:1}.twin-col-r>.panel:first-child{order:2}.twin-col>.territory{order:3}.twin-col>#cmTraceCard{order:4}.twin-col>#cmNextCard{order:5}}
+.cm-embed-card{padding:20px 24px 20px}
+.cm-embed-head h2{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+.cm-embed-head p{margin:0 0 12px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.cm-embed-frame,body.cm-lab iframe.cm-embed-frame{display:block;width:100%;height:420px;border:0;border-radius:0;box-shadow:none;background:transparent;overflow:hidden}
+#cmNextCard,#cmTraceCard{box-shadow:none}
+@media(max-width:560px){
+  .panel-head{flex-wrap:wrap}
+  .panel-head .status{white-space:normal}
+}
+</style>
+</head><body class="cm-lab">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.2-9.6C1.7 7.6 3.7 4.5 7 4.5c2 0 3.5 1 5 3 1.5-2 3-3 5-3 3.3 0 5.3 3.1 4.2 6.4-1.7 5-9.2 9.6-9.2 9.6z"/></symbol>
+<symbol id="i-form" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 8.5h8M8 12.5h8M8 16.5h4.5"/></symbol>
+<symbol id="i-flask" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 18.5a1.8 1.8 0 0 0 1.6 2.7h10.8a1.8 1.8 0 0 0 1.6-2.7l-5.5-9v-6"/><path d="M7.5 15.5h9"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20.5h16M7 17v-5M12 17V7M17 17v-8"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4.5v4.5h4.5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4.5M7.5 9L12 4.5 16.5 9"/><path d="M4.5 15.5v3a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-3"/></symbol>
+<symbol id="i-flip" viewBox="0 0 24 24"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></symbol>
+<symbol id="i-drag" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-2.5 2.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5"/></symbol>
+<symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v5h-5"/></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="5.5"/><path d="M12 6.5v4"/></symbol>
+<symbol id="i-click" viewBox="0 0 24 24"><path d="M6 3.5l12 6.5-5.2 1.6L10.5 17z"/><path d="M13.5 14l4.5 5"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><path d="M4 20l16-16M4 20v-6M4 20h6M20 4v6M20 4h-6"/></symbol>
+<symbol id="i-height" viewBox="0 0 24 24"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></symbol>
+<symbol id="i-depth" viewBox="0 0 24 24"><path d="M3.5 8.5L12 4l8.5 4.5v7L12 20l-8.5-4.5z"/><path d="M3.5 8.5L12 13l8.5-4.5M12 13v7"/></symbol>
+<symbol id="i-isolate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5l12 7.5-12 7.5z"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11.5M7.5 11L12 15.5 16.5 11"/><path d="M4.5 19.5h15"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13M10 11v5M14 11v5"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.7-6 7.5-6s6.7 2 7.5 6"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.1"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.1 8-7.5 9.5-4.4-1.5-7.5-5-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M9 15l6-6M10 6.5l1.5-1.5a4 4 0 0 1 5.7 5.7L15.5 12.5M14 17.5L12.5 19a4 4 0 0 1-5.7-5.7L8.5 11.5"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></symbol>
+</defs></svg>
+
+
+
+<a href="/case-replay" style="position:relative;z-index:10;display:inline-block;margin:10px 12px;padding:8px 12px;border:1px solid rgba(64,190,201,.4);border-radius:10px;color:#59d6d4;text-decoration:none;font:600 13px system-ui">Reproducible Case Replay ↗</a>
+
+
+
+<header class="top"><nav class="nav"><a href="/app/">Dashboard</a><a href="/detective">AI Detective</a><a href="/whatif">What-If</a><a href="/digital-twin">Digital Twin Lab</a><a href="/validation">Validation Report</a><a href="/evidence">Research Evidence Library</a><a href="/stress-test" style="display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .85rem;border:1px solid rgba(64,190,201,.35);border-radius:999px;text-decoration:none;font-weight:650">AI Trust Stress Test ↗</a></nav></header>
+
+
+
+<main class="wrap"><section class="hero"><div><div class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg> Interactive model investigation</div><h1>Explore a scenario.<br><span style="color:var(--aqua)">Inspect the response.</span></h1><p>Run the same trained prediction pipeline on a baseline profile and two controlled hypothetical variants. Every displayed probability comes from the live CardioMap prediction API—no simulated results are substituted.</p></div><aside class="hero-note"><strong><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> Research guardrail</strong>These are model-output comparisons, not a biological digital twin, measured artery anatomy, treatment-effect estimate, or clinical forecast. Input changes do not establish causation.</aside></section>
+
+
+
+<div class="grid"><div class="twin-col twin-col-l"><section class="panel"><div class="panel-head"><div><h2><span class="h-ic"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span><span class="h-num">01</span>Anatomical context</h2><div class="sub">Standalone interactive 3D anatomy renderer. No dashboard is embedded.</div></div><span class="status"><i class="dot"></i> 3D renderer</span></div><div class="model-frame" id="twinViewport"><div class="twin-stage" id="stage" aria-label="Interactive coronary 3D anatomy viewport"><div class="twin-cvwrap" id="cvWrap"><canvas id="cv" tabindex="0" aria-label="Interactive 3D heart. Drag to rotate, scroll to zoom, click a vessel to select."></canvas>
+<div id="whyLayer" aria-hidden="false"><svg id="whySvg" aria-hidden="true" focusable="false"></svg><div id="whyTags"><ol aria-label="Top model contributions"></ol></div><p id="whyLive" class="sr-only" role="status" aria-live="polite"></p></div></div>
+    <div id="whyHeader" class="wh-flow" hidden></div>
+    <p id="whyCaption" hidden>Tags show model feature contributions. Positions are schematic, not anatomical; the beam marks the whole vessel, not a lesion location.</p>
+    <div class="slice-host"><div class="slice-panel" id="slicePanel" role="group" aria-label="Cross-section slice controls" hidden>
+<div class="slice-row">
+<div class="slice-seg" id="sliceOrient" role="group" aria-label="Slice orientation">
+<button type="button" data-slice="short" aria-pressed="false" aria-label="Short-axis slice"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="8" ry="3.5"/><path d="M4 12v0M20 12v0"/></svg>Short-axis</button>
+<button type="button" data-slice="longSI" aria-pressed="false" aria-label="Long-axis slice, superior to inferior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M7 6l5-3 5 3M7 18l5 3 5-3"/></svg>Long-axis (S&ndash;I)</button>
+<button type="button" data-slice="longAP" aria-pressed="false" aria-label="Long-axis slice, anterior to posterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M6 7l-3 5 3 5M18 7l3 5-3 5"/></svg>Long-axis (A&ndash;P)</button>
+<button type="button" data-slice="off" aria-pressed="true" aria-label="Slice off">Slice off</button>
+</div>
+<button type="button" id="sliceFlip" aria-pressed="false" aria-label="Flip which side is cut away" disabled>Flip side</button>
+</div>
+<div class="slice-row slice-sl">
+<span class="slice-end" id="sliceLo" aria-hidden="true">Apex</span>
+<input type="range" id="slicePos" min="0" max="100" step="1" value="50" aria-label="Slice position" aria-valuetext="Slice off" title="Slide to cut heart view" disabled>
+<span class="slice-end" id="sliceHi" aria-hidden="true">Base</span>
+<output class="slice-val" id="sliceVal" for="slicePos">50%</output>
+</div>
+<p class="mini slice-help">Slide to cut heart view. Schematic cut of a generic reference model, not patient imaging.</p>
+<p class="sr-only" id="sliceLive" role="status" aria-live="polite"></p>
+</div>
+</div><div class="cm-bar"><div class="cm-bar-group cm-bar-view" data-label="View"><button class="btn small-btn" id="rc" type="button"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg><span class="lbl">Reset camera</span></button><button class="btn small-btn" id="toggleIsolation" type="button" disabled><svg class="ic" aria-hidden="true"><use href="#i-isolate"/></svg><span class="lbl">Isolate vessel</span></button><button class="btn small-btn" id="restoreHeart" type="button" disabled><svg class="ic" aria-hidden="true"><use href="#i-expand"/></svg><span class="lbl">Full view</span></button></div><div class="cm-bar-group" data-label="Anatomy">
+<label class="btn small-btn twin-file"><svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg><span class="lbl">Load anatomy</span><input accept=".glb,.gltf,.obj" hidden id="file" multiple type="file"></label><button class="btn small-btn" id="loadReference" type="button">Use HRA heart</button>
+<button class="btn small-btn" id="ax" type="button" hidden><svg class="ic" aria-hidden="true"><use href="#i-flip"/></svg><span class="lbl">Flip axis</span></button>
+</div>
+<div class="cm-bar-group" data-label="Model overlays">
+<button class="btn small-btn" id="haloToggle" type="button" aria-pressed="false" title="Show the bootstrap model-variability halo (runs a baseline prediction if needed)"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span class="lbl">Confidence halo</span></button>
+<button class="btn small-btn" id="whyToggle" type="button" aria-pressed="false" disabled title="Needs the API (SHAP)"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg><span class="lbl">Why-Beams</span></button>
+</div>
+<p class="cm-bar-status" id="haloStatus" role="status" aria-live="polite"></p>
+</div>
+
+
+    <div class="twin-hint" role="note" aria-label="How to use the 3D view"><span class="tip"><svg class="ic" aria-hidden="true"><use href="#i-drag"/></svg><b>Drag</b><em>to rotate</em></span><span class="tip"><svg class="ic" aria-hidden="true"><use href="#i-scroll"/></svg><b>Scroll</b><em>to zoom</em></span><span class="tip"><svg class="ic" aria-hidden="true"><use href="#i-click"/></svg><b>Click</b><em>to select vessel</em></span></div><div class="twin-anat" id="anat">Anatomy: schematic and illustrative only. Not patient-specific imaging.</div><div class="twin-align" id="align" role="group" aria-label="Overlay alignment"><label class="sl"><svg class="ic" aria-hidden="true"><use href="#i-scale"/></svg><span class="sl-name">Overlay scale</span><output id="asValue">96%</output><input id="as" max="1.5" min=".65" step="0.01" type="range" value=".96"></label><label class="sl"><svg class="ic" aria-hidden="true"><use href="#i-height"/></svg><span class="sl-name">Overlay height</span><output id="ayValue">0.00</output><input id="ay" max=".8" min="-.8" step="0.02" type="range" value="0"></label><label class="sl"><svg class="ic" aria-hidden="true"><use href="#i-depth"/></svg><span class="sl-name">Overlay depth</span><output id="azValue">0.00</output><input id="az" max=".8" min="-.4" step="0.02" type="range" value="0"></label></div>
+
+    <div class="vessel-explorer vessel-picker" id="vesselExplorer" role="group" aria-label="Coronary vessel picker">
+      <div class="vessel-explorer-head"><div><h3>Vessel picker</h3><p class="mini">Click an artery in the 3D view or pick one here.</p></div><span class="vessel-selected-badge" id="vesselSelectedBadge">CAD overview</span></div>
+      <div class="vessel-selectors" role="group" aria-label="Select coronary artery">
+        <button type="button" data-vessel-select="LAD" aria-pressed="false"><i class="vessel-dot lad"></i>LAD</button>
+        <button type="button" data-vessel-select="LCX" aria-pressed="false"><i class="vessel-dot lcx"></i>LCX</button>
+        <button type="button" data-vessel-select="RCA" aria-pressed="false"><i class="vessel-dot rca"></i>RCA</button>
+      </div>
+      <div class="vessel-info-grid">
+        <div><span class="mini">Selected artery</span><strong id="vesselFullName">Choose LAD, LCX, or RCA</strong><span class="mini" id="vesselDescription">Select a coronary artery in the schematic or use the buttons above.</span></div>
+        <div class="vessel-estimate"><span class="mini">Existing model estimate</span><strong id="vesselEstimate">Estimate unavailable</strong><span class="mini" id="vesselEstimateContext">Run a comparison and select a vessel to view its available estimate.</span><span class="mini" id="vesselEstimateRange">Model range unavailable.</span></div>
+      </div>
+      <p class="mini vessel-live sr-only" id="vesselLive" role="status" aria-live="polite"></p>
+      <div class="vessel-actions"><button type="button" id="pickIsolate" aria-pressed="false" disabled>Isolate selected vessel</button><button type="button" id="pickRestore" disabled>Restore full view</button></div>
+      <p class="mini vessel-disclaimer">Vessel highlighting is for visualization only. Model estimates do not identify the exact location of a lesion or confirm a blockage. This tool is not intended for diagnosis or treatment decisions.</p>
+    </div></div>
+
+</div>
+
+<div class="map-label"><span class="sub" id="twinSelection">Select LAD, LCX, or RCA to highlight the schematic coronary path.</span></div></section>
+<section class="panel territory" id="territoryCard" aria-labelledby="territoryTitle">
+  <div class="panel-head territory-head"><div><h2><span class="h-ic"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span class="h-num">03</span><span id="territoryTitle">Myocardial territory map</span></h2><div class="sub">Linked to the vessel picker above: select LAD, LCX or RCA to highlight its typical territory.</div></div><span class="status">Typical territories · schematic</span></div>
+  <p class="territory-sub">Which heart muscle typically depends on each artery. Colour = that artery's estimated probability.</p>
+  <div class="terr-body">
+    <div class="terr-map-wrap">
+      <svg id="terrSvg" viewBox="0 0 320 320" role="group" aria-labelledby="territoryTitle terrDesc"></svg>
+      <p class="terr-orient" aria-hidden="true"><span><b>A</b>Anterior</span><span><b>I</b>Inferior</span><span><b>S</b>Septal</span><span><b>L</b>Lateral</span></p>
+      <div class="terr-tooltip" id="terrTooltip" role="tooltip" aria-hidden="true"></div>
+    </div>
+    <div class="terr-side">
+      <div class="terr-readout" id="terrReadout"><span class="eyebrow">Selected vessel</span><strong id="terrVessel">CAD overview</strong><span class="terr-level" id="terrLevel">● Neutral state</span><span class="terr-range" id="terrRange">Run a prediction to colour the territories.</span></div>
+      <label class="terr-toggle" for="terrAll"><input type="checkbox" id="terrAll" aria-describedby="terrAllHelp"><span>Show all coronary territories</span></label>
+      <p class="terr-note" id="terrAllHelp">Colours then show which artery usually supplies each segment. Typical supply only, not risk.</p>
+      <div class="terr-legend" id="terrLegend" aria-label="Territory map legend"></div>
+      <div class="terr-rwma" id="terrRwma">RWMA: not entered</div>
+    </div>
+  </div>
+  <p id="terrDesc" class="sr-only"></p>
+  <p id="terrLive" class="sr-only" role="status" aria-live="polite"></p>
+  <details class="terr-foot terr-about"><summary>About this map</summary>
+    <p class="terr-note">Schematic, population-typical perfusion territories (AHA 17-segment model). Not a lesion location, not infarct size, and not a diagnosis. Territories vary with coronary dominance.</p>
+    <p class="terr-note">Decision support and educational use only; not a substitute for formal diagnostic imaging.</p>
+    <p class="terr-ref">Segment model: Cerqueira et al., Circulation 2002.</p>
+  </details>
+</section>
+
+<section class="panel cm-embed-card" id="cmNextCard"><div class="cm-embed-head"><h2><span class="h-ic"><svg class="ic" aria-hidden="true"><use href="#i-isolate"/></svg></span>Next-best-test</h2><p>Which input you have not entered would shift or sharpen the estimate most (needs at least 6 inputs).</p></div><iframe class="cm-embed-frame" title="Next-best-test" src="/what-next?embed=1&amp;case=twin" loading="lazy"></iframe></section>
+</div>
+
+
+
+<div class="twin-col twin-col-r"><section class="panel"><div class="panel-head"><div><h2><span class="h-ic"><svg class="ic" aria-hidden="true"><use href="#i-form"/></svg></span><span class="h-num">02</span>Build a baseline</h2><div class="sub">Leave unknown values blank. Only entered values are sent to the model.</div></div><span class="status" id="fieldCount">0 fields</span></div><div id="schemaState" class="empty">Loading the model input schema…</div><div id="baselineFields" class="forms"></div><div class="actions"><button class="btn" id="loadExample"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Load illustrative profile</button><button class="btn" id="clearBaseline"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Clear inputs</button></div><p class="sub" style="margin-top:9px">The illustrative profile is a user-editable example, not a real patient record.</p></section><section class="panel cm-embed-card" id="cmTraceCard"><div class="cm-embed-head"><h2><span class="h-ic"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span>Cardiac Signal Trace</h2><p>How your baseline inputs flow through the model to the selected vessel. Updates when you enter inputs or switch on the halo.</p></div><iframe class="cm-embed-frame" title="Cardiac Signal Trace" src="/signal-trace?embed=1&amp;case=twin" loading="lazy"></iframe></section></div></div>
+
+
+
+
+
+
+
+
+<script>/* Hosts same-origin embedded panels (iframes with class cm-embed-frame): sizes each frame to its content. */
+window.addEventListener("message",function(e){var d=e.data;if(!d||typeof d.cmEmbedH!=="number")return;
+ [].slice.call(document.querySelectorAll("iframe.cm-embed-frame")).forEach(function(f){if(f.contentWindow===e.source)f.style.height=Math.max(120,d.cmEmbedH+2)+"px"})});</script>
+<section class="panel results"><div class="panel-head"><div><h2><span class="h-ic"><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg></span><span class="h-num">04</span>Design controlled variants</h2><div class="sub">Each scenario inherits the baseline and overrides only the selected fields.</div></div><span class="status"><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg> Same API · Same model</span></div><div class="scenarios"><article class="scenario"><h3><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg> Scenario A <span class="vtag a">Variant 01</span></h3><p class="sub">Hypothetical changes, editable before each run.</p><div id="overridesA" class="override-list"></div><div class="actions"><button class="btn small-btn" data-add="a"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Add override</button><button class="btn small-btn" data-clear="a"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Clear</button></div></article><article class="scenario"><h3><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg> Scenario B <span class="vtag b">Variant 02</span></h3><p class="sub">Compare a second scenario against the same baseline.</p><div id="overridesB" class="override-list"></div><div class="actions"><button class="btn small-btn" data-add="b"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Add override</button><button class="btn small-btn" data-clear="b"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Clear</button></div></article></div><div class="actions"><button class="btn primary" id="runCompare" disabled><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg>Run baseline + variants</button><button class="btn" id="exportRun" disabled><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Export JSON</button><button class="btn" id="resetRun"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg>Reset results</button></div><div id="runStatus" class="sub" role="status" aria-live="polite" style="margin-top:10px">Connect to the local API and enter a baseline to run a comparison.</div><div id="resultsArea" class="results"><div class="empty">No predictions yet. Results will appear here only after all three API requests succeed.</div></div></section>
+
+
+
+<div class="notice"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-info"/></svg><div><strong>Interpretation:</strong> probabilities represent the model's estimates for the submitted inputs. Differences are descriptive model sensitivity only—not risk changes caused by the edited variables. Output is not a diagnosis and must not guide treatment decisions.</div></div>
+
+
+
+<section class="panel gd-twin" id="cmGlobalCard" aria-labelledby="cmGlobalTitle"></section>
+
+<div class="footer"><span>CardioMap 3D · Digital Twin Lab</span><span id="modelSource">Prediction source: local CardioMap API · Not yet queried</span></div></main>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+
+<script>
+
+
+
+(()=>{'use strict';const $=id=>document.getElementById(id);const targets=['CAD','LAD','LCX','RCA'];let schema=[],lastRun=null;const overrideState={a:[],b:[]};const GI={'Demographics':'user','History':'form','Vital signs':'pulse','Symptoms':'info','ECG':'pulse','Laboratory':'flask','Echocardiography':'heart'};const groupOrder=['Demographics','History','Vital signs','Symptoms','ECG','Laboratory','Echocardiography'];
+
+
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const fmt=n=>Number.isFinite(n)?(n*100).toFixed(1)+'%':'—';const inputKey=u=>u.id||u.column;
+
+
+
+async function init(){try{const r=await fetch('/schema');if(!r.ok)throw Error('Schema API returned '+r.status);schema=await r.json();renderBaseline();renderOverrides('a');renderOverrides('b');$('schemaState').classList.add('hidden');$('runCompare').disabled=false;$('fieldCount').textContent=schema.length+' available fields';$('runStatus').textContent='Schema loaded. Enter available baseline values, then optionally add scenario overrides.';$('modelSource').textContent='Prediction source: /predict · live API';}catch(e){$('schemaState').innerHTML='<span class="error">Could not load schema: '+esc(e.message)+'. Start the FastAPI server and refresh.</span>';}}
+
+
+
+function renderBaseline(){const root=$('baselineFields');root.innerHTML='';groupOrder.forEach(group=>{const fields=schema.filter(u=>u.group===group);if(!fields.length)return;const sec=document.createElement('section');sec.className='form-section';sec.innerHTML='<h3><svg class="ic" aria-hidden="true"><use href="#i-'+(GI[group]||'form')+'"/></svg>'+esc(group)+'</h3><div class="fields">'+fields.map(u=>fieldMarkup(u)).join('')+'</div>';root.appendChild(sec)});root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{updateCount();clearResults('Baseline changed. Run comparison again to refresh outputs.')}));updateCount();}
+
+
+
+function fieldMarkup(u,value=''){const key=inputKey(u),bin=u.kind==='bin';let control;if(bin)control='<select id="base-'+esc(key)+'" data-key="'+esc(key)+'"><option value="">Not provided</option><option value="0">No</option><option value="1">Yes</option></select>';else control='<input id="base-'+esc(key)+'" data-key="'+esc(key)+'" type="number" min="'+u.min+'" max="'+u.max+'" step="'+u.step+'" placeholder="'+u.min+'–'+u.max+'" value="'+esc(value)+'">';return '<div class="field"><label for="base-'+esc(key)+'">'+esc(u.label)+(u.unit?' ('+esc(u.unit)+')':'')+'</label>'+control+'</div>'}
+
+
+
+function payload(){const out={};schema.forEach(u=>{const el=$('base-'+inputKey(u));if(el&&el.value!=='')out[inputKey(u)]=Number(el.value)});return out}function updateCount(){const n=Object.keys(payload()).length;$('fieldCount').textContent=n+' / '+schema.length+' entered'}
+
+
+
+function renderOverrides(which){const root=$('overrides'+which.toUpperCase()),items=overrideState[which];if(!items.length){root.innerHTML='<div class="empty">No overrides. This variant will match the baseline until you add a change.</div>';return}root.innerHTML=items.map((item,i)=>{const used=items.filter((x,j)=>j!==i).map(x=>x.key);const opts=schema.filter(u=>!used.includes(inputKey(u))).map(u=>'<option value="'+esc(inputKey(u))+'" '+(inputKey(u)===item.key?'selected':'')+'>'+esc(u.label)+(u.unit?' ('+esc(u.unit)+')':'')+'</option>').join('');const u=schema.find(x=>inputKey(x)===item.key)||schema[0];let control=u.kind==='bin'?'<select data-override-value="'+which+'" data-i="'+i+'"><option value="0" '+(String(item.value)==='0'?'selected':'')+'>No</option><option value="1" '+(String(item.value)==='1'?'selected':'')+'>Yes</option></select>':'<input data-override-value="'+which+'" data-i="'+i+'" type="number" min="'+u.min+'" max="'+u.max+'" step="'+u.step+'" value="'+esc(item.value)+'" aria-label="Override value">';return '<div class="override-row"><select data-override-key="'+which+'" data-i="'+i+'" aria-label="Feature">'+opts+'</select>'+control+'<button type="button" data-remove="'+which+'" data-i="'+i+'" aria-label="Remove override">×</button></div>'}).join('');root.querySelectorAll('[data-override-key]').forEach(el=>el.addEventListener('change',()=>{const i=+el.dataset.i;const u=schema.find(x=>inputKey(x)===el.value);overrideState[which][i]={key:el.value,value:u.kind==='bin'?0:''};renderOverrides(which);clearResults('Scenario inputs changed. Run comparison again.')}));root.querySelectorAll('[data-override-value]').forEach(el=>el.addEventListener('change',()=>{overrideState[which][+el.dataset.i].value=el.value===''?'':Number(el.value);clearResults('Scenario inputs changed. Run comparison again.')}));root.querySelectorAll('[data-remove]').forEach(el=>el.addEventListener('click',()=>{overrideState[which].splice(+el.dataset.i,1);renderOverrides(which);clearResults('Scenario inputs changed. Run comparison again.')}));}
+
+
+
+function validateOverrides(which){for(const item of overrideState[which]){const u=schema.find(x=>inputKey(x)===item.key);if(!u)throw Error('Unknown scenario field');if(item.value===''||!Number.isFinite(Number(item.value)))throw Error('Please enter a value for every scenario override.');const n=Number(item.value);if(n<u.min||n>u.max)throw Error(u.label+' must be between '+u.min+' and '+u.max+'.')} }
+
+
+
+function makeVariant(which){const out={...payload()};overrideState[which].forEach(item=>out[item.key]=Number(item.value));return out}
+
+
+
+function clearResults(message){lastRun=null;if(window.cmTwinSetResult)cmTwinSetResult(null);$('exportRun').disabled=true;$('resultsArea').innerHTML='<div class="empty">'+esc(message||'Inputs changed. Run a new comparison to update results.')+'</div>'}
+
+
+
+async function predict(profile){const r=await fetch('/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(profile)});let j={};try{j=await r.json()}catch{}if(!r.ok)throw Error(j.detail||'Prediction API returned '+r.status);for(const t of targets)if(!j[t]||!Number.isFinite(Number(j[t].p)))throw Error('Prediction response missing valid '+t+' output.');return j}
+
+
+
+function renderResults(results,profiles){const base=results[0];if(window.cmTwinSetResult)cmTwinSetResult(base);let html='<div class="result-grid">'+targets.map(t=>{const b=Number(base[t].p),a=Number(results[1][t].p),c=Number(results[2][t].p);return '<div class="metric"><div class="k">'+t+' · Baseline</div><div class="v">'+fmt(b)+'</div><div class="d">Scenario A '+fmt(a)+' · '+delta(a-b)+'<br>Scenario B '+fmt(c)+' · '+delta(c-b)+'</div><div class="bar"><i style="width:'+Math.max(0,Math.min(100,b*100))+'%"></i></div></div>'}).join('')+'</div><div class="compare"><table><thead><tr><th>Output</th><th>Baseline</th><th>Scenario A</th><th>Δ vs baseline</th><th>Scenario B</th><th>Δ vs baseline</th></tr></thead><tbody>'+targets.map(t=>{const b=Number(base[t].p),a=Number(results[1][t].p),c=Number(results[2][t].p);return '<tr><td><strong>'+t+'</strong></td><td>'+fmt(b)+'</td><td>'+fmt(a)+'</td><td class="'+deltaClass(a-b)+'">'+signed(a-b)+'</td><td>'+fmt(c)+'</td><td class="'+deltaClass(c-b)+'">'+signed(c-b)+'</td></tr>'}).join('')+'</tbody></table></div><div class="notice" style="margin-top:12px">All 12 displayed values above are returned by the model API. Δ is an absolute probability difference in percentage points. It is not a causal effect, and the illustrative coronary view does not indicate measured stenosis.</div><details style="margin-top:12px"><summary style="cursor:pointer;color:var(--aqua)">Inspect run metadata and inputs</summary><pre class="cm-pre">'+esc(JSON.stringify({source:'/predict',createdAt:new Date().toISOString(),outputs:targets,baseline:profiles[0],scenarioA:profiles[1],scenarioB:profiles[2],model:base.model||null,explanation:base.explanation||null},null,2))+'</pre></details>';$('resultsArea').innerHTML=html;function delta(n){return signed(n)}function signed(n){const pp=n*100;return (pp>0?'+':'')+pp.toFixed(1)+' pp'}function deltaClass(n){return n>1e-9?'delta-pos':n< -1e-9?'delta-neg':''}}
+
+
+
+$('runCompare').addEventListener('click',async()=>{try{validateOverrides('a');validateOverrides('b');const profiles=[payload(),makeVariant('a'),makeVariant('b')];if(!Object.keys(profiles[0]).length&&!overrideState.a.length&&!overrideState.b.length)throw Error('Enter at least one baseline value or scenario override before running.');$('runCompare').disabled=true;$('exportRun').disabled=true;$('runStatus').textContent='Running three real prediction requests…';$('resultsArea').innerHTML='<div class="empty">Waiting for baseline, Scenario A and Scenario B predictions. Results appear only if all three requests succeed.</div>';const rs=await Promise.all(profiles.map(predict));lastRun={createdAt:new Date().toISOString(),source:'/predict',profiles,results:rs};renderResults(rs,profiles);$('exportRun').disabled=false;$('runStatus').textContent='Complete · 3/3 API predictions succeeded · '+new Date().toLocaleString();$('modelSource').textContent='Prediction source: live /predict API · '+(rs[0].model?Object.values(rs[0].model).join(', '):'estimator details not supplied');}catch(e){clearResults('Comparison not completed: '+e.message);$('runStatus').innerHTML='<span class="error">'+esc(e.message)+'</span>'}finally{$('runCompare').disabled=false}});
+
+
+
+document.querySelectorAll('[data-add]').forEach(btn=>btn.addEventListener('click',()=>{const k=btn.dataset.add;if(overrideState[k].length>=schema.length)return;const used=overrideState[k].map(x=>x.key);const u=schema.find(x=>!used.includes(inputKey(x)));if(!u)return;overrideState[k].push({key:inputKey(u),value:u.kind==='bin'?0:''});renderOverrides(k);clearResults('Scenario inputs changed. Run comparison again.')}));document.querySelectorAll('[data-clear]').forEach(btn=>btn.addEventListener('click',()=>{overrideState[btn.dataset.clear]=[];renderOverrides(btn.dataset.clear);clearResults('Scenario inputs changed. Run comparison again.')}));$('loadExample').addEventListener('click',()=>{const examples={age:58,sex:1,bmi:27.4,dm:1,htn:1,smoker:0,fh:0,dlp:1,bp:138,pr:78,cp:0,dysp:0,ste:0,std:0,ti:0,lvh:0,qw:0,fbs:112,ldl:118,hdl:43,tg:165,cr:1,ef:55,rwma:0};schema.forEach(u=>{const el=$('base-'+inputKey(u));if(el&&examples[inputKey(u)]!==undefined)el.value=examples[inputKey(u)]});updateCount();clearResults('Illustrative inputs loaded. Review or edit them before running the model.');$('runStatus').textContent='Illustrative example loaded; no prediction has been made yet.'});$('clearBaseline').addEventListener('click',()=>{schema.forEach(u=>{const el=$('base-'+inputKey(u));if(el)el.value=''});updateCount();clearResults('Baseline cleared.');$('runStatus').textContent='Baseline cleared.'});$('resetRun').addEventListener('click',()=>{clearResults('Results reset.');$('runStatus').textContent='No comparison run yet.'});$('exportRun').addEventListener('click',()=>{if(!lastRun)return;const blob=new Blob([JSON.stringify(lastRun,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='cardiomap-digital-twin-run-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();URL.revokeObjectURL(url)});
+
+
+
+/* Shared anatomy persistence with /app. The last uploaded male/female GLB is
+
+   stored in IndexedDB so the Digital Twin Lab renders the exact same anatomy
+
+   instead of a different placeholder model. */
+
+const CM_ANATOMY_DB="cardiomap-anatomy-v1";
+
+function cmOpenAnatomyDB(){return new Promise((resolve,reject)=>{try{const q=indexedDB.open(CM_ANATOMY_DB,1);q.onupgradeneeded=()=>{if(!q.result.objectStoreNames.contains("models"))q.result.createObjectStore("models",{keyPath:"variant"})};q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)}catch(e){reject(e)}})}
+
+async function cmReadAnatomy(){try{const db=await cmOpenAnatomyDB();const rows=await new Promise((resolve,reject)=>{const tx=db.transaction("models","readonly"),q=tx.objectStore("models").getAll();q.onsuccess=()=>resolve(q.result||[]);q.onerror=()=>reject(q.error)});db.close();return rows}catch(e){console.warn("Could not restore anatomy model:",e);return []}}
+
+async function cmSaveAnatomy(variant,name,type,data){try{const db=await cmOpenAnatomyDB();await new Promise((resolve,reject)=>{const tx=db.transaction("models","readwrite");tx.objectStore("models").put({variant,name,type,data,updatedAt:Date.now()});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}catch(e){console.warn("Could not persist anatomy model:",e)}}
+
+async function cmPurgeOtherFormats(keep){try{const db=await cmOpenAnatomyDB();await new Promise((resolve,reject)=>{const tx=db.transaction("models","readwrite"),st=tx.objectStore("models"),q=st.getAll();q.onsuccess=()=>{(q.result||[]).forEach(r=>{if(String(r.type).toLowerCase()!==keep)st.delete(r.variant)})};tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}catch(e){console.warn("Could not clean stored anatomy:",e)}}
+function cmOneFormat(rows){if(!rows||!rows.length)return [];const latest=rows.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0))[0],t=String(latest.type).toLowerCase();return rows.filter(r=>String(r.type).toLowerCase()===t)}
+function anatomyVariantForName(name){const n=String(name||"").toLowerCase();if(/(^|[_-])f([_-]|\.)|female|vh_f/.test(n))return "female";if(/(^|[_-])m([_-]|\.)|male|vh_m/.test(n))return "male";return "generic"}
+
+
+
+// Standalone Digital Twin renderer: no dashboard iframe is used.
+
+const Twin = (() => {
+
+  const cv = $('cv');
+
+  const R = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true});
+
+  R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R.setClearColor(0x071522,0);
+
+  const S = new THREE.Scene();
+
+  const C = new THREE.PerspectiveCamera(40,1,.1,50);
+
+  const G = new THREE.Group(), AG = new THREE.Group();
+
+  const A = {};
+
+  let heart = null, anat = null, isolatedVessel = false, sel = "CAD";
+  const anatVariants = {male:null,female:null,generic:null};
+
+  let dn = false, mv = 0, lx = 0, ly = 0, tx = 0, ty = 0;
+
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+
+  C.position.set(0,0,5.4);
+
+  S.add(new THREE.HemisphereLight(0xc9d4ff,0x402060,1.1));
+
+  const dl = new THREE.DirectionalLight(0xffffff,1.2);
+
+  dl.position.set(3,4,6); S.add(dl); S.add(G); G.add(AG);
+
+
+
+  const sh = new THREE.Shape();
+
+  sh.moveTo(25,25); sh.bezierCurveTo(25,25,20,0,0,0);
+
+  sh.bezierCurveTo(-30,0,-30,35,-30,35); sh.bezierCurveTo(-30,55,-10,77,25,95);
+
+  sh.bezierCurveTo(60,77,80,55,80,35); sh.bezierCurveTo(80,35,80,0,50,0);
+
+  sh.bezierCurveTo(35,0,25,25,25,25);
+
+  const hg = new THREE.ExtrudeGeometry(sh,{depth:30,bevelEnabled:true,bevelThickness:14,bevelSize:10,bevelSegments:8});
+
+  hg.center();
+
+  heart = new THREE.Mesh(hg,new THREE.MeshStandardMaterial({color:0x7c4fd0,roughness:.45,transparent:true,opacity:.9}));
+
+  heart.scale.setScalar(.03); heart.rotation.z=Math.PI; G.add(heart);
+
+  const ao = new THREE.Mesh(new THREE.CylinderGeometry(.28,.3,1,24),new THREE.MeshStandardMaterial({color:0x5a6fe0,roughness:.5}));
+
+  ao.position.set(.1,1.75,0); ao.rotation.z=-.15; heart.userData.ao=ao; G.add(ao);
+
+
+
+  const VC={LAD:0xff6685,LCX:0x53c9ff,RCA:0xb59aff};
+
+/* Exact Dashboard-aligned canonical coronary guide paths.
+   Illustrative only; not patient-specific coronary anatomy. */
+const P={
+  LAD:[[.08,1.00],[.06,.78],[.035,.56],[.015,.32],[-.01,.08],[-.025,-.18],[-.015,-.45],[.015,-.72],[.045,-.98],[.06,-1.17]],
+  LCX:[[.20,.91],[.43,.92],[.66,.86],[.86,.75],[1.02,.60],[1.12,.42],[1.18,.22],[1.18,.02]],
+  RCA:[[-.20,.90],[-.42,.87],[-.63,.80],[-.82,.68],[-.97,.53],[-1.08,.34],[-1.14,.12],[-1.13,-.10],[-1.05,-.31],[-.92,-.50]]
+};
+
+function coronarySurfacePoint(x,y){
+  if(!anat)return new THREE.Vector3(x,y,.72);
+  const meshes=[];anat.traverse(o=>{if(o.isMesh&&o.visible)meshes.push(o)});
+  if(!meshes.length)return new THREE.Vector3(x,y,.72);
+  anat.updateMatrixWorld(true);G.updateMatrixWorld(true);
+  const invG=new THREE.Matrix4().copy(G.matrixWorld).invert();
+  const gQuat=G.getWorldQuaternion(new THREE.Quaternion());
+  const ray=new THREE.Raycaster();
+  const tryRay=(z,dir)=>{
+    const origin=new THREE.Vector3(x,y,z).applyMatrix4(G.matrixWorld);
+    const direction=dir.clone().applyQuaternion(gQuat).normalize();
+    ray.set(origin,direction);
+    const hits=ray.intersectObjects(meshes,true);
+    if(!hits.length)return null;
+    const p=hits[0].point.clone();p.add(direction.clone().multiplyScalar(-.035));
+    return p.applyMatrix4(invG);
+  };
+  const hit=tryRay(6,new THREE.Vector3(0,0,-1))||tryRay(-6,new THREE.Vector3(0,0,1));
+  if(hit)return hit;
+  /* Both rays missed (guide anchor lies just outside this heart's silhouette): snap to the nearest real surface
+     vertex instead of leaving the tube floating in space at a fixed depth. */
+  try{
+    const sd=cmSurfData();
+    if(sd){
+      const i=cmSurfFront(sd,x,y,.12);
+      if(i>=0){const n=cmSurfNormal(sd,i);return new THREE.Vector3(sd.pos[i*3],sd.pos[i*3+1],sd.pos[i*3+2]).add(n.multiplyScalar(.035))}
+    }
+  }catch(e){}
+  return new THREE.Vector3(x,y,.72);
+}
+
+function setLbl(sp,t,on){const c=sp.userData.c,x=c.getContext("2d"),W=c.width,H=c.height,col="#"+VC[t].toString(16).padStart(6,"0");
+ x.clearRect(0,0,W,H);const l=8,tp=12,w=W-16,h=H-24,r=22;x.beginPath();x.moveTo(l+r,tp);x.arcTo(l+w,tp,l+w,tp+h,r);x.arcTo(l+w,tp+h,l,tp+h,r);x.arcTo(l,tp+h,l,tp,r);x.arcTo(l,tp,l+w,tp,r);x.closePath();
+ x.fillStyle=on?"#ffffff":"rgba(8,20,44,.88)";x.fill();x.lineWidth=4;x.strokeStyle=col;x.stroke();
+ x.beginPath();x.arc(46,H/2,11,0,7);x.fillStyle=col;x.fill();x.fillStyle=on?"#071428":"#fff";x.font="700 42px Inter,Sora,sans-serif";x.textAlign="left";x.textBaseline="middle";x.fillText(t,76,H/2+2);
+ sp.material.map.needsUpdate=true}
+const setLabel=setLbl;
+/* Tapered coronary tube: wide at the aortic root, fine at the distal tip. */
+function cmTube(curve,seg,rad,r0,r1,mat){
+ const fr=curve.computeFrenetFrames(seg,false),pos=[],idx=[];
+ for(let i=0;i<=seg;i++){const u=i/seg,p=curve.getPointAt(u),r=r0+(r1-r0)*Math.pow(u,.85),N=fr.normals[i],B=fr.binormals[i];
+  for(let j=0;j<rad;j++){const a=j/rad*Math.PI*2,c=Math.cos(a)*r,s=Math.sin(a)*r;pos.push(p.x+c*N.x+s*B.x,p.y+c*N.y+s*B.y,p.z+c*N.z+s*B.z)}}
+ for(let i=0;i<seg;i++)for(let j=0;j<rad;j++){const a=i*rad+j,b=i*rad+(j+1)%rad,c=a+rad,d=b+rad;idx.push(a,c,b,b,c,d)}
+ const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
+ const m=new THREE.Mesh(g,mat);
+ [[curve.getPointAt(0),r0],[curve.getPointAt(1),r1]].forEach(e=>{const s=new THREE.Mesh(new THREE.SphereGeometry(e[1],14,10),mat);s.position.copy(e[0]);m.add(s)});
+ return m}
+/* Dense, smoothed surface-following path: sample the anchor curve finely, project every sample onto the anatomy, then relax. */
+function cmSurfaceCurve(anchors,n){
+ const c2=new THREE.CatmullRomCurve3(anchors.map(a=>new THREE.Vector3(a[0],a[1],0)),false,"centripetal");
+ let q=c2.getPoints(n).map(p=>coronarySurfacePoint(p.x,p.y));
+ for(let k=0;k<3;k++)q=q.map((p,i)=>i===0||i===q.length-1?p:q[i-1].clone().multiplyScalar(.25).add(p.clone().multiplyScalar(.5)).add(q[i+1].clone().multiplyScalar(.25)));
+ return new THREE.CatmullRomCurve3(q,false,"centripetal")}
+const CM_BR={LAD:[[.04,.56],[.26,.50],[.46,.35]],LCX:[[.86,.75],[.94,.52],[.97,.28]],RCA:[[-1.08,.34],[-.90,.16],[-.76,-.04]]};
+function rebuildCoronaryOverlay(){
+ while(AG.children.length)AG.remove(AG.children[0]);
+ Object.keys(A).forEach(k=>delete A[k]);
+ for(const t in P){
+  const curve=cmSurfaceCurve(P[t],48),pts=curve.getPoints(2),
+   mat=new THREE.MeshStandardMaterial({color:VC[t],emissive:VC[t],emissiveIntensity:.14,roughness:.28,metalness:.05,transparent:true,opacity:.92,depthWrite:false,depthTest:true,side:THREE.DoubleSide});
+  const m=cmTube(curve,96,14,.066,.032,mat);
+  const br=cmTube(cmSurfaceCurve(CM_BR[t],20),40,10,.036,.016,mat);m.add(br);
+  const c=document.createElement("canvas");c.width=300;c.height=104;
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false,depthWrite:false,transparent:true}));
+  sp.userData.c=c;sp.scale.set(.64,.22,1);
+  const e=curve.getPointAt(1),off={LAD:new THREE.Vector3(.24,-.18,.12),LCX:new THREE.Vector3(.30,.13,.12),RCA:new THREE.Vector3(-.30,.12,.12)}[t],lp=e.clone().add(off);
+  sp.position.copy(lp);
+  const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([e,lp]),new THREE.LineBasicMaterial({color:VC[t],transparent:true,opacity:.9,depthTest:false}));
+  const dots=[0,1,2,3].map(()=>new THREE.Mesh(new THREE.SphereGeometry(.026,10,8),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.85})));
+  dots.forEach(d=>AG.add(d));
+  m.userData.sp=sp;m.userData.connector=line;m.userData.baseOpacity=.92;m.userData.baseColor=VC[t];m.userData.flow={curve,dots};m.userData.curve=curve;m.userData.coreR0=.066;m.userData.coreR1=.032;m.userData.halo=null;
+  AG.add(m,line,sp);A[t]=m;setLbl(sp,t,false);
+ }
+ paint();
+}
+/* Blood-flow glints along each pipe + a soft pulse on the selected vessel (static under reduced motion). */
+function cmFlow(A,time,selId,still){
+ for(const t in A){const m=A[t],f=m.userData.flow;if(!f)continue;const vis=m.material.opacity>.3;
+  f.dots.forEach((d,i)=>{d.visible=vis&&!still;if(d.visible)d.position.copy(f.curve.getPointAt((time*.16+i/f.dots.length)%1))});
+  if(!still&&t===selId)m.material.emissiveIntensity=.62+.2*Math.sin(time*3.2)}}
+
+function scheduleCoronaryRebuild(){if(!anat)return;requestAnimationFrame(()=>rebuildCoronaryOverlay());}
+
+
+function paint(){
+
+    Object.keys(A).forEach(t=>{
+
+      const mesh=A[t], mat=mesh.material, on=t===sel;
+
+      mat.color.set(VC[t]);mat.emissive.set(VC[t]);mat.emissiveIntensity=on?.72:.08;
+
+      mat.opacity=isolatedVessel?(on?1:.08):(on?1:mesh.userData.baseOpacity);
+
+      mat.transparent=true;mat.needsUpdate=true;
+
+      if(mesh.userData.halo)mesh.userData.halo.visible=haloEnabled&&(!isolatedVessel||on)&&!!vesselInterval(t);
+
+      mesh.userData.sp.visible=!isolatedVessel||on;setLabel(mesh.userData.sp,t,on);
+
+    });
+
+    if(heart&&heart.material){heart.material.transparent=true;heart.material.opacity=isolatedVessel?.13:.9;heart.material.needsUpdate=true}
+
+    if(heart&&heart.userData.ao){heart.userData.ao.material.transparent=isolatedVessel;heart.userData.ao.material.opacity=isolatedVessel?.16:1;heart.userData.ao.material.needsUpdate=true}
+
+    const iso=$("toggleIsolation"); iso.disabled=!hasV(); iso.querySelector(".lbl").textContent=isolatedVessel?"Exit isolation":"Isolate vessel"; iso.setAttribute("aria-pressed",String(isolatedVessel));
+
+    $("restoreHeart").disabled=!isolatedVessel;
+    if(window.cmTwinAfterPaint)cmTwinAfterPaint();
+
+    document.querySelectorAll("[data-vessel-select]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.vesselSelect===sel)));
+
+    $("twinSelection").textContent=hasV()?sel+" selected · schematic coronary path highlighted.":"Select LAD, LCX, or RCA to highlight the schematic coronary path.";
+
+  }
+
+  document.querySelectorAll("[data-vessel-select]").forEach(b=>b.addEventListener("click",()=>{sel=(sel===b.dataset.vesselSelect)?"CAD":b.dataset.vesselSelect;paint()}));
+
+  $("toggleIsolation").onclick=()=>{if(!hasV())return;isolatedVessel=!isolatedVessel;paint()};
+
+  $("restoreHeart").onclick=()=>{isolatedVessel=false;camReset();paint()};
+
+  function fit(){const w=Math.max(1,cv.clientWidth),h=Math.max(1,cv.clientHeight);R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix()}
+
+  new ResizeObserver(fit).observe(cv);
+
+
+
+  cv.onpointerdown=e=>{dn=true;mv=0;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId)};
+
+  cv.onpointermove=e=>{
+
+    if(!dn){
+
+      const r=cv.getBoundingClientRect(),rc=new THREE.Raycaster();
+
+      rc.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),C);
+
+      cv.style.cursor=(window.cmSliceFilter?cmSliceFilter(rc.intersectObjects(Object.values(A))):rc.intersectObjects(Object.values(A))).length?"pointer":"grab"; return;
+
+    }
+
+    mv+=Math.abs(e.clientX-lx)+Math.abs(e.clientY-ly);ty+=(e.clientX-lx)*.01;tx+=(e.clientY-ly)*.01;lx=e.clientX;ly=e.clientY;
+
+  };
+
+  cv.onpointerup=e=>{
+
+    dn=false;if(mv>=5)return;
+
+    const r=cv.getBoundingClientRect(),rc=new THREE.Raycaster();
+
+    rc.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),C);
+
+    const hits=rc.intersectObjects(Object.values(A)),hit=(window.cmSliceFilter?cmSliceFilter(hits):hits)[0];if(hit){sel=Object.keys(A).find(k=>A[k]===hit.object);paint()}
+
+  };
+
+  cv.addEventListener("wheel",e=>{e.preventDefault();C.position.z=Math.min(12,Math.max(3.5,C.position.z+e.deltaY*.005))},{passive:false});
+
+  function camReset(){tx=0;ty=0;C.position.z=6.5}
+
+  $("rc").onclick=()=>{camReset();paint()};
+
+  cv.onkeydown=e=>{const k=e.key;if(k=="ArrowLeft")ty-=.1;else if(k=="ArrowRight")ty+=.1;else if(k=="ArrowUp")tx-=.1;else if(k=="ArrowDown")tx+=.1;else if(k=="+"||k=="=")C.position.z=Math.max(3.5,C.position.z-.4);else if(k=="-")C.position.z=Math.min(12,C.position.z+.4);else if(k=="Home")camReset();else return;e.preventDefault()};
+
+
+
+  let anatFormat=null; /* "glb" | "gltf" | "obj": format of the loaded file(s); the other sex's heart is auto-loaded in the SAME format */
+  async function loadAnatomyEntries(entries, preferredVariant, keepFormat){
+    /* One format per load. Loading .glb / .gltf / .obj files starts a fresh male+female set in THAT format, so hearts cached from another format are never reused. */
+    if(entries&&entries.length&&!keepFormat){
+      const fmt=e=>{const t=String(e.type||e.name.split(".").pop()).toLowerCase();return /^(glb|gltf|obj)$/.test(t)?t:null};
+      const f0=fmt(entries[0]);
+      if(f0){entries=entries.filter(e=>fmt(e)===f0);if(anatFormat&&anatFormat!==f0){anatVariants.male=anatVariants.female=anatVariants.generic=null}anatFormat=f0}
+    }
+
+    const grpByVariant=anatVariants;
+
+    for(const item of entries){
+
+      const variant=item.variant||anatomyVariantForName(item.name||"");
+
+      const grp=new THREE.Group();
+
+      const x=(item.type||item.name.split(".").pop()).toLowerCase();
+
+      if(x==="obj"){
+
+        const text=typeof item.data==="string"?item.data:new TextDecoder().decode(item.data);
+
+        const o=new THREE.OBJLoader().parse(text);
+
+        o.traverse(m=>{if(m.isMesh)m.material=new THREE.MeshStandardMaterial({color:0xd66a7a,roughness:.5,transparent:true,opacity:.92,side:THREE.DoubleSide})});
+
+        grp.add(o);
+
+      }else{
+
+        const b=item.data instanceof ArrayBuffer?item.data:item.data.buffer;
+
+        await new Promise((ok,no)=>new THREE.GLTFLoader().parse(b,"",g=>{grp.add(g.scene);ok()},no));
+
+      }
+
+      const w=new THREE.Group();
+      if(variant==="female"){
+        /* Female HRA heart shares the male world frame; register it onto the male heart (landmark fit + ICP). */
+        const kM=3.4/0.12435119;
+        w.add(grp);w.scale.setScalar(kM*0.858349);
+        w.quaternion.set(-0.083087,-0.085964,-0.082797,0.989369);
+        w.position.set(-2.70962,-9.84949,2.63184);
+      }else{
+        const bx=new THREE.Box3().setFromObject(grp),sz=bx.getSize(new THREE.Vector3()),ct=bx.getCenter(new THREE.Vector3());
+        const k=3.4/Math.max(sz.x,sz.y,sz.z);grp.position.sub(ct);w.add(grp);w.scale.setScalar(k);
+      }
+      grpByVariant[variant]=w;
+
+    }
+
+    const storedVariant=(()=>{try{return localStorage.getItem("cm-active-anatomy-variant")||localStorage.getItem("cm-anatomy-variant")}catch(_){return null}})();
+
+    const wanted=twinSexVariant()||preferredVariant||storedVariant||"male";
+
+    const actual=grpByVariant[wanted]?wanted:(grpByVariant.male?"male":(grpByVariant.female?"female":(grpByVariant.generic?"generic":null)));
+
+    const next=actual?grpByVariant[actual]:null;
+
+    if(!next)return false;
+
+    if(anat)G.remove(anat);anat=next;G.add(anat);heart.visible=false;heart.userData.ao.visible=false;
+
+    AG.scale.setScalar(.96);AG.position.set(0,0,0);$("as").value=".96";$("ay").value="0";$("az").value="0";
+
+    const asv=$("asValue"),ayv=$("ayValue"),azv=$("azValue");if(asv)asv.textContent="96%";if(ayv)ayv.textContent="0.00";if(azv)azv.textContent="0.00";scheduleCoronaryRebuild();
+
+    try{localStorage.setItem("cm-active-anatomy-variant",actual);localStorage.setItem("cm-anatomy-variant",actual)}catch(_){ }
+
+    $("anat").textContent="Same reference anatomy as the Dashboard: "+(actual==="male"?"Male":actual==="female"?"Female":"Custom")+". Coronary paths are illustrative guides; verify against an anatomical reference.";
+
+    $("ax").hidden=false;
+
+    return true;
+
+  }
+
+
+
+  $("file").onchange=async e=>{
+
+    const fs0=[...e.target.files];e.target.value="";if(!fs0.length)return;const ext0=n=>n.split(".").pop().toLowerCase();const fs=fs0.filter(f=>ext0(f.name)===ext0(fs0[0].name));
+
+    try{
+
+      const entries=[];
+
+      for(const f of fs){
+
+        const variant=anatomyVariantForName(f.name),x=f.name.split(".").pop().toLowerCase();
+
+        const data=x==="obj"?await f.text():await f.arrayBuffer();
+
+        entries.push({variant,name:f.name,type:x,data});
+
+        await cmSaveAnatomy(variant,f.name,x,data);
+
+      }
+
+      const preferred=entries.some(x=>x.variant==="male")?"male":entries.some(x=>x.variant==="female")?"female":"generic";
+
+      try{localStorage.setItem("cm-active-anatomy-variant",preferred);localStorage.setItem("cm-anatomy-variant",preferred)}catch(_){ }
+
+      await loadAnatomyEntries(entries,preferred);await cmPurgeOtherFormats(ext0(fs[0].name));
+      await syncAnatomyToSex(); /* auto-load the matching-sex heart in the same file format if only one sex was uploaded */
+
+    }catch(er){$("anat").textContent="Could not read that model file ("+(er.message||er)+"). Use .glb, .gltf or .obj."}
+
+  };
+
+
+
+  /* Restore the exact anatomy previously uploaded in /app. */
+
+  (async()=>{let rows=await cmReadAnatomy();rows=cmOneFormat(rows);if(rows.length){try{await loadAnatomyEntries(rows);await syncAnatomyToSex()}catch(e){console.warn("Saved anatomy could not be restored:",e)}}})();
+
+
+
+    /* Sex input -> matching reference heart (Female = 0, Male = 1; empty = not provided). */
+    function twinSexVariant(){const el=document.getElementById("base-sex");if(!el||el.value==="")return null;return el.value==="1"?"male":"female"}
+    const BUNDLED_HEARTS={male:{name:"VH_M_Heart.glb",urls:["/static/models/VH_M_Heart.glb","/static/models/VH_M_Heart.gltf","/static/models/VH_M_Heart.obj","https://github.com/hubmapconsortium/ccf-releases/raw/main/v1.2/models/VH_M_Heart.glb"]},female:{name:"VH_F_Heart.glb",urls:["/static/models/VH_F_Heart.glb","/static/models/VH_F_Heart.gltf","/static/models/VH_F_Heart.obj","https://github.com/hubmapconsortium/ccf-releases/raw/main/v1.2/models/VH_F_Heart.glb"]}};
+    async function fetchBundledHeart(variant){
+      const cfg=BUNDLED_HEARTS[variant];let res=null,lastErr=null,ext="glb",used=cfg.urls[0];
+      let urls=cfg.urls.slice();
+      if(anatFormat)urls=urls.filter(u=>u.split("?")[0].toLowerCase().endsWith("."+anatFormat));
+      urls=urls.flatMap(u=>u.startsWith("/static/")?[u,u.slice(1)]:[u]);
+      for(const url of urls){try{const r=await fetch(url,{cache:"force-cache"});if(r.ok){res=r;used=url;ext=url.split("?")[0].split(".").pop().toLowerCase();break}lastErr=new Error("HTTP "+r.status)}catch(e){lastErr=e}}
+      if(!res)throw lastErr||new Error("HRA heart unavailable.");
+      const name=used.split("/").pop().split("?")[0]||cfg.name;
+      return {variant,name,type:ext,data:ext==="obj"?await res.text():await res.arrayBuffer()};
+    }
+    let anatSyncSeq=0;
+    async function syncAnatomyToSex(){
+      const want=twinSexVariant();
+      if(!want||!anat)return; /* nothing to match, or the schematic heart is showing */
+      if(anat===anatVariants.generic&&!anatVariants.male&&!anatVariants.female)return; /* custom-named file: keep it */
+      const seq=++anatSyncSeq;
+      try{
+        if(anatVariants[want]){if(anat!==anatVariants[want])await loadAnatomyEntries([],want);return}
+        const item=await fetchBundledHeart(want); /* same format as the file(s) the person loaded */
+        if(seq!==anatSyncSeq||twinSexVariant()!==want)return;
+        await loadAnatomyEntries([item],want,true);
+      }catch(e){
+        console.warn("Could not switch heart to match Sex:",e);
+        if(seq===anatSyncSeq&&$("anat"))$("anat").textContent="Could not load the "+want+" heart in ."+(anatFormat||"glb")+" format from static/models ("+(e&&e.message||e)+"). Load the "+want+" file yourself with \u201cLoad anatomy\u201d.";
+      }
+    }
+    document.addEventListener("input",e=>{if(e.target&&e.target.id==="base-sex")syncAnatomyToSex()});
+    async function loadBundledHraHeart(){
+    try{
+      anatFormat=null;anatVariants.male=anatVariants.female=anatVariants.generic=null;const want=twinSexVariant()||"male";
+      const item=await fetchBundledHeart(want);
+      await cmSaveAnatomy(want,item.name,item.type,item.data);
+      await loadAnatomyEntries([item],want);
+      try{localStorage.setItem("cm-anatomy-source","HRA CC BY 4.0")}catch(_){}
+    }catch(e){
+      $("anat").textContent="HRA heart unavailable. Run: python scripts/download_anatomy_assets.py";
+    }
+  }
+  $("loadReference")?.addEventListener("click",loadBundledHraHeart);
+
+$("ax").onclick=()=>{if(anat){anat.rotation.x+=-Math.PI/2;AG.rotation.x+=-Math.PI/2}};
+
+  $("as").oninput=e=>{const x=+e.target.value;AG.scale.setScalar(x);const o=$("asValue");if(o)o.textContent=Math.round(x*100)+"%"};
+
+  $("ay").oninput=e=>{const x=+e.target.value;AG.position.y=x;const o=$("ayValue");if(o)o.textContent=x.toFixed(2)};
+
+  $("az").oninput=e=>{const x=+e.target.value;AG.position.z=x;const o=$("azValue");if(o)o.textContent=x.toFixed(2)};
+
+  
+  /* ===== Dashboard-parity layer: vessel picker, slicing, confidence halo, Why-Beams, territory map =====
+     Ported from the dashboard (index.html) so both pages behave the same. `res` is the baseline /predict response. */
+  const TG=["CAD","LAD","LCX","RCA"];
+  let res=null;
+  const src="api: backend model";
+  const hasV=()=>TG.slice(1).includes(sel);
+  const xOnline=()=>!!(res&&res.shap&&res.shap.targets);
+  const v={get rwma(){try{return payload().rwma}catch(_){return undefined}}};
+  const lvl=p=>p<.4?["●","Low","#3ddc97"]:p<.65?["◆","Moderate","#ffb84d"]:["▲","High","#ff5a6e"];
+  function syncSelectedVesselToParent(){}
+  function vesselInterval(target){
+    const iv=res&&res[target]&&res[target].interval;
+    return iv&&Number.isFinite(Number(iv.lo))&&Number.isFinite(Number(iv.hi))?iv:null;
+  }
+  let haloEnabled=true,haloFrame=null;try{haloEnabled=localStorage.getItem("cm-confidence-halo")!=="off"}catch(_){}
+  const VESSEL_INFO={LAD:{name:"Left Anterior Descending artery",description:"Educational overview: supplies the front of the heart. The displayed path is an illustrative guide, not patient-specific."},LCX:{name:"Left Circumflex artery",description:"Educational overview: travels around the left atrioventricular groove. The displayed path is an illustrative guide, not patient-specific."},RCA:{name:"Right Coronary Artery",description:"Educational overview: travels around the right atrioventricular groove. The displayed path is an illustrative guide, not patient-specific."}};
+  let _sd=null;
+function cmSurfData(){
+ if(!anat)return null;
+ if(_sd&&_sd.uuid===anat.uuid)return _sd;
+ G.updateMatrixWorld(true);
+ const inv=new THREE.Matrix4().copy(G.matrixWorld).invert(),mm=new THREE.Matrix4(),nm=new THREE.Matrix3(),v=new THREE.Vector3(),nv=new THREE.Vector3(),meshes=[];
+ anat.traverse(o=>{if(o.isMesh&&o.visible&&o.geometry&&o.geometry.attributes&&o.geometry.attributes.position)meshes.push(o)});
+ let total=0;meshes.forEach(o=>{total+=o.geometry.attributes.position.count});
+ if(!total)return null;
+ const stride=Math.max(1,Math.ceil(total/60000)),cap=Math.ceil(total/stride)+meshes.length+4;
+ const pos=new Float32Array(cap*3),nor=new Float32Array(cap*3);let n=0;
+ const mn=new THREE.Vector3(1e9,1e9,1e9),mx=new THREE.Vector3(-1e9,-1e9,-1e9);
+ meshes.forEach(o=>{
+  const pa=o.geometry.attributes.position,na=o.geometry.attributes.normal;
+  mm.multiplyMatrices(inv,o.matrixWorld);nm.getNormalMatrix(mm);
+  for(let i=0;i<pa.count;i+=stride){
+   v.set(pa.getX(i),pa.getY(i),pa.getZ(i)).applyMatrix4(mm);
+   if(na)nv.set(na.getX(i),na.getY(i),na.getZ(i)).applyMatrix3(nm).normalize();else nv.set(0,0,0);
+   pos[n*3]=v.x;pos[n*3+1]=v.y;pos[n*3+2]=v.z;nor[n*3]=nv.x;nor[n*3+1]=nv.y;nor[n*3+2]=nv.z;
+   mn.min(v);mx.max(v);n++;
+  }
+ });
+ const c=mn.clone().add(mx).multiplyScalar(.5),h=mx.clone().sub(mn).multiplyScalar(.5);
+ /* make sure normals point outward (some exports are inverted): vote against the centre */
+ let vote=0;for(let i=0;i<n;i+=7){vote+=nor[i*3]*(pos[i*3]-c.x)+nor[i*3+1]*(pos[i*3+1]-c.y)+nor[i*3+2]*(pos[i*3+2]-c.z)}
+ if(vote<0)for(let i=0;i<n*3;i++)nor[i]=-nor[i];
+ _sd={uuid:anat.uuid,pos,nor,n,c,h,S:Math.max(h.x,h.y,h.z)*2,anch:null};
+ return _sd;
+}
+function cmSurfNearest(sd,x,y,z){let b=1e30,bi=0;const p=sd.pos;for(let i=0;i<sd.n;i++){const dx=p[i*3]-x,dy=p[i*3+1]-y,dz=p[i*3+2]-z,d=dx*dx+dy*dy+dz*dz;if(d<b){b=d;bi=i}}return bi}
+/* front-most (largest z) surface vertex within radius r of (x,y) when seen from the canonical front; widens r until something is found */
+function cmSurfFront(sd,x,y,r){const p=sd.pos;for(let k=0;k<7;k++,r*=1.6){const r2=r*r;let bi=-1,bz=-1e30;for(let i=0;i<sd.n;i++){const dx=p[i*3]-x,dy=p[i*3+1]-y;if(dx*dx+dy*dy<=r2&&p[i*3+2]>bz){bz=p[i*3+2];bi=i}}if(bi>=0)return bi}return -1}
+function cmSurfNormal(sd,i){let nx=sd.nor[i*3],ny=sd.nor[i*3+1],nz=sd.nor[i*3+2];
+ if(nx*nx+ny*ny+nz*nz<.25){nx=sd.pos[i*3]-sd.c.x;ny=sd.pos[i*3+1]-sd.c.y;nz=sd.pos[i*3+2]-sd.c.z}
+ return new THREE.Vector3(nx,ny,nz).normalize()}
+/* >0 when a surface point with G-local normal n faces the camera */
+const _fcW=new THREE.Vector3(),_fcN=new THREE.Vector3();
+function cmFacing(pG,nG){_fcW.copy(pG).applyMatrix4(G.matrixWorld);_fcN.copy(nG).transformDirection(G.matrixWorld);return _fcN.dot(C.position.clone().sub(_fcW).normalize())}
+
+
+  function updateHaloControl(hasIntervals){
+  const b=$("haloToggle");if(!b)return;
+  b.disabled=false;
+  if(!hasIntervals){b.title="Runs a baseline prediction, then shows the model-variability halo";b.setAttribute("aria-pressed","false");}
+  else{b.title="Toggle the bootstrap model-variability halo";b.setAttribute("aria-pressed",String(haloEnabled));}
+}
+function disposeHalo(target){
+  const old=target&&target.userData&&target.userData.halo;if(!old)return;
+  target.remove(old);old.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material.dispose()}});
+  target.userData.halo=null;
+}
+/* Halo scale: interval width -> extra tube radius. Piecewise-linear through the model's own
+   width_cutoffs (narrow | moderate | wide), so the halo agrees with range_label; falls back to a linear
+   0-0.6 scale if cutoffs are absent. Extra radius 0.014 (narrowest) .. 0.15 (widest) on a vessel radius of
+   0.066 at the root / 0.032 distal => roughly 2.5x (root) to 4x (distal) between narrowest and widest. */
+const HALO_EXTRA_MIN=.014,HALO_EXTRA_MAX=.15,HALO_WIDE_CAP=.6;
+function haloScale(width,cutoffs){
+  const w=Math.max(0,Math.min(1,Number(width)||0));
+  const c1=cutoffs&&Number(cutoffs[0]),c2=cutoffs&&Number(cutoffs[1]);
+  let s;
+  if(Number.isFinite(c1)&&Number.isFinite(c2)&&c1>0&&c2>c1){
+    const top=Math.max(HALO_WIDE_CAP,c2+.1);
+    s=w<=c1?.3*(w/c1):w<=c2?.3+.3*(w-c1)/(c2-c1):.6+.4*Math.min(1,(w-c2)/(top-c2));
+  }else s=Math.min(1,w/HALO_WIDE_CAP);
+  return HALO_EXTRA_MIN+(HALO_EXTRA_MAX-HALO_EXTRA_MIN)*s;
+}
+function buildHalo(mesh,target,interval){
+  disposeHalo(mesh);
+  if(!haloEnabled||!interval)return;
+  if(!mesh||!mesh.userData||!mesh.userData.curve)return;
+  const extra=haloScale(interval.width,interval.width_cutoffs);
+  const color=VC[target],mat=new THREE.MeshBasicMaterial({color,transparent:true,opacity:.25,depthTest:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2,side:THREE.DoubleSide});
+  const group=new THREE.Group();group.renderOrder=3;
+  group.add(cmTube(mesh.userData.curve,48,8,.066+extra,.032+extra,mat));
+  group.add(cmTube(cmSurfaceCurve(CM_BR[target],20),20,8,.036+extra*.6,.016+extra*.6,mat));
+  group.traverse(o=>{o.renderOrder=3});
+  mesh.add(group);mesh.userData.halo=group;
+}
+function rebuildHaloMeshes(){
+  haloFrame=null;
+  if(!A||!Object.keys(A).length)return;
+  const hasIntervals=TG.slice(1).some(t=>vesselInterval(t));
+  if(!hasIntervals){Object.keys(A).forEach(t=>disposeHalo(A[t]));return;}
+  Object.keys(A).forEach(t=>{const iv=vesselInterval(t);buildHalo(A[t],t,iv);const h=A[t].userData.halo;if(h)h.visible=haloEnabled&&(!isolatedVessel||t===sel)});
+}
+function scheduleHaloRebuild(){
+  if(haloFrame!==null)return;
+  haloFrame=requestAnimationFrame(rebuildHaloMeshes);
+}
+async function toggleHalo(){
+  const st=$("haloStatus"),b=$("haloToggle");
+  if(!TG.slice(1).some(t=>vesselInterval(t))){
+    if(b.dataset.busy)return;b.dataset.busy="1";b.disabled=true;if(st)st.textContent="Running baseline prediction for the halo\u2026";
+    try{
+      const j=await predict(payload());
+      haloEnabled=true;try{localStorage.setItem("cm-confidence-halo","on")}catch(_){}
+      window.cmTwinSetResult(j);
+      if(st)st.textContent=TG.slice(1).some(t=>vesselInterval(t))?"Halo on: wider glow = wider model range. Not a clinical confidence interval.":"The model returned no uncertainty ranges for this input, so there is no halo to draw.";
+    }catch(e){if(st)st.textContent="Could not run the prediction: "+(e&&e.message?e.message:"API unavailable")}
+    finally{delete b.dataset.busy;b.disabled=false;updateHaloControl(TG.slice(1).some(t=>vesselInterval(t)))}
+    return;
+  }
+  haloEnabled=!haloEnabled;try{localStorage.setItem("cm-confidence-halo",haloEnabled?"on":"off")}catch(_){}
+  Object.keys(A).forEach(t=>{if(A[t].userData.halo)A[t].userData.halo.visible=haloEnabled&&(!isolatedVessel||t===sel)});
+  updateHaloControl(true);
+  const st2=$("haloStatus");if(st2)st2.textContent=haloEnabled?"Halo on: wider glow = wider model range.":"Halo off.";
+}
+
+  function updateVesselPanel(){
+  const hasVessel=TG.slice(1).includes(sel),badge=$("vesselSelectedBadge");
+  badge.textContent=hasVessel?sel+" selected":"CAD overview";
+  $("vesselFullName").textContent=hasVessel?VESSEL_INFO[sel].name:"Choose LAD, LCX, or RCA";
+  $("vesselDescription").textContent=hasVessel?VESSEL_INFO[sel].description:"Select a coronary artery in the schematic or use the buttons above.";
+  const item=hasVessel&&res&&res[sel]&&Number.isFinite(Number(res[sel].p))?res[sel]:null;
+  $("vesselEstimate").textContent=item?(Number(item.p)*100).toFixed(1)+"%":"Estimate unavailable";
+  $("vesselEstimateContext").textContent=item?("Existing "+sel+" model output · "+(src.startsWith("api")?"backend model":"exported browser model")):"Run a prediction and select a vessel to view its available estimate.";
+  const iv=item&&vesselInterval(sel),pct=x=>Math.round(Math.max(0,Math.min(1,Number(x)||0))*100);
+  $("vesselEstimateRange").textContent=iv?`Range ${pct(iv.lo)}-${pct(iv.hi)}% (${Math.round((iv.level||.8)*100)}% bootstrap) · ${iv.range_label||"model range"}`:(src==="export"?"Uncertainty ranges need the API":"Model range unavailable.");
+  if($("vesselLive"))$("vesselLive").textContent=iv&&item?`${sel}: ${pct(item.p)}% estimated probability; model range ${pct(iv.lo)}-${pct(iv.hi)}%, ${iv.range_label||"model range"}.`:hasVessel?`${sel}: range unavailable until the API responds.`:"";
+}
+
+  function setPickerButtons(){
+    const iso=$("pickIsolate"),rs=$("pickRestore");
+    if(iso){iso.disabled=!hasV();iso.setAttribute("aria-pressed",String(isolatedVessel));iso.textContent=isolatedVessel?"Exit isolation":"Isolate selected vessel"}
+    if(rs)rs.disabled=!isolatedVessel;
+  }
+  window.cmTwinAfterPaint=function(){
+    updateVesselPanel();setPickerButtons();
+    updateHaloControl(TG.slice(1).some(t=>vesselInterval(t)));scheduleHaloRebuild();
+    if(window.cmWhyPaint)cmWhyPaint();if(window.cmTerritoryPaint)cmTerritoryPaint();if(window.cmGlobalPaint)cmGlobalPaint();
+  };
+  $("haloToggle").onclick=toggleHalo;
+  $("pickIsolate").onclick=()=>$("toggleIsolation").click();
+  $("pickRestore").onclick=()=>$("restoreHeart").click();
+  let _tpT=0;
+  function cmTwinPubCase(){clearTimeout(_tpT);_tpT=setTimeout(()=>{try{if(!res||!res.CAD)return;localStorage.setItem("cm-case-twin",JSON.stringify({v:1,t:Date.now(),api:"",sel,ui:schema,vals:payload(),nm:[],res}))}catch(_){}},300)}
+  window.cmTwinSetResult=function(r){res=r||null;paint();if(res&&res.CAD)cmTwinPubCase();if(res)syncAnatomyToSex()};
+  window.cmTwinGetState=function(){return{sel:sel,res:res}};
+  window.cmTwinSetTarget=function(t){if(sel===t)return;sel=t;paint()};
+  /* Keep the embedded Signal Trace / Next-best-test current: predict for the baseline shortly after the inputs change. */
+  let _autoT=0,_autoN=0;
+  document.addEventListener("input",e=>{const id=e.target&&e.target.id;if(!id||id.indexOf("base-")!==0)return;clearTimeout(_autoT);
+    _autoT=setTimeout(async()=>{const p=payload();if(!Object.keys(p).length)return;const n=++_autoN;try{const j=await predict(p);if(n===_autoN){res=j;paint();cmTwinPubCase()}}catch(_){}},1200)});
+  /* ===== 3D cross-section slicing ===== */
+/* Axis convention (heart/G-local space, so the cut stays anatomical when the model is rotated):
+   +x = viewer's right (patient LEFT in the anterior view), +y = superior (base), -y = inferior (apex),
+   +z = anterior (toward the default camera), -z = posterior.
+   Short-axis  : plane normal = y   (perpendicular to the apex-base axis); 0% = apex, 100% = base.
+   Long-axis S-I: plane contains the S-I axis, normal = z; 0% = anterior, 100% = posterior (shows S-I x L-R extent).
+   Long-axis A-P: plane contains the S-I axis, normal = x; 0% = patient right, 100% = patient left (shows S-I x A-P extent).
+   The plane sweeps from the 0% end; the side it has already passed is cut away. "Flip side" keeps the other side.
+   Clipping: ONE global renderer clipping plane (R.clippingPlanes), so heart, vessels, halo, beams and labels
+   are all clipped, including materials created later. The cut face is shown with tinted back faces. */
+(function(){
+"use strict";
+var panel=document.getElementById("slicePanel");
+if(!panel)return;
+if(typeof THREE==="undefined"||typeof R==="undefined"||!R||!G||!S){panel.hidden=true;return;}
+panel.hidden=false;
+var $s=function(i){return document.getElementById(i)};
+var live=$s("sliceLive"),stage=$s("stage");
+var CFG={
+ short:{ax:"y",sign:1,lo:"Apex",hi:"Base",name:"short-axis",from:"apex",to:"base",vt:"Short-axis, %d percent from apex"},
+ longSI:{ax:"z",sign:-1,lo:"Anterior",hi:"Posterior",name:"long-axis (S\u2013I)",from:"anterior",to:"posterior",vt:"Long-axis S\u2013I, %d percent from anterior"},
+ longAP:{ax:"x",sign:1,lo:"Patient right",hi:"Patient left",name:"long-axis (A\u2013P)",from:"patient right",to:"patient left",vt:"Long-axis A\u2013P, %d percent from patient right"}
+};
+var mode="off",pct=50,flip=false;
+var box=new THREE.Box3(),tb=new THREE.Box3(),mm=new THREE.Matrix4(),invG=new THREE.Matrix4();
+var lp=new THREE.Plane(),wp=new THREE.Plane(),nrm=new THREE.Vector3(),pt=new THREE.Vector3(),zAx=new THREE.Vector3(0,0,1);
+var capMat=new THREE.MeshBasicMaterial({color:0xc97b86,side:THREE.BackSide});
+var caps=[],lastSig="",lastSrc=null;
+/* translucent plane indicator + outline, child of G so it rotates with the heart */
+var ind=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({color:0x4fd8ee,transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false}));
+ind.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(1,1)),new THREE.LineBasicMaterial({color:0x4fd8ee,transparent:true,opacity:.8})));
+ind.visible=false;ind.renderOrder=20;ind.userData.cmSliceIndicator=true;ind.raycast=function(){};G.add(ind);
+function src(){return(anat&&!heart.visible)?anat:heart}
+function sig(){var o=src();return(o===anat?1:0)+"|"+o.rotation.x+"|"+o.rotation.y+"|"+o.rotation.z+"|"+o.scale.x+"|"+o.position.x+o.position.y+o.position.z}
+function computeBox(){
+ var o=src();G.updateMatrix();G.matrixWorld.copy(G.matrix);o.updateMatrixWorld(true);invG.copy(G.matrix).invert();
+ box.makeEmpty();
+ o.traverse(function(m){
+  if(!m.isMesh||m.userData.cmSliceCap||!m.geometry)return;
+  if(!m.geometry.boundingBox)m.geometry.computeBoundingBox();
+  mm.multiplyMatrices(invG,m.matrixWorld);tb.copy(m.geometry.boundingBox).applyMatrix4(mm);box.union(tb);
+ });
+}
+function ensureCaps(o){
+ var list=[];
+ o.traverse(function(m){if(m.isMesh&&!m.isSkinnedMesh&&!m.userData.cmSliceCap&&!m.userData.cmCapDone)list.push(m)});
+ list.forEach(function(m){
+  m.userData.cmCapDone=true;
+  var mats=Array.isArray(m.material)?m.material:[m.material];
+  if(mats.some(function(x){return x&&x.side===THREE.DoubleSide}))return; /* double-sided meshes already show their interior */
+  var c=new THREE.Mesh(m.geometry,capMat);c.userData.cmSliceCap=true;c.raycast=function(){};c.renderOrder=m.renderOrder;
+  c.visible=mode!=="off";m.add(c);caps.push(c);
+ });
+}
+function setCaps(on){for(var i=0;i<caps.length;i++)caps[i].visible=on}
+/* A see-through single-sided heart would show the tinted back faces everywhere, so while slicing it is drawn opaque.
+   Isolate-vessel ghosting (updateVesselVisuals) wins: caps are hidden then. Re-checked each frame because paint() resets opacity. */
+function capMats(c){var m=c.parent;if(!m)return[];return(Array.isArray(m.material)?m.material:[m.material]).filter(Boolean)}
+function enforceOpaque(){
+ var iso=typeof isolatedVessel!=="undefined"&&!!isolatedVessel;
+ for(var i=0;i<caps.length;i++){
+  var c=caps[i];c.visible=!iso;var ms=capMats(c);
+  for(var j=0;j<ms.length;j++){var x=ms[j];
+   if(iso){if(x.userData.cmSliceSaved)delete x.userData.cmSliceSaved}
+   else if(x.transparent){if(!x.userData.cmSliceSaved)x.userData.cmSliceSaved={o:x.opacity};x.transparent=false;x.opacity=1}
+  }
+ }
+}
+function restoreOpaque(){
+ for(var i=0;i<caps.length;i++){var ms=capMats(caps[i]);
+  for(var j=0;j<ms.length;j++){var x=ms[j],sv=x.userData.cmSliceSaved;if(sv){x.transparent=true;x.opacity=sv.o;delete x.userData.cmSliceSaved}}}
+}
+/* the short-axis cut face points toward the removed side (apex side by default); tilt so it faces the camera */
+function faceCut(){
+ if(mode!=="short"||window.cmTourOn||typeof tx==="undefined")return;
+ tx=flip?.45:-.45;
+}
+function buildPlane(){
+ var c=CFG[mode],ax=c.ax,lo=box.min[ax],hi=box.max[ax],t=pct/100,pos;
+ /* lo..hi runs along +axis; slider 0% sits at the end named by c.from */
+ pos=c.sign>0?lo+t*(hi-lo):hi-t*(hi-lo);
+ nrm.set(0,0,0);nrm[ax]=c.sign*(flip?-1:1);
+ lp.setFromNormalAndCoplanarPoint(nrm,pt.set(0,0,0).setComponent("xyz".indexOf(ax),pos));
+ /* indicator: nudged slightly to the kept side so it is never clipped by its own plane */
+ var d=Math.max(box.max.x-box.min.x,box.max.y-box.min.y,box.max.z-box.min.z)*1.15||1;
+ ind.position.copy(nrm).multiplyScalar(-lp.constant+.004);
+ ind.quaternion.setFromUnitVectors(zAx,nrm);ind.scale.set(d,d,1);
+}
+function fmt(){return CFG[mode].vt.replace("%d",pct)}
+function ui(){
+ var on=mode!=="off";
+ Array.prototype.forEach.call($s("sliceOrient").querySelectorAll("button"),function(b){b.setAttribute("aria-pressed",b.dataset.slice===mode?"true":"false")});
+ var sl=$s("slicePos"),fb=$s("sliceFlip");
+ sl.disabled=!on;fb.disabled=!on;fb.setAttribute("aria-pressed",flip?"true":"false");
+ sl.value=pct;$s("sliceVal").textContent=pct+"%";
+ sl.setAttribute("aria-valuetext",on?fmt():"Slice off");
+ if(on){$s("sliceLo").textContent=CFG[mode].lo;$s("sliceHi").textContent=CFG[mode].hi}
+}
+function apply(){
+ if(mode==="off"){
+  R.clippingPlanes=[];R.localClippingEnabled=false;ind.visible=false;setCaps(false);restoreOpaque();lastSig="";
+ }else{
+  var o=src();ensureCaps(o);computeBox();buildPlane();lastSig=sig();lastSrc=o;
+  R.localClippingEnabled=true;R.clippingPlanes=[wp];wp.copy(lp).applyMatrix4(G.matrix);
+  ind.visible=true;setCaps(true);enforceOpaque();
+ }
+ ui();
+}
+function say(){
+ if(!live)return;
+ live.textContent=mode==="off"?"Slice off.":"Slice on: "+CFG[mode].name+" plane, "+pct+" percent from "+CFG[mode].from+" toward "+CFG[mode].to+"."+(flip?" Opposite side cut away.":"");
+}
+Array.prototype.forEach.call($s("sliceOrient").querySelectorAll("button"),function(b){
+ b.addEventListener("click",function(){var prev=mode;mode=b.dataset.slice;apply();if(mode!==prev)faceCut();say()});
+});
+$s("sliceFlip").addEventListener("click",function(){flip=!flip;apply();faceCut();say()});
+$s("slicePos").addEventListener("input",function(e){pct=+e.target.value;if(mode!=="off")apply()});
+$s("slicePos").addEventListener("change",function(){if(mode!=="off")say()});
+/* called each frame before render: no allocation, only refreshes the world-space plane and detects anatomy swaps */
+window.cmSliceFrame=function(){
+ if(mode==="off")return;
+ enforceOpaque();
+ if(src()!==lastSrc||sig()!==lastSig){apply();return}
+ G.updateMatrix();wp.copy(lp).applyMatrix4(G.matrix);
+};
+/* raycast helper: drop hits on geometry that is clipped away */
+window.cmSliceFilter=function(hits){
+ if(mode==="off")return hits;
+ return hits.filter(function(h){return wp.distanceToPoint(h.point)>=0});
+};
+window.cmSliceState=function(){return{mode:mode,pct:pct,flip:flip,planes:R.clippingPlanes.length,indicator:ind.visible,caps:caps.length}};
+if(typeof ResizeObserver!=="undefined"&&stage){new ResizeObserver(function(){stage.style.setProperty("--slice-h",panel.offsetHeight+"px")}).observe(panel)}
+ui();
+})();
+
+  /* ===== Why-Beams JavaScript ===== */
+/* WHY-BEAMS:DATA START */
+function cmWhyData(res,target,n){
+  n=n===undefined?5:n;
+  if(!res||!res.shap||!res.shap.targets)return[];
+  var tgt=res.shap.targets[target];
+  if(!tgt||!Array.isArray(tgt.records)||!tgt.records.length)return[];
+  var out=[];
+  for(var i=0;i<tgt.records.length;i++){
+    var r=tgt.records[i];
+    if(r.direction==="none")continue;
+    if(!(r.share_pct>0))continue;
+    out.push({rank:r.rank,label:r.label,display_value:r.display_value,share_pct:r.share_pct,direction:r.direction,value:r.value});
+  }
+  out.sort(function(a,b){return a.rank-b.rank;});
+  return out.slice(0,n);
+}
+/* WHY-BEAMS:DATA END */
+
+(function(){
+  /* --- state --- */
+  var whyOn=true;
+  try{whyOn=localStorage.getItem("cm-why-beams")!=="off"}catch(_){}
+  var _prevSel=null;
+  var _prevBeamEndX=null,_prevBeamEndY=null,_prevSig="",_builtAt=0;
+  /* layer rect cached on resize, never inside per-frame */
+  var _layerRect={left:0,top:0,width:1,height:1};
+
+  var whyLayer=$("whyLayer"),whySvg=$("whySvg"),whyHeader=$("whyHeader");
+  var whyTagsOl=document.querySelector("#whyTags ol"),whyCaption=$("whyCaption"),whyLive=$("whyLive");
+  var whyToggleBtn=$("whyToggle");
+
+  /* Colours reuse existing SHAP classes: pos=#ff6b7d, neg=#37c8ff */
+  var WHY_UP_COL="#ff6b7d",WHY_DOWN_COL="#37c8ff";
+
+  /* Fixed slot positions (relative, 0..1 of layer size) for up to 5 tags.
+     Rank 1,3,5 -> left column; rank 2,4 -> right column */
+  var SLOTS=[
+    {side:"L",cy:.27},{side:"R",cy:.27},  /* rank 1,2 */
+    {side:"L",cy:.49},{side:"R",cy:.55},  /* rank 3,4 */
+    {side:"L",cy:.71}                      /* rank 5 */
+  ];
+  var _whyStart=[]; /* beam start points, measured from the docked tags */
+
+  /* update toggle button state */
+  function _syncToggleBtn(){
+    var has=!!(res&&xOnline()&&cmWhyData(res,sel,1).length);
+    if(!has){
+      whyToggleBtn.disabled=true;
+      whyToggleBtn.title="Needs the API (SHAP)";
+      whyToggleBtn.setAttribute("aria-pressed","false");
+    }else{
+      whyToggleBtn.disabled=false;
+      whyToggleBtn.title="Show top model feature contributions on the 3D view";
+      whyToggleBtn.setAttribute("aria-pressed",String(whyOn));
+    }
+  }
+
+  /* Beam end points are FIXED points in the heart's own (G-local) space, so they rotate and scale with the
+     heart. Every frame they go local -> world (G.matrixWorld) -> screen (camera), which also tracks zoom. */
+  var _ANCH=[[-.34,.62,.50],[.34,.66,.48],[-.62,.22,.62],[.62,.18,.60],[-.40,-.26,.70]]; /* unit-ish dirs, front-biased */
+  var _lbox=null,_lkey="";
+  function _wTarget(){
+    var t=sel,m=(t!=="CAD")?A[t]:null;
+    if(m)return m;
+    return (anat&&!heart.visible)?anat:heart;
+  }
+  function _localBox(o){
+    /* bounding box of o expressed in G-local space (cached; recomputed only if the object or its transform changes) */
+    var key=o.uuid+"|"+o.position.x+","+o.position.y+","+o.position.z+"|"+o.scale.x+"|"+o.rotation.x+","+o.rotation.y+","+o.rotation.z+"|"+AG.scale.x+","+AG.position.x+","+AG.position.y+","+AG.position.z+"|"+AG.rotation.x;
+    if(_lbox&&key===_lkey)return _lbox;
+    G.updateMatrixWorld(true);
+    var inv=new THREE.Matrix4().copy(G.matrixWorld).invert(),box=new THREE.Box3(),tmp=new THREE.Box3(),mm=new THREE.Matrix4();
+    o.traverse(function(n){
+      if(!n.isMesh||!n.geometry||!n.visible)return;
+      if(!n.geometry.boundingBox)n.geometry.computeBoundingBox();
+      mm.multiplyMatrices(inv,n.matrixWorld);
+      tmp.copy(n.geometry.boundingBox).applyMatrix4(mm);box.union(tmp);
+    });
+    if(box.isEmpty())return null;
+    _lbox=box;_lkey=key;return box;
+  }
+  /* project the 5 anchors to layer pixels; .back = point is on the far side of the heart (drawn faded) */
+  function _beamEndpoints(){
+    /* the 3D canvas is NOT always at the layer's top-left (toolbar wraps / canvas margin), so map NDC -> canvas rect -> layer */
+    var cr=cv.getBoundingClientRect(),lr=whyLayer.getBoundingClientRect();
+    var ox=cr.left-lr.left,oy=cr.top-lr.top,cw0=cr.width||1,ch0=cr.height||1,out=[],i;
+    var o=_wTarget(),box=o&&_localBox(o);
+    if(!box){for(i=0;i<5;i++)out.push({x:ox+cw0/2,y:oy+ch0/2,back:false});return out}
+    var c=box.getCenter(new THREE.Vector3()),sz=box.getSize(new THREE.Vector3()).multiplyScalar(.5);
+    var cw=c.clone().applyMatrix4(G.matrixWorld),cd=cw.distanceTo(C.position);
+    var big=(o===heart||o===anat);  /* whole-heart target spreads the anchors; a single vessel uses its centre */
+    var sd=(big&&o===anat)?cmSurfData():null;
+    if(sd&&!sd.anch){sd.anch=_ANCH.map(function(d){
+      var j=cmSurfFront(sd,sd.c.x+d[0]*sd.h.x*.85,sd.c.y+d[1]*sd.h.y*.85,.1*sd.S);
+      if(j<0)return null;
+      var nrm=cmSurfNormal(sd,j);
+      return{p:new THREE.Vector3(sd.pos[j*3],sd.pos[j*3+1],sd.pos[j*3+2]).addScaledVector(nrm,.02),n:nrm}})}
+    G.updateMatrixWorld(true);
+    for(i=0;i<5;i++){
+      var d=_ANCH[i],w,back,an=sd&&sd.anch&&sd.anch[i];
+      if(an){w=an.p.clone().applyMatrix4(G.matrixWorld);back=cmFacing(an.p,an.n)<.08}
+      else{
+        var v=big?new THREE.Vector3(c.x+d[0]*sz.x,c.y+d[1]*sz.y,c.z+d[2]*sz.z):c.clone();
+        w=v.applyMatrix4(G.matrixWorld);back=w.distanceTo(C.position)>cd+.02*cd}
+      var pr=w.project(C),px=ox+(pr.x*.5+.5)*cw0,py=oy+(-.5*pr.y+.5)*ch0;
+      if(!isFinite(px)||!isFinite(py)){px=ox+cw0/2;py=oy+ch0/2;back=false}
+      out.push({x:px,y:py,back:back});
+    }
+    return out;
+  }
+
+  /* Update layer rect from the canvas */
+  function _updateLayerRect(){
+    var r=cv.getBoundingClientRect(),lr=whyLayer.getBoundingClientRect();
+    _layerRect={left:lr.left,top:lr.top,width:lr.width||cv.clientWidth,height:lr.height||cv.clientHeight};
+  }
+
+  /* Build tag HTML and SVG beams */
+  function cmWhyBuild(){
+    /* clear */
+    whyTagsOl.innerHTML="";_whyStart=[];
+    whySvg.innerHTML="";
+    whyHeader.hidden=true;
+    whyCaption.hidden=true;
+
+    var has=!!(res&&xOnline()&&cmWhyData(res,sel,1).length);
+    _syncToggleBtn();
+
+    if(!whyOn||!has){
+      whyLayer.hidden=true;
+      return;
+    }
+
+    var items=cmWhyData(res,sel,5);
+    if(!items.length){whyLayer.hidden=true;return;}
+
+    whyLayer.hidden=false;
+    whyCaption.hidden=false;
+
+    /* Header */
+    var p=res[sel]&&res[sel].p;
+    var iv=res[sel]&&res[sel].interval;
+    var pctStr=Number.isFinite(Number(p))?(Number(p)*100).toFixed(1)+"%":"–";
+    var hdrTarget=(sel==="CAD")?"CAD (overall)":sel;
+    var hdrTxt=hdrTarget+" "+pctStr;
+    if(iv&&Number.isFinite(Number(iv.lo))&&Number.isFinite(Number(iv.hi))){
+      var lo=Math.round(Number(iv.lo)*100),hi=Math.round(Number(iv.hi)*100);
+      hdrTxt+=" · range "+lo+"-"+hi+"% · "+(iv.range_label||"model range");
+    }
+    whyHeader.textContent=hdrTxt;
+    whyHeader.hidden=false;
+
+    /* update layer rect once here */
+    _updateLayerRect();
+    var layerW=_layerRect.width||1,layerH=_layerRect.height||1;
+
+    /* update SVG viewBox */
+    whySvg.setAttribute("viewBox","0 0 "+layerW+" "+layerH);
+
+    var eps=_beamEndpoints();
+    _prevBeamEndX=eps[0].x;_prevBeamEndY=eps[0].y;_prevSig="";_builtAt=performance.now();
+
+    var maxShare=0;
+    for(var i=0;i<items.length;i++)if(items[i].share_pct>maxShare)maxShare=items[i].share_pct;
+
+    /* build tags and beams */
+    for(var k=0;k<items.length;k++){
+      var item=items[k];
+      var slot=SLOTS[k]||SLOTS[0];
+      var sy=slot.cy*layerH,sx;
+
+      /* tag: docked to the left/right edge so it never drifts over the heart */
+      var li=document.createElement("li");
+      li.className="why-slot why-"+slot.side;
+      li.style.top=sy+"px";li.style.transform="translateY(-50%)";
+      if(slot.side==="R"){li.style.right="14px"}else{li.style.left="14px"}
+      var dirGlyph=item.direction==="up"?"▲":"▼";
+      var dirWord=item.direction==="up"?"raises":"lowers";
+      var ariaLbl=item.label+", "+item.display_value+", "+dirWord+" the estimate, "+item.share_pct.toFixed(0)+"% of total contribution";
+      var btn=document.createElement("button");
+      btn.type="button";
+      btn.className="why-tag";
+      btn.setAttribute("aria-label",ariaLbl);
+      btn.setAttribute("data-why-rank",item.rank);
+      var _m=_whyMeta(item.label);
+      btn.setAttribute("data-dir",item.direction);
+      btn.innerHTML='<span class="wt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+_WI[_m.i]+'"/></svg></span>'+
+        '<span class="wt-main"><span class="wt-lbl">'+_esc(item.label)+'</span><span class="wt-sub">'+_esc(_m.c)+' \u00b7 '+_esc(item.display_value)+'</span></span>'+
+        '<span class="wt-side"><span class="wt-dir '+item.direction+'" aria-hidden="true">'+dirGlyph+'</span><span class="wt-share">'+item.share_pct.toFixed(0)+'%</span></span>'+
+        '<span class="wt-bar" aria-hidden="true"><i style="width:'+Math.max(4,Math.min(100,item.share_pct)).toFixed(0)+'%"></i></span>';
+
+      /* click -> scroll to SHAP row */
+      (function(rankVal){
+        btn.addEventListener("click",function(){
+          location.href="/trust-center?rank="+encodeURIComponent(rankVal)+"#explainability-section";
+        });
+        btn.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();btn.click();}});
+      })(item.rank);
+
+      /* hover: highlight beam, dim others */
+      (function(idx2){
+        btn.addEventListener("mouseenter",function(){_highlightBeam(idx2);});
+        btn.addEventListener("focus",function(){_highlightBeam(idx2);});
+        btn.addEventListener("mouseleave",function(){_clearHighlight();});
+        btn.addEventListener("blur",function(){_clearHighlight();});
+      })(k);
+
+      li.appendChild(btn);
+      whyTagsOl.appendChild(li);
+      /* beam leaves from the tag's inner edge */
+      var tw=li.offsetWidth||120;
+      sx=slot.side==="R"?(layerW-14-tw):(14+tw);
+      _whyStart[k]={x:sx,y:sy};
+
+      /* SVG beam */
+      var sw=1.4+1.8*(maxShare>0?item.share_pct/maxShare:0);
+      var col=item.direction==="up"?WHY_UP_COL:WHY_DOWN_COL;
+      /* cubic bezier from slot centre to beam endpoint */
+      var ep=eps[k]||eps[0],bp=_beamPath(k,sx,sy,ep),d=bp.d;
+      var pathEl=document.createElementNS("http://www.w3.org/2000/svg","path");
+      pathEl.setAttribute("class","why-beam hi");
+      pathEl.setAttribute("d",d);
+      pathEl.setAttribute("stroke",col);
+      pathEl.setAttribute("stroke-width",sw.toFixed(2));
+      /* animated dash */
+      var pLen=Math.max(20,Math.sqrt(Math.pow(ep.x-sx,2)+Math.pow(ep.y-sy,2))*1.3);
+      pathEl.style.strokeDasharray=pLen.toFixed(0);
+      pathEl.style.strokeDashoffset=(-pLen).toFixed(0);
+      pathEl.setAttribute("data-why-beam-idx",k);
+      whySvg.appendChild(pathEl);
+      var dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+      dot.setAttribute("class","why-dot");dot.setAttribute("cx",bp.ex.toFixed(1));dot.setAttribute("cy",bp.ey.toFixed(1));dot.setAttribute("r","4");dot.setAttribute("fill",col);dot.setAttribute("data-why-dot-idx",k);
+      whySvg.appendChild(dot);
+    }
+
+    /* Update ol aria-label */
+    whyTagsOl.setAttribute("aria-label","Top model contributions for "+sel);
+  }
+
+  var _WI={heart:"M12 20s-7-4.4-8.6-9C2.400 8 4.200 5 7.200 5c1.800 0 3.200 1 4.800 2.800C13.600 6 15 5 16.800 5c3 0 4.800 3 3.800 6-1.600 4.600-8.600 9-8.600 9z",bars:"M5 20v-8M12 20V5M19 20v-5",pulse:"M3 12h4l2-6 4 12 2-6h6",drop:"M12 3s6 6.500 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z",note:"M7 4h10v16H7zM10 9h4M10 13h4M10 17h2",user:"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 3.500-6 8-6s8 2 8 6"};
+  function _whyMeta(label){var l=String(label||"").toLowerCase();
+    if(/chest pain|angina|dyspnea|breath|fatigue|symptom/.test(l))return{c:"Clinical symptom",i:"heart"};
+    if(/ejection|echo|rwma|wall motion|lvef|valve|ventric/.test(l))return{c:"Echocardiography",i:/rwma|wall/.test(l)?"pulse":"bars"};
+    if(/blood pressure|\bbp\b|heart rate|pulse|ecg|st seg|t wave|rhythm/.test(l))return{c:"ECG and vitals",i:"pulse"};
+    if(/glucose|cholesterol|ldl|hdl|triglycer|creatin|hemoglobin|lipid|lab|platelet|wbc|sodium|potassium/.test(l))return{c:"Laboratory value",i:"drop"};
+    if(/hypertension|diabetes|smok|family|history|dyslipid|obes/.test(l))return{c:"Medical history",i:"note"};
+    if(/\bage\b|\bsex\b|bmi|gender|weight|height/.test(l))return{c:"Demographics",i:"user"};
+    return{c:"Model feature",i:"pulse"}}
+  function _beamPath(k,sx,sy,ep){var ex=ep.x,ey=ep.y;
+    if(!isFinite(sx))sx=0;if(!isFinite(sy))sy=0;if(!isFinite(ex))ex=sx;if(!isFinite(ey))ey=sy;
+    var mx=(sx+ex)/2;
+    return{d:"M"+sx.toFixed(1)+","+sy.toFixed(1)+" C"+mx.toFixed(1)+","+sy.toFixed(1)+" "+mx.toFixed(1)+","+ey.toFixed(1)+" "+ex.toFixed(1)+","+ey.toFixed(1),ex:ex,ey:ey}}
+  function _esc(t){return String(t==null?"":t).replace(/[<>&"]/g,function(c){return({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"})[c]});}
+
+  function _highlightBeam(activeIdx){
+    var beams=whySvg.querySelectorAll(".why-beam");
+    beams.forEach(function(b,i){b.className.baseVal="why-beam "+(i===activeIdx?"hi":"dim");});whySvg.querySelectorAll(".why-dot").forEach(function(d,i){d.style.opacity=i===activeIdx?"1":".25"});
+  }
+  function _clearHighlight(){
+    var beams=whySvg.querySelectorAll(".why-beam");
+    beams.forEach(function(b){b.className.baseVal="why-beam hi";});whySvg.querySelectorAll(".why-dot").forEach(function(d){d.style.opacity=""});
+  }
+
+  /* Per-frame projection update: only touch DOM if endpoint moved >0.5px */
+  function cmWhyProject(){
+    if(!whyOn||whyLayer.hidden)return;
+    if(!res||!xOnline())return;
+    var eps=_beamEndpoints(),sig=eps.map(function(e){return Math.round(e.x*2)+","+Math.round(e.y*2)+(e.back?"b":"f")}).join("|");
+    if(sig===_prevSig)return;
+    _prevSig=sig;_prevBeamEndX=eps[0].x;_prevBeamEndY=eps[0].y;
+    var layerW=_layerRect.width||1,layerH=_layerRect.height||1;
+    var items=cmWhyData(res,sel,5);
+    var paths=whySvg.querySelectorAll(".why-beam");
+    for(var k=0;k<items.length;k++){
+      var st=_whyStart[k]||{x:layerW*.2,y:layerH*.4},ep=eps[k]||eps[0];
+      var bp=_beamPath(k,st.x,st.y,ep);
+      if(paths[k]){paths[k].style.opacity=ep.back?".12":"";paths[k].setAttribute("d",bp.d);if(performance.now()-_builtAt>1100){paths[k].style.strokeDasharray="none";paths[k].style.strokeDashoffset="0"}}
+      var dt=whySvg.querySelector('.why-dot[data-why-dot-idx="'+k+'"]');
+      if(dt){dt.setAttribute("cx",bp.ex.toFixed(1));dt.setAttribute("cy",bp.ey.toFixed(1));dt.setAttribute("r",ep.back?"3":"4");dt.setAttribute("data-back",ep.back?"1":"0")}
+    }
+  }
+
+  /* Announce on target change */
+  function cmWhyAnnounce(prevSel,newSel){
+    if(prevSel===newSel)return;
+    var items=cmWhyData(res,newSel,1);
+    if(!items.length){whyLive.textContent="";return;}
+    var item=items[0];
+    var dirWord=item.direction==="up"?"raises":"lowers";
+    whyLive.textContent=newSel+": top contribution "+item.label+", "+dirWord+", "+item.share_pct.toFixed(0)+"% of total contribution.";
+  }
+
+  /* Called from paint() */
+  window.cmWhyPaint=function(){
+    var prevSel=_prevSel;
+    cmWhyAnnounce(prevSel,sel);
+    _prevSel=sel;
+    _prevBeamEndX=null;_prevBeamEndY=null;_prevSig="";
+    cmWhyBuild();
+    _syncToggleBtn();
+  };
+
+  /* Called from render loop (per-frame, guarded) */
+  window.cmWhyProjectFrame=function(){
+    if(whyOn&&!whyLayer.hidden)cmWhyProject();
+  };
+
+  /* Resize: invalidate cached rect and rebuild */
+  var _whyResizeObs=new ResizeObserver(function(){
+    _updateLayerRect();
+    _prevBeamEndX=null;_prevBeamEndY=null;_prevSig="";
+    if(whyOn&&res&&xOnline())cmWhyBuild();
+  });
+  _whyResizeObs.observe(cv);
+
+  /* Toggle button */
+  whyToggleBtn.onclick=function(){
+    var has=!!(res&&xOnline()&&cmWhyData(res,sel,1).length);
+    if(!has)return;
+    whyOn=!whyOn;
+    try{localStorage.setItem("cm-why-beams",whyOn?"on":"off");}catch(_){}
+    _syncToggleBtn();
+    if(whyOn){_prevBeamEndX=null;_prevBeamEndY=null;_prevSig="";cmWhyBuild();}
+    else{whyLayer.hidden=true;}
+  };
+  whyToggleBtn.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();whyToggleBtn.click();}});
+
+  /* initial state */
+  _syncToggleBtn();
+})();
+
+
+  /* ===== Myocardial Territory Map JavaScript ===== */
+(function(){
+'use strict';
+var CM_SEGMENTS=[
+ {n:1,name:'Basal anterior',ring:'basal',vessel:'LAD',alt:null},
+ {n:2,name:'Basal anteroseptal',ring:'basal',vessel:'LAD',alt:null},
+ {n:3,name:'Basal inferoseptal',ring:'basal',vessel:'RCA',alt:null},
+ {n:4,name:'Basal inferior',ring:'basal',vessel:'RCA',alt:null},
+ {n:5,name:'Basal inferolateral',ring:'basal',vessel:'LCX',alt:'RCA'},
+ {n:6,name:'Basal anterolateral',ring:'basal',vessel:'LCX',alt:null},
+ {n:7,name:'Mid anterior',ring:'mid',vessel:'LAD',alt:null},
+ {n:8,name:'Mid anteroseptal',ring:'mid',vessel:'LAD',alt:null},
+ {n:9,name:'Mid inferoseptal',ring:'mid',vessel:'RCA',alt:null},
+ {n:10,name:'Mid inferior',ring:'mid',vessel:'RCA',alt:null},
+ {n:11,name:'Mid inferolateral',ring:'mid',vessel:'LCX',alt:'RCA'},
+ {n:12,name:'Mid anterolateral',ring:'mid',vessel:'LCX',alt:null},
+ {n:13,name:'Apical anterior',ring:'apical',vessel:'LAD',alt:null},
+ {n:14,name:'Apical septal',ring:'apical',vessel:'LAD',alt:null},
+ {n:15,name:'Apical inferior',ring:'apical',vessel:'RCA',alt:'LAD'},
+ {n:16,name:'Apical lateral',ring:'apical',vessel:'LCX',alt:'LAD'},
+ {n:17,name:'Apex',ring:'apex',vessel:'LAD',alt:['RCA','LCX']}
+];
+var TERR_VESSELS={LAD:{count:7},RCA:{count:5},LCX:{count:5}};
+var built=false,svg=null,tooltip=null,prevLiveSel=null,segNodes={},showAll=false;
+var VCOL=(function(){var c=(typeof VC!=='undefined'&&VC)||{LAD:0xff6685,LCX:0x53c9ff,RCA:0xb59aff},o={};Object.keys(c).forEach(function(k){o[k]='#'+('000000'+c[k].toString(16)).slice(-6)});return o})();
+function supplyList(s){return [s.vessel].concat(s.alt?(Array.isArray(s.alt)?s.alt:[s.alt]):[])}
+function patId(s){return 'cmTerrAll_'+supplyList(s).join('_')}
+var NS='http://www.w3.org/2000/svg';
+function el(id){return document.getElementById(id)}
+function esc(s){var d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+function clamp01(x){x=Number(x);return Number.isFinite(x)?Math.max(0,Math.min(1,x)):null}
+function pct(x){var n=clamp01(x);return n===null?'—':Math.round(n*100)+'%'}
+function ivFor(vessel){var item=res&&res[vessel];var iv=item&&item.interval;return iv&&Number.isFinite(Number(iv.lo))&&Number.isFinite(Number(iv.hi))?iv:null}
+function rangeText(vessel){var iv=ivFor(vessel);if(!iv)return 'Uncertainty ranges need the API';return 'Range '+Math.round(clamp01(iv.lo)*100)+'–'+pct(iv.hi)+' ('+Math.round((Number(iv.level)||.8)*100)+'% bootstrap) · '+(iv.range_label||'model range')}
+function levelText(vessel){var item=res&&res[vessel];var p=item&&clamp01(item.p);if(p===null)return 'Estimate unavailable';var q=lvl(p);return q[0]+' '+q[1]+' estimated probability'}
+function point(cx,cy,r,deg){var rad=deg*Math.PI/180;return [cx+r*Math.cos(rad),cy-r*Math.sin(rad)]}
+function arcPath(cx,cy,ro,ri,startDeg,endDeg){
+  var a0=point(cx,cy,ro,startDeg),a1=point(cx,cy,ro,endDeg),b1=point(cx,cy,ri,endDeg),b0=point(cx,cy,ri,startDeg);
+  var large=(endDeg-startDeg)>180?1:0;
+  return 'M '+a0[0].toFixed(2)+' '+a0[1].toFixed(2)+' A '+ro+' '+ro+' 0 '+large+' 0 '+a1[0].toFixed(2)+' '+a1[1].toFixed(2)+' L '+b1[0].toFixed(2)+' '+b1[1].toFixed(2)+' A '+ri+' '+ri+' 0 '+large+' 1 '+b0[0].toFixed(2)+' '+b0[1].toFixed(2)+' Z';
+}
+function centroidFor(s){
+  if(s.ring==='apex')return [160,160];
+  var ring=s.ring==='basal'?[100,140]:s.ring==='mid'?[62,100]:[26,62];
+  var r=(ring[0]+ring[1])/2, k=s.ring==='basal'?s.n:s.ring==='mid'?s.n-6:s.n-12;
+  var deg=s.ring==='apical'?[90,180,270,0][k-1]:90+60*(k-1);
+  return point(160,160,r,deg);
+}
+function pathFor(s){
+  if(s.ring==='apex')return null;
+  var ro=s.ring==='basal'?140:s.ring==='mid'?100:62,ri=s.ring==='basal'?100:s.ring==='mid'?62:26;
+  var k=s.ring==='basal'?s.n:s.ring==='mid'?s.n-6:s.n-12;
+  var center=s.ring==='apical'?[90,180,270,0][k-1]:(90+60*(k-1));
+  var gap=s.ring==='apical'?2.1:1.6;
+  return arcPath(160,160,ro,ri,center-(s.ring==='apical'?45:30)+gap,center+(s.ring==='apical'?45:30)-gap);
+}
+function setAttrs(node,attrs){Object.keys(attrs).forEach(function(k){node.setAttribute(k,attrs[k])})}
+function makeSeg(s){
+  var shape;
+  if(s.ring==='apex'){
+    shape=document.createElementNS(NS,'circle');setAttrs(shape,{cx:160,cy:160,r:26});shape.classList.add('terr-apex');
+  }else{
+    shape=document.createElementNS(NS,'path');setAttrs(shape,{d:pathFor(s)});shape.classList.add('terr-seg');
+  }
+  shape.dataset.seg=String(s.n);shape.dataset.vessel=s.vessel;shape.setAttribute('role','button');shape.setAttribute('tabindex','0');
+  if(s.alt)shape.classList.add('variable');
+  shape.addEventListener('click',function(){selectVessel(s.vessel)});
+  shape.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectVessel(s.vessel)}});
+  shape.addEventListener('mouseenter',function(){showTip(s,shape)});shape.addEventListener('focus',function(){showTip(s,shape)});
+  shape.addEventListener('mouseleave',hideTip);shape.addEventListener('blur',hideTip);
+  segNodes[s.n]=shape;svg.appendChild(shape);
+  var hatch=document.createElementNS(NS,'path');
+  if(s.ring==='apex')setAttrs(hatch,{d:'M 160 134 A 26 26 0 0 1 160 186 A 26 26 0 0 1 160 134 Z'});else setAttrs(hatch,{d:pathFor(s)});
+  hatch.classList.add('terr-hatch');hatch.dataset.hatchFor=s.n;hatch.setAttribute('fill','none');hatch.setAttribute('display','none');svg.appendChild(hatch);
+  var c=centroidFor(s),num=document.createElementNS(NS,'text');setAttrs(num,{x:c[0],y:c[1]+(s.ring==='apex'?-1:2),'text-anchor':'middle'});num.textContent=s.n;num.classList.add('terr-num');num.setAttribute('aria-hidden','true');svg.appendChild(num);
+  var vl=document.createElementNS(NS,'text');setAttrs(vl,{x:c[0],y:c[1]+(s.ring==='apex'?11:s.ring==='apical'?11:13),'text-anchor':'middle'});vl.textContent=s.vessel;vl.classList.add('terr-ves');vl.setAttribute('aria-hidden','true');vl.setAttribute('display','none');vl.dataset.vesFor=s.n;svg.appendChild(vl);
+  if(s.alt){var mark=document.createElementNS(NS,'text');setAttrs(mark,{x:c[0]+(s.n>=10?12:8),y:c[1]-4,'text-anchor':'middle'});mark.textContent='~';mark.classList.add('terr-var');mark.setAttribute('aria-hidden','true');svg.appendChild(mark)}
+}
+function setupSvg(){
+  svg=el('terrSvg');tooltip=el('terrTooltip');if(!svg||built)return;
+  built=true;svg.innerHTML='';
+  var defs=document.createElementNS(NS,'defs');
+  [['light',3],['dense',6]].forEach(function(p){var id='cmTerrHatch'+p[0],pat=document.createElementNS(NS,'pattern');setAttrs(pat,{id:id,width:p[1],height:p[1],patternUnits:'userSpaceOnUse',patternTransform:'rotate(30)'});var line=document.createElementNS(NS,'path');setAttrs(line,{d:'M 0 0 V '+p[1],stroke:'var(--muted)', 'stroke-width':1.2,'stroke-opacity':'.34'});pat.appendChild(line);defs.appendChild(pat)});
+  /* multi-vessel fills: solid = typical vessel; stripes add alternate supply (data: segment.alt). Built from the map's own CM_SEGMENTS data. */
+  var made={};CM_SEGMENTS.forEach(function(s){
+    var list=supplyList(s);if(list.length<2||made[patId(s)])return;made[patId(s)]=1;
+    var w=4,pat=document.createElementNS(NS,'pattern');setAttrs(pat,{id:patId(s),width:w*list.length,height:w*list.length,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
+    list.forEach(function(v,i){var r=document.createElementNS(NS,'rect');setAttrs(r,{x:i*w,y:0,width:w,height:w*list.length,fill:VCOL[v]});pat.appendChild(r);var sp=document.createElementNS(NS,'path');setAttrs(sp,{d:'M '+(i*w)+' 0 V '+(w*list.length),stroke:'#0b2a3a','stroke-width':1.1});pat.appendChild(sp)});
+    defs.appendChild(pat)});
+  svg.appendChild(defs);
+  CM_SEGMENTS.forEach(makeSeg);
+  [['A',160,9],['I',160,312],['S',10,164],['L',310,164]].forEach(function(x){var t=document.createElementNS(NS,'text');setAttrs(t,{x:x[1],y:x[2],'text-anchor':'middle'});t.textContent=x[0];t.classList.add('terr-edge');svg.appendChild(t)});
+  updateLegend();
+}
+function updateLegend(){
+  var box=el('terrLegend');if(!box)return;
+  function lv(p,range){var q=lvl(p);return '<div class="terr-legend-row"><span class="terr-swatch" style="background:'+q[2]+'"></span><span class="terr-legend-text"><b>'+q[0]+' '+q[1]+'</b><small>'+range+'</small></span></div>'}
+  function mk(cls,name,desc){return '<div class="terr-legend-row"><span class="terr-swatch '+cls+'"></span><span class="terr-legend-text"><b>'+name+'</b><small>'+desc+'</small></span></div>'}
+  if(showAll){
+    function vs(v,d){return '<div class="terr-legend-row"><span class="terr-swatch v-'+v+'"></span><span class="terr-legend-text"><b>'+v+'</b><small>'+d+'</small></span></div>'}
+    box.innerHTML='<div class="terr-legend-group"><span class="terr-legend-title">Typical supplying artery</span>'+vs('LAD','solid colour')+vs('LCX','solid colour')+vs('RCA','solid colour')+'</div>'+
+      '<div class="terr-legend-group"><span class="terr-legend-title">Shared supply (varies between patients)</span>'+
+      mk('v-mix2','Striped','typical artery + the artery that can also supply it (segments 5, 11, 15, 16)')+mk('v-mix3','Three stripes','apex: LAD typical, RCA or LCX possible (segment 17)')+mk('dash','Dashed outline','supply varies between patients')+'</div>'+
+      '<p class="terr-note">Colour here shows typical supply only. It does not show risk or any estimated probability.</p>';
+    return;
+  }
+  box.innerHTML=''+
+    '<div class="terr-legend-group"><span class="terr-legend-title">Estimated probability</span>'+lv(.2,'below 40%')+lv(.5,'40–64%')+lv(.8,'65% or more')+'</div>'+
+    '<div class="terr-legend-group"><span class="terr-legend-title">Model range &amp; supply</span>'+mk('hatch-light','Light hatch','moderate range')+mk('hatch-dense','Dense hatch','wide range')+mk('dash','Dashed outline','supply varies between patients')+'</div>';
+}
+function variableText(s){
+  if(!s.alt)return '';
+  var a=Array.isArray(s.alt)?s.alt.join(' or '):s.alt;
+  return ' Supply varies between patients (can also come from '+a+').';
+}
+function supplyText(s){var l=supplyList(s);return 'Segment '+s.n+', '+s.name+'. Typical supply: '+s.vessel+'.'+(l.length>1?' Can also be supplied by '+l.slice(1).join(' or ')+' in some patients.':' No common alternate supply.')+' Typical supply only, not a risk estimate.'}
+function describeSegment(s){
+  if(showAll)return supplyText(s);
+  var item=res&&res[s.vessel],p=item&&clamp01(item.p),base='Segment '+s.n+', '+s.name+'. Typical territory: '+s.vessel+'.';
+  if(p===null)return base+' Estimate unavailable.'+variableText(s);
+  return base+' '+s.vessel+' estimate '+pct(p)+', '+rangeText(s.vessel)+'.'+variableText(s);
+}
+function updateAria(){
+  var lines=['AHA 17-segment myocardial territory map. Anterior is top, inferior bottom, septal left, lateral right.'];
+  if(showAll){
+    lines=['Multi-vessel myocardial territory map \u2013 hover or focus on each region to see supplying arteries. Anterior is top, inferior bottom, septal left, lateral right. Colour shows the artery that typically supplies each segment; stripes mark segments that a second artery can also supply in some patients. This is typical supply only, not risk.'];
+    ['LAD','RCA','LCX'].forEach(function(v){var own=CM_SEGMENTS.filter(function(s){return s.vessel===v}).map(function(s){return s.n}),alt=CM_SEGMENTS.filter(function(s){return supplyList(s).slice(1).indexOf(v)>-1}).map(function(s){return s.n});lines.push(v+': typical supply segments '+own.join(', ')+(alt.length?'; can also supply segment'+(alt.length>1?'s ':' ')+alt.join(', '):'; no alternate segments')+'.')});
+    el('terrDesc').textContent=lines.join(' ');
+    CM_SEGMENTS.forEach(function(s){var n=segNodes[s.n];if(n)n.setAttribute('aria-label',describeSegment(s))});
+    return;
+  }
+  ['LAD','RCA','LCX'].forEach(function(vessel){var segs=CM_SEGMENTS.filter(function(s){return s.vessel===vessel});var item=res&&res[vessel],p=item&&clamp01(item.p);lines.push(vessel+': '+segs.length+' typical segments; '+(p===null?'estimate unavailable.':('estimated probability '+pct(p)+', '+rangeText(vessel)+'.')))});
+  el('terrDesc').textContent=lines.join(' ');
+  CM_SEGMENTS.forEach(function(s){var n=segNodes[s.n];if(n)n.setAttribute('aria-label',describeSegment(s))});
+}
+function paintHatch(s,node,iv){
+  var hatch=svg.querySelector('[data-hatch-for="'+s.n+'"]');if(!hatch)return;
+  var label=iv&&iv.range_label||'';
+  if(label==='moderate range'){hatch.setAttribute('fill','url(#cmTerrHatchlight)');hatch.setAttribute('display','block')}
+  else if(label==='wide range'){hatch.setAttribute('fill','url(#cmTerrHatchdense)');hatch.setAttribute('display','block')}
+  else hatch.setAttribute('display','none');
+  hatch.setAttribute('opacity','1');
+}
+function updateReadout(){
+  var vessel=TG.slice(1).includes(sel)?sel:'CAD';var item=res&&res[vessel];
+  if(showAll){
+    el('terrVessel').textContent=vessel==='CAD'?'All territories':vessel+' highlighted';el('terrLevel').textContent='\u25CF Typical supply only';el('terrLevel').style.color='var(--muted)';
+    el('terrRange').textContent=vessel==='CAD'?'Colour shows the artery that usually supplies each segment. Not a risk level.':'Segments this artery typically (or can alternatively) supply are highlighted.';
+  }else if(vessel==='CAD'){
+    el('terrVessel').textContent='CAD overview';el('terrLevel').textContent='● Overall estimate';el('terrRange').textContent=item&&clamp01(item.p)!==null?'Estimated probability '+pct(item.p)+' · All territories shown.':'Run a prediction to colour the territories.';
+  }else{
+    var p=item&&clamp01(item.p),q=p===null?null:lvl(p);el('terrVessel').textContent=vessel;el('terrLevel').textContent=q?q[0]+' '+q[1]+' estimated probability':'Estimate unavailable';el('terrLevel').style.color=q?q[2]:'var(--muted)';el('terrRange').textContent=p===null?'Estimate unavailable.':rangeText(vessel);
+  }
+  var rv=el('terrRwma');
+  var rw=v&&Number.isFinite(Number(v.rwma))?Number(v.rwma):null;
+  var why='<small>The dataset records how many regions, not which ones, so this is not placed on the map.</small>';
+  if(rw===null)rv.innerHTML='<b>RWMA:</b> not entered'+why;
+  else rv.innerHTML='<b>RWMA regions:</b> '+Math.max(0,Math.min(4,Math.round(rw)))+why;
+}
+function paintSegments(){
+  var hasPrediction=!!res, vesselSel=TG.slice(1).includes(sel)?sel:null;
+  CM_SEGMENTS.forEach(function(s){
+    var n=segNodes[s.n];if(!n)return;
+    var item=res&&res[s.vessel],p=item&&clamp01(item.p),q=p===null?null:lvl(p),iv=ivFor(s.vessel);
+    var sup=supplyList(s),inSel=!vesselSel||(showAll?sup.indexOf(vesselSel)>-1:s.vessel===vesselSel);
+    n.style.fill=q?q[2]:'var(--muted)';
+    n.style.opacity=inSel?'1':'.38';
+    n.classList.toggle('dim',!inSel);
+    n.classList.toggle('selected',!!vesselSel&&inSel);
+    if(!hasPrediction)n.style.fill='var(--muted)';
+    if(showAll)n.style.fill=sup.length>1?'url(#'+patId(s)+')':VCOL[s.vessel];
+    var vl=svg.querySelector('[data-ves-for="'+s.n+'"]');if(vl)vl.setAttribute('display',showAll?'block':'none');
+    if(s.alt)n.classList.add('variable');
+    else n.classList.remove('variable');
+    paintHatch(s,n,hasPrediction&&!showAll?iv:null);
+  });
+}
+function showTip(s,node){
+  if(!tooltip)return;
+  var r=node.getBoundingClientRect(),wrap=tooltip.parentElement.getBoundingClientRect();
+  var x=Math.max(8,Math.min(wrap.width-8,r.left-wrap.left+r.width/2)),y=Math.max(8,r.top-wrap.top);
+  tooltip.style.left=x+'px';tooltip.style.top=y+'px';tooltip.innerHTML=esc(describeSegment(s));tooltip.classList.add('show');tooltip.setAttribute('aria-hidden','false');
+}
+function hideTip(){if(!tooltip)return;tooltip.classList.remove('show');tooltip.setAttribute('aria-hidden','true')}
+function selectVessel(vessel){if(!TG.slice(1).includes(vessel))return;var changed=sel!==vessel;sel=vessel;paint();syncSelectedVesselToParent();if(changed){var segCount=TERR_VESSELS[vessel].count,item=res&&res[vessel],p=item&&clamp01(item.p),iv=ivFor(vessel);el('terrLive').textContent=vessel+' selected. Typical territory: '+segCount+' segments.'+(p===null?' Estimate unavailable.':' Estimated probability '+pct(p)+', '+rangeText(vessel)+'.')}}
+window.cmTerritoryPaint=function(){
+  setupSvg();if(!svg)return;updateReadout();paintSegments();updateAria();
+  if(!res&&!showAll){el('terrVessel').textContent='CAD overview';el('terrLevel').textContent='● Neutral state';el('terrLevel').style.color='var(--muted)';el('terrRange').textContent='Run a prediction to colour the territories.'}
+  else if(prevLiveSel!==sel){prevLiveSel=sel;var vessel=TG.slice(1).includes(sel)?sel:'CAD',item=res[vessel],p=item&&clamp01(item.p),iv=ivFor(vessel);if(vessel==='CAD')el('terrLive').textContent='CAD selected. All territories shown.';else el('terrLive').textContent=vessel+' selected. Typical territory: '+TERR_VESSELS[vessel].count+' segments.'+(p===null?' Estimate unavailable.':' Estimated probability '+pct(p)+', model range '+(iv?pct(iv.lo)+' to '+pct(iv.hi):'unavailable')+'.')}
+};
+window.CM_SEGMENTS=CM_SEGMENTS;
+(function(){var cb=el('terrAll');if(!cb)return;
+  cb.addEventListener('change',function(){
+    showAll=cb.checked;svg.classList.toggle('terr-all',showAll);hideTip();updateLegend();
+    var sub=document.querySelector('#territoryCard .territory-sub');if(sub){if(!sub.dataset.o)sub.dataset.o=sub.textContent;sub.textContent=showAll?'Which artery typically supplies each heart-muscle segment. Colour = supplying artery (typical supply only, not risk).':sub.dataset.o}
+    window.cmTerritoryPaint();
+    el('terrLive').textContent=showAll?'All coronary territories shown. Colour is the artery that typically supplies each segment; stripes mark segments a second artery can also supply. Typical supply only, not risk.':'Back to estimated-probability colours.';
+  });
+})();
+setupSvg();updateReadout();updateAria();
+})();
+
+  /* ===== /Dashboard-parity layer ===== */
+(function loop(){if(!dn&&!reduced)ty+=.0015;G.rotation.y+=(ty-G.rotation.y)*.15;G.rotation.x+=(Math.max(-.8,Math.min(.8,tx))-G.rotation.x)*.15;cmFlow(A,performance.now()/1000,sel,reduced);if(window.cmSliceFrame)cmSliceFrame();R.render(S,C);if(window.cmWhyProjectFrame)cmWhyProjectFrame();requestAnimationFrame(loop)})();
+
+  fit();paint();
+
+  return {reset:camReset};
+
+})();
+
+
+
+init();
+
+
+
+})();
+
+
+
+</script><script>(function(){var ids=["as","ay","az"];function f(el){var mn=+el.min,mx=+el.max,v=+el.value;el.style.setProperty("--p",((v-mn)/(mx-mn)*100)+"%")}function all(){ids.forEach(function(i){var e=document.getElementById(i);if(e)f(e)})}ids.forEach(function(i){var e=document.getElementById(i);if(!e)return;e.addEventListener("input",all);e.addEventListener("change",all)});all();setTimeout(all,400);setTimeout(all,1500)})();</script><script>/* Hosts same-origin embedded panels (iframes with class cm-embed-frame): sizes each frame to its content. */
+window.addEventListener("message",function(e){var d=e.data;if(!d||typeof d.cmEmbedH!=="number")return;
+ [].slice.call(document.querySelectorAll("iframe.cm-embed-frame")).forEach(function(f){if(f.contentWindow===e.source)f.style.height=Math.max(120,d.cmEmbedH+2)+"px"})});</script><script src="/static/shell.js?v=20261004d"></script><script src="/static/yesno.js?v=20261004a"></script><script src="/static/global-drivers.js?v=20261007b"></script>
+<script>(function(){var root=document.getElementById("cmGlobalCard");if(!root||!window.CmGlobalDrivers)return;
+var c=CmGlobalDrivers.mount(root,{getState:function(){return window.cmTwinGetState?cmTwinGetState():{sel:"CAD",res:null}},
+ setTarget:function(t){if(window.cmTwinSetTarget)cmTwinSetTarget(t)},online:function(){return true},api:function(){return""}});
+window.cmGlobalPaint=c.paint;c.paint()})();</script>
+</body></html>

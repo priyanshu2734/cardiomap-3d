@@ -1,0 +1,97 @@
+newmtl VH_F_interventricular_septum
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_left_cardiac_atrium
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_left_ventricle
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_right_cardiac_atrium
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_right_ventricle
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_papillary_muscle_of_heart_ant
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_papillary_muscle_of_heart_antlat
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_papillary_muscle_of_heart_med
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_papillary_muscle_of_heart_pos
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_papillary_muscle_of_heart_posmed
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_aortic_valve
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_pulmonary_valve
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_mitral_valve
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0
+
+newmtl VH_F_tricuspid_valve
+Kd 0.5882 0.1764 0.1647
+Ka 0.1 0.1 0.1
+Ks 0.2 0.2 0.2
+Ns 40
+d 1.0

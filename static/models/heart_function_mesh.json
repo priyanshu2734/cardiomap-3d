@@ -1,0 +1,531 @@
+{
+ "title": "Human Reference Atlas 3D Reference Object: male heart (VH_M_Heart)",
+ "author": "HuBMAP Consortium / Human Reference Atlas (HRA) 3D Reference Object Library",
+ "source_url": "https://github.com/hubmapconsortium/ccf-releases/tree/main/v1.2/models",
+ "licence": "CC-BY-4.0",
+ "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+ "licence_note": "As documented in static/models/ATTRIBUTION.txt and README.md; confirm on the HRA page before publishing.",
+ "file": "VH_M_Heart.glb",
+ "sha256": "b1237e7e765178e9357fd2ea7ccf19d55d0bf9ca55e187886635febe28244c70",
+ "format": "glTF 2.0 binary",
+ "coordinate_frame": "Metres. +x = patient's left, +y = superior, +z = anterior (HRA CCF frame, as inspected from the mesh).",
+ "render_parts": [
+  "left_cardiac_atrium",
+  "right_cardiac_atrium",
+  "heart_right_ventricle",
+  "interventricular_septum",
+  "heart_left_ventricle"
+ ],
+ "hidden_parts": [
+  "mitral_valve",
+  "tricuspid_valve",
+  "aortic_valve",
+  "pulmonary_valve",
+  "papillary_muscle_of_heart_*"
+ ],
+ "triangles_total": 164119,
+ "triangles_rendered": 127178,
+ "triangle_budget": 150000,
+ "has_labelled_coronaries": false,
+ "changes": "Centred and uniformly scaled; internal valves and papillary muscles are not drawn; chambers are moved as rigid parts to show a teaching heartbeat; coronary tubes are added by CardioMap and are not part of the source mesh.",
+ "vessel_paths_note": "Hand-placed control points in mesh coordinates (metres), snapped to the outer surface along the anterior interventricular groove (LAD) and the left and right atrioventricular grooves (LCX, RCA). Schematic, not patient anatomy.",
+ "vessel_paths": {
+  "LAD": [
+   [
+    0.0146,
+    0.4989,
+    0.04
+   ],
+   [
+    0.038,
+    0.4936,
+    0.0468
+   ],
+   [
+    0.0431,
+    0.4833,
+    0.0634
+   ],
+   [
+    0.0444,
+    0.4736,
+    0.071
+   ],
+   [
+    0.0475,
+    0.4624,
+    0.0784
+   ],
+   [
+    0.0509,
+    0.4518,
+    0.0831
+   ],
+   [
+    0.054,
+    0.4426,
+    0.0844
+   ],
+   [
+    0.0576,
+    0.434,
+    0.0847
+   ],
+   [
+    0.0518,
+    0.4289,
+    0.0789
+   ]
+  ],
+  "LCX": [
+   [
+    0.017,
+    0.4974,
+    0.0299
+   ],
+   [
+    0.026,
+    0.4954,
+    0.0191
+   ],
+   [
+    0.0318,
+    0.4948,
+    0.017
+   ],
+   [
+    0.0377,
+    0.4919,
+    0.0135
+   ],
+   [
+    0.0401,
+    0.4862,
+    0.0077
+   ],
+   [
+    0.0402,
+    0.4801,
+    0.0025
+   ],
+   [
+    0.0392,
+    0.475,
+    -0.0011
+   ],
+   [
+    0.0374,
+    0.4701,
+    -0.003
+   ],
+   [
+    0.0345,
+    0.4661,
+    -0.0045
+   ],
+   [
+    0.0307,
+    0.4627,
+    -0.0046
+   ],
+   [
+    0.0249,
+    0.4591,
+    -0.0026
+   ],
+   [
+    0.0187,
+    0.4567,
+    0.0027
+   ],
+   [
+    0.0116,
+    0.4577,
+    0.0102
+   ]
+  ],
+  "RCA": [
+   [
+    -0.0036,
+    0.4921,
+    0.0317
+   ],
+   [
+    -0.0099,
+    0.4838,
+    0.0525
+   ],
+   [
+    -0.0208,
+    0.4747,
+    0.0613
+   ],
+   [
+    -0.0239,
+    0.4652,
+    0.0615
+   ],
+   [
+    -0.0248,
+    0.459,
+    0.0614
+   ],
+   [
+    -0.0255,
+    0.4535,
+    0.0616
+   ],
+   [
+    -0.0245,
+    0.4483,
+    0.0593
+   ],
+   [
+    -0.0219,
+    0.4428,
+    0.0558
+   ],
+   [
+    -0.0146,
+    0.4361,
+    0.0476
+   ],
+   [
+    -0.0052,
+    0.4373,
+    0.0355
+   ],
+   [
+    0.0024,
+    0.4444,
+    0.0288
+   ]
+  ]
+ },
+ "animation": {
+  "note": "Computed from mesh landmarks (mean of the four valve centres = base, lowest ventricular surface = apex). Pivot sits 25% of the way from base to apex so the apex moves most.",
+  "base": [
+   0.0128,
+   0.485,
+   0.033
+  ],
+  "apex": [
+   0.0416,
+   0.4257,
+   0.0707
+  ],
+  "long_axis_unit": [
+   0.3798,
+   -0.7807,
+   0.4963
+  ],
+  "ventricle_pivot": [
+   0.02,
+   0.4702,
+   0.0424
+  ],
+  "heart_rate_bpm": 72
+ },
+ "great_vessels": {
+  "aorta": {
+   "label": "Aorta",
+   "kind": "artery",
+   "radius": 0.0118,
+   "points": [
+    [
+     0.009,
+     0.495,
+     0.028
+    ],
+    [
+     0.007,
+     0.525,
+     0.03
+    ],
+    [
+     0.003,
+     0.552,
+     0.027
+    ],
+    [
+     0.002,
+     0.575,
+     0.018
+    ],
+    [
+     0.01,
+     0.586,
+     0.006
+    ],
+    [
+     0.026,
+     0.579,
+     -0.01
+    ],
+    [
+     0.034,
+     0.555,
+     -0.022
+    ],
+    [
+     0.036,
+     0.515,
+     -0.03
+    ]
+   ]
+  },
+  "brachiocephalic": {
+   "label": "Brachiocephalic artery",
+   "kind": "artery",
+   "radius": 0.0046,
+   "points": [
+    [
+     0.004,
+     0.585,
+     0.016
+    ],
+    [
+     0.003,
+     0.604,
+     0.017
+    ],
+    [
+     0.002,
+     0.61,
+     0.017
+    ]
+   ]
+  },
+  "l_carotid": {
+   "label": "Left carotid artery",
+   "kind": "artery",
+   "radius": 0.0038,
+   "points": [
+    [
+     0.013,
+     0.589,
+     0.006
+    ],
+    [
+     0.013,
+     0.608,
+     0.006
+    ],
+    [
+     0.013,
+     0.61,
+     0.006
+    ]
+   ]
+  },
+  "l_subclavian": {
+   "label": "Left subclavian artery",
+   "kind": "artery",
+   "radius": 0.0042,
+   "points": [
+    [
+     0.024,
+     0.585,
+     -0.007
+    ],
+    [
+     0.03,
+     0.6,
+     -0.008
+    ],
+    [
+     0.038,
+     0.61,
+     -0.008
+    ]
+   ]
+  },
+  "pulm_trunk": {
+   "label": "Pulmonary trunk",
+   "kind": "artery_deoxy",
+   "radius": 0.0118,
+   "points": [
+    [
+     0.018,
+     0.507,
+     0.043
+    ],
+    [
+     0.024,
+     0.53,
+     0.041
+    ],
+    [
+     0.029,
+     0.548,
+     0.032
+    ],
+    [
+     0.031,
+     0.559,
+     0.02
+    ]
+   ]
+  },
+  "l_pulm_artery": {
+   "label": "Left pulmonary artery",
+   "kind": "artery_deoxy",
+   "radius": 0.0082,
+   "points": [
+    [
+     0.031,
+     0.559,
+     0.02
+    ],
+    [
+     0.048,
+     0.564,
+     0.006
+    ],
+    [
+     0.068,
+     0.558,
+     -0.008
+    ]
+   ]
+  },
+  "r_pulm_artery": {
+   "label": "Right pulmonary artery",
+   "kind": "artery_deoxy",
+   "radius": 0.0086,
+   "points": [
+    [
+     0.031,
+     0.559,
+     0.02
+    ],
+    [
+     0.012,
+     0.564,
+     0.008
+    ],
+    [
+     -0.012,
+     0.566,
+     0.0
+    ],
+    [
+     -0.04,
+     0.562,
+     -0.01
+    ]
+   ]
+  },
+  "svc": {
+   "label": "Superior vena cava",
+   "kind": "vein_deoxy",
+   "radius": 0.0085,
+   "points": [
+    [
+     -0.027,
+     0.512,
+     0.032
+    ],
+    [
+     -0.028,
+     0.548,
+     0.031
+    ],
+    [
+     -0.029,
+     0.586,
+     0.029
+    ]
+   ]
+  },
+  "lpv_up": {
+   "label": "Left upper pulmonary vein",
+   "kind": "vein_oxy",
+   "radius": 0.0055,
+   "points": [
+    [
+     0.038,
+     0.502,
+     -0.006
+    ],
+    [
+     0.052,
+     0.506,
+     -0.016
+    ],
+    [
+     0.066,
+     0.508,
+     -0.024
+    ]
+   ]
+  },
+  "lpv_low": {
+   "label": "Left lower pulmonary vein",
+   "kind": "vein_oxy",
+   "radius": 0.0055,
+   "points": [
+    [
+     0.038,
+     0.484,
+     -0.008
+    ],
+    [
+     0.052,
+     0.484,
+     -0.018
+    ],
+    [
+     0.064,
+     0.482,
+     -0.026
+    ]
+   ]
+  },
+  "rpv_up": {
+   "label": "Right upper pulmonary vein",
+   "kind": "vein_oxy",
+   "radius": 0.0055,
+   "points": [
+    [
+     -0.03,
+     0.502,
+     -0.004
+    ],
+    [
+     -0.044,
+     0.506,
+     -0.014
+    ],
+    [
+     -0.058,
+     0.508,
+     -0.022
+    ]
+   ]
+  },
+  "rpv_low": {
+   "label": "Right lower pulmonary vein",
+   "kind": "vein_oxy",
+   "radius": 0.0055,
+   "points": [
+    [
+     -0.03,
+     0.484,
+     -0.006
+    ],
+    [
+     -0.044,
+     0.484,
+     -0.016
+    ],
+    [
+     -0.056,
+     0.482,
+     -0.024
+    ]
+   ]
+  }
+ },
+ "great_vessels_note": "Schematic great vessels added by CardioMap (not in the source mesh): hand-placed from the valve landmarks of this mesh, cut off short. Aorta and pulmonary veins red, pulmonary arteries and vena cava blue. Not patient anatomy."
+}

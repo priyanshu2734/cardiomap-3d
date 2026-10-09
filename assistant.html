@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CardioMap Assistant</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a8398'/%3E%3Cpath d='M50 24l6 17 17 6-17 6-6 17-6-17-17-6 17-6z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("cm-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<style>
+:root{--bg:#dff6fa;--ink:#0a3547;--muted:#4c7686;--line:rgba(24,150,180,.16);--accent:#0a9bb0;--soft:rgba(10,155,176,.13);--danger:#e0475b;--glass:rgba(255,255,255,.78);--glass2:rgba(255,255,255,.6);--edge:rgba(255,255,255,.92);--panel:rgba(255,255,255,.62);--hdr:rgba(255,255,255,.86);--hov:#0b4a5a;--hovb:transparent;--g:linear-gradient(135deg,#19b3c8,#0a8398);--gd:linear-gradient(135deg,#0b6e82,#0a5566);--shadow:0 12px 36px rgba(20,120,150,.13);color-scheme:light}
+html[data-theme=dark]{--bg:#050b18;--ink:#e8f4ff;--muted:#8fb0c6;--line:rgba(120,190,230,.16);--accent:#4fd8ee;--soft:rgba(79,216,238,.14);--glass:rgba(255,255,255,.06);--glass2:rgba(255,255,255,.04);--edge:rgba(120,190,230,.16);--panel:rgba(14,28,52,.7);--hdr:rgba(9,18,36,.88);--hov:#010a12;--hovb:#4fd8ee;--shadow:0 14px 40px rgba(0,0,0,.35);color-scheme:dark}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,#e9fbfe,#c8eef6 55%,#b2e4f0)}
+html[data-theme=dark] body{background:linear-gradient(160deg,#07122a,#061024 55%,#040a18)}
+button,select,textarea,input{font:inherit;color:inherit}
+button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 12px;border-radius:12px;border:1px solid var(--edge);background:var(--glass);cursor:pointer;transition:background .15s,color .15s,transform .12s}
+button:active{transform:scale(.97)}button:disabled{opacity:.55;cursor:default}
+@media(hover:hover){button:hover:not(:disabled){background:var(--soft)!important;color:var(--ink)!important;border-color:var(--accent)!important;box-shadow:none}button.pri:hover:not(:disabled){background:linear-gradient(115deg,#9bf4e8,#62d9f2 52%,#85aaff)!important;color:#061521!important;border-color:transparent!important;box-shadow:0 8px 22px rgba(20,181,204,.32);filter:brightness(1.05)}}
+button.pri{background:var(--g);color:#fff;border-color:transparent;font-weight:600;box-shadow:0 8px 20px rgba(10,131,152,.28)}
+svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;height:100dvh;padding:14px;max-width:1560px;margin:auto}
+.side,.main{background:var(--panel);border:1px solid var(--edge);border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(18px);min-height:0}
+.side{display:flex;flex-direction:column;padding:14px;gap:10px}
+.back{display:flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:12px;padding:4px 2px}.back:hover{color:var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font:700 15px Sora,sans-serif}.brand i{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--g);color:#fff}
+.side input[type=search],.api input{width:100%;padding:9px 12px;border-radius:12px;border:1px solid var(--edge);background:var(--glass)}
+#list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin:0 -4px;padding:0 4px}
+.it{position:relative;display:flex;align-items:center;border-radius:12px;border:1px solid transparent}
+.it.on{background:var(--soft);border-color:var(--accent)}
+.it .t{flex:1;min-width:0;display:block;text-align:left;border:0;background:none;padding:9px 10px;box-shadow:none}
+.it .t b{display:block;font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.it small{color:var(--muted);font-size:11px}
+.it .ia{display:none;gap:2px;padding-right:4px}.it:hover .ia,.it:focus-within .ia{display:flex}
+.it .ia button{padding:5px;border-radius:8px;border:0;background:none}
+.sf{display:grid;gap:8px;font-size:11px;color:var(--muted)}.api{display:flex;gap:6px}.api button{padding:8px 10px}
+.main{display:flex;flex-direction:column;overflow:hidden}
+.top{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.top h1{flex:1;min-width:90px;margin:0;font:600 15px Sora,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top button{padding:8px 10px}.menu{display:none}
+.strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+.strip select{padding:6px 8px;border-radius:10px;border:1px solid var(--edge);background:var(--glass)}.strip select option{color:#0a3547}
+.tg{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid var(--edge);background:var(--glass);cursor:pointer;color:var(--ink);transition:.15s}
+.tg input{position:absolute;opacity:0;pointer-events:none}.tg:has(input:checked){background:var(--gd);color:#fff;border-color:transparent}.tg:has(input:focus-visible){outline:2px solid var(--accent)}
+.tg:has(input:checked):before{content:"\2713";font-weight:700}
+.st{margin-left:auto;display:flex;align-items:center;gap:6px}.st u{width:8px;height:8px;border-radius:50%;background:#e0a13a;text-decoration:none}.st.ok u{background:#2ed08f}
+.log{flex:1;overflow-y:auto;padding:22px 16px;scroll-behavior:smooth}.col{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:10px;animation:in .25s ease}.msg.u{justify-content:flex-end}
+.av{display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:10px;background:var(--g);color:#fff}.av svg{width:16px;height:16px}
+.bub{max-width:min(88%,680px);padding:10px 14px;border-radius:16px;overflow-wrap:anywhere;font-size:13.5px;line-height:1.6}
+.u .bub{background:var(--gd);color:#fff;border-bottom-right-radius:5px;white-space:pre-wrap}
+.a .bub{background:var(--glass2);border:1px solid var(--line);border-top-left-radius:5px}.a.err .bub{border-color:var(--danger);color:var(--danger)}
+.bub p{margin:0 0 6px}.bub p:last-child{margin:0}.bub ul{margin:4px 0 6px;padding-left:18px}.bub code{padding:1px 5px;border-radius:5px;background:var(--soft);font-size:12px}
+.mf{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--muted)}
+.mf button{padding:2px 8px;font-size:11px;border-radius:8px;box-shadow:none}.mf a{color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 9px}.mf a:hover{background:var(--soft)}
+.dots i{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:var(--accent);animation:dot 1s infinite}.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+.caret:after{content:"";display:inline-block;width:7px;height:14px;margin-left:2px;vertical-align:-2px;background:var(--accent);animation:blink 1s steps(2) infinite}
+@keyframes dot{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-3px)}}@keyframes in{from{opacity:0;transform:translateY(6px)}}@keyframes blink{50%{opacity:0}}
+.hero{text-align:center;padding:6vh 0 10px}.hero h2{font:700 26px Sora,sans-serif;margin:0 0 6px}.hero p{margin:0 auto 18px;max-width:52ch;color:var(--muted)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}.cards button{display:block;text-align:left;padding:12px 14px;border-radius:16px;font-size:13px}.cards small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+form{padding:10px 16px 6px}.box{max-width:820px;margin:0 auto;display:flex;align-items:flex-end;gap:8px;padding:8px;border-radius:20px;border:1px solid var(--edge);background:var(--hdr);box-shadow:var(--shadow)}
+.box:focus-within{outline:2px solid var(--accent)}
+textarea{flex:1;border:0;outline:0;resize:none;background:transparent;max-height:140px;padding:8px 10px;line-height:1.45}
+.send{width:42px;height:42px;padding:0;border-radius:14px}.send .sq{display:none;fill:currentColor}.send.stop svg:first-child{display:none}.send.stop .sq{display:block}
+.hint{max-width:820px;margin:6px auto 0;display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.note{margin:0;padding:0 16px 10px;text-align:center;font-size:10.5px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,10px);z-index:50;max-width:min(520px,92vw);padding:10px 16px;border-radius:14px;background:#0b3a49;color:#fff;font-size:13px;opacity:0;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}.toast.err{background:#a82a3c}
+textarea:focus-visible{outline:0}
+@media(max-width:900px){.top{flex-wrap:wrap}.top h1{flex:1 1 100%;order:-1}.lbl{display:none}.app{grid-template-columns:1fr;padding:8px;gap:0}.side{position:fixed;inset:8px 25% 8px 8px;z-index:40;transform:translateX(-110%);transition:transform .25s;background:var(--hdr)}.side.open{transform:none}.menu{display:inline-flex}.cards{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* CardioMap Assistant · luminous research studio */
+body{background:radial-gradient(900px 650px at 12% -12%,rgba(53,133,255,.19),transparent 65%),radial-gradient(700px 500px at 100% 10%,rgba(27,217,195,.12),transparent 62%),var(--bg)}
+.side,.top,.strip,.box{backdrop-filter:blur(18px)}
+.side{border-color:rgba(117,225,230,.2);box-shadow:12px 0 45px rgba(0,0,0,.12)}
+.brand{letter-spacing:-.025em}.brand:before{content:"✦";display:inline-grid;place-items:center;width:28px;height:28px;border-radius:10px;color:#061521;background:linear-gradient(135deg,#9bf4e8,#62d9f2);box-shadow:0 5px 20px rgba(80,220,225,.18)}
+.top{border-bottom-color:rgba(117,225,230,.15)}
+.bub{box-shadow:0 12px 32px rgba(0,0,0,.09);border-color:rgba(117,225,230,.14)}
+.pri{background:linear-gradient(115deg,#9bf4e8,#62d9f2 52%,#85aaff)!important;color:#061521!important;box-shadow:0 8px 26px rgba(71,208,219,.17)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #72e7e4;outline-offset:3px}
+::selection{background:rgba(75,220,220,.28)}
+
+/* ===== v3 · tidy header strip, server card, calm composer focus ===== */
+:root{--hg:linear-gradient(135deg,#14b5cc,#22d3c5);--ring:color-mix(in srgb,var(--accent) 24%,transparent);--pop:#fff;--ok:#12a36b}
+html[data-theme=dark]{--pop:#0d1b33;--ok:#3ee0a0}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);border:0;opacity:0;pointer-events:none}
+/* header strip */
+.strip{gap:10px;padding:10px 16px;font-size:12.5px}
+.mdl{position:relative}
+.mdl-b{min-height:34px;padding:0 11px 0 14px;border-radius:999px;gap:8px;font:600 12.5px Inter,sans-serif}
+.mdl-b .k{color:var(--muted);font-weight:500}.mdl-b .k:after{content:"";display:inline-block;width:1px;height:12px;margin-left:9px;vertical-align:-2px;background:var(--line)}
+.mdl-b b{font-weight:700}.mdl-b .chev{width:14px;height:14px;opacity:.7;transition:transform .2s}.mdl.open .chev{transform:rotate(180deg)}
+.mdl.open .mdl-b{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.mdl-m{position:absolute;left:0;top:calc(100% + 8px);z-index:30;min-width:210px;margin:0;padding:6px;list-style:none;border-radius:16px;border:1px solid var(--edge);background:var(--pop);box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.mdl-m[hidden]{display:none}
+.mdl-m li{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 12px;border-radius:11px;cursor:pointer;font-weight:600;font-size:13px}
+.mdl-m li small{color:var(--muted);font-weight:500;font-size:11px}
+.mdl-m li:hover,.mdl-m li:focus-visible{background:var(--soft);outline:0}
+.mdl-m li[aria-selected=true]{color:var(--accent)}.mdl-m li[aria-selected=true]:after{content:"\2713";font-weight:800;margin-left:auto}
+.mdl-m li[aria-disabled=true]{opacity:.5;cursor:not-allowed}.mdl-m li[aria-disabled=true]:hover{background:none}
+.strip .tg{position:relative;min-height:34px;padding:0 14px 0 10px;gap:8px;border-radius:999px;font:600 12.5px Inter,sans-serif;color:var(--muted);user-select:none}
+.strip .tg:before{content:"";display:grid;place-items:center;width:15px;height:15px;flex:none;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--muted) 65%,transparent);transition:.15s}
+.strip .tg:has(input:checked){color:#fff}
+.strip .tg:has(input:checked):before{content:"\2713";font-size:9px;line-height:1;font-weight:800;color:#0a6e82;background:#fff;border-color:#fff}
+.strip .ctx{margin-left:auto;display:inline-flex;align-items:center;gap:8px;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--muted)}
+.strip .ctx:before{content:"";width:7px;height:7px;border-radius:50%;flex:none;background:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.strip .st{margin-left:0;min-height:34px;padding:0 13px;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);font:600 12px Inter,sans-serif;color:var(--ink);white-space:nowrap}
+.strip .st u{width:8px;height:8px}.strip .st.ok u{box-shadow:0 0 0 3px rgba(46,208,143,.22)}
+/* server card */
+.sf{gap:10px;padding:12px;border-radius:16px;border:1px solid var(--edge);background:var(--glass2);font-size:11px}
+.sf-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sf-t{display:inline-flex;align-items:center;gap:7px;color:var(--ink);font:600 12px Inter,sans-serif}.sf-t svg{width:15px;height:15px;color:var(--accent)}
+.sf-s{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:600;white-space:nowrap;background:rgba(224,71,91,.12);color:var(--danger)}
+.sf-s u{width:7px;height:7px;border-radius:50%;background:currentColor;text-decoration:none}
+.sf[data-s=ok] .sf-s{background:rgba(46,208,143,.14);color:var(--ok)}.sf[data-s=warn] .sf-s{background:rgba(224,161,58,.16);color:#b97a0c}
+html[data-theme=dark] .sf[data-s=warn] .sf-s{color:#f0b95a}
+.api{gap:8px}.fld{position:relative;flex:1;min-width:0;display:block}
+.fld svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);pointer-events:none}
+.fld input{height:38px;padding:0 8px 0 31px;font-size:12px;text-overflow:ellipsis}
+.api button{height:38px;padding:0 13px;border-radius:12px;font-weight:700;font-size:12.5px}
+.side input[type=search]{height:38px}
+.side input:focus,.side input:focus-visible,.api input:focus-visible{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.danger{min-height:38px;background:transparent;border:1px dashed color-mix(in srgb,var(--danger) 50%,transparent);color:var(--danger);font-weight:600;font-size:12.5px}
+@media(hover:hover){html body button.danger:hover:not(:disabled){background:var(--danger)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 8px 20px rgba(224,71,91,.3)}}
+/* composer: one soft glow instead of stacked outlines */
+.box{padding:8px 8px 8px 14px;transition:border-color .2s,box-shadow .2s}
+.box:focus-within{outline:0!important;border-color:color-mix(in srgb,var(--accent) 75%,transparent);box-shadow:0 0 0 4px var(--ring),var(--shadow)}
+.box textarea,.box textarea:focus,.box textarea:focus-visible{outline:0!important;box-shadow:none!important;border:0!important;background:transparent!important;border-radius:0}
+.send{flex:none;transition:transform .12s,box-shadow .2s,filter .2s}.send:active{transform:scale(.94)}
+@media(hover:hover){html body .send:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.05)}}
+/* calm hover / open states: tinted, text always readable */
+.it{transition:background .15s,border-color .15s}
+.it:hover{background:var(--soft);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.it.on:hover{border-color:var(--accent)}
+@media(hover:hover){html body .it .t:hover:not(:disabled),html body .it .ia button:hover:not(:disabled){background:transparent!important;border-color:transparent!important;color:var(--ink)!important}
+html body .it .ia button:hover:not(:disabled){background:color-mix(in srgb,var(--accent) 22%,transparent)!important}
+html body .it .t:hover small{color:var(--muted)}}
+.mdl-b:hover:not(:disabled),.mdl.open .mdl-b,.mdl-b:focus-visible{background:var(--soft)!important;color:var(--ink)!important;border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--ring)}
+.mdl.open .mdl-b .k,.mdl-b:hover .k{color:var(--muted)}
+/* light theme: controls need a visible edge on the pale glass */
+html:not([data-theme=dark]) .mdl-b,html:not([data-theme=dark]) .strip .st,html:not([data-theme=dark]) .strip .tg:not(:has(input:checked)),html:not([data-theme=dark]) .side input[type=search],html:not([data-theme=dark]) .api input,html:not([data-theme=dark]) .sf,html:not([data-theme=dark]) .top button:not(.pri),html:not([data-theme=dark]) .mf button,html:not([data-theme=dark]) .box,html:not([data-theme=dark]) .side>button:not(.pri):not(.danger),html:not([data-theme=dark]) .side .cm-explore-btn{border-color:rgba(10,131,152,.3)}
+html:not([data-theme=dark]) .sf{background:rgba(255,255,255,.55)}
+@media(max-width:900px){textarea,.side input,.api input{font-size:16px}.strip{padding:10px 12px}}
+@media(max-width:700px){.strip .ctx{order:9;flex:1 1 100%;margin-left:0}.strip .st{margin-left:auto}}
+
+
+/* Explore menu inside the chat sidebar: a real floating panel above everything (no bleed-through, no overflow), both themes */
+.side{z-index:2}
+.side:has(.cm-grp.open){z-index:80}
+.side .cm-explore{display:block;position:relative;z-index:90}
+.side .cm-explore .cm-grp{position:static}
+.side .cm-explore .cm-grp>button{width:auto}
+.side .cm-explore .cm-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);width:auto;min-width:0;z-index:100;display:none;padding:8px;border-radius:16px;max-height:min(68vh,calc(100vh - 200px));overflow:auto;overscroll-behavior:contain;backdrop-filter:none;-webkit-backdrop-filter:none;scrollbar-width:thin}
+.side .cm-explore .cm-grp.open .cm-menu{display:block}
+.side .cm-explore .cm-mg+.cm-mg{margin-top:4px;padding-top:4px;border-top:1px solid var(--cm-line)}
+.side .cm-explore .cm-mgl{display:flex;align-items:center;gap:8px;padding:6px 10px 4px;font:700 11px/1.2 Inter,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--cm-muted)}
+.side .cm-explore .cm-mgl i{display:inline-grid;place-items:center;width:18px;height:18px;flex:none}
+.side .cm-explore .cm-mgl svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.side .cm-explore .cm-menu a{padding:8px 12px}
+html[data-theme=dark] .side .cm-explore .cm-menu{background:#0b1a2e;border:1px solid rgba(120,190,230,.28);box-shadow:0 22px 50px rgba(0,0,0,.55)}
+html:not([data-theme=dark]) .side .cm-explore .cm-menu{background:#ffffff;border:1px solid rgba(24,150,180,.28);box-shadow:0 18px 44px rgba(8,50,70,.22)}
+</style><link rel="stylesheet" href="/static/cardiomap.css?v=20261004a"></head>
+<body>
+<div class="app">
+<aside class="side" id="side" aria-label="Chat history">
+ <a class="back" id="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Back to dashboard</a>
+ <div class="brand"><i data-ic="spark"></i>CardioMap Assistant</div>
+ <span data-cm-explore></span>
+ <button class="pri" id="newChat" type="button" data-ic="plus">New chat</button>
+ 
+ <input type="search" id="q" placeholder="Search saved chats…" aria-label="Search saved chats">
+ <nav id="list" aria-label="Saved chats"></nav>
+ <div class="sf" id="sf" data-s="off">
+  <div class="sf-h"><span class="sf-t" data-ic="server">Server (API URL)</span><span class="sf-s" id="sfS"><u></u><span>Not connected</span></span></div>
+  <div class="api"><span class="fld" data-ic="link"><input id="apiurl" aria-label="API URL" placeholder="http://localhost:8000" spellcheck="false" autocapitalize="off" autocomplete="off"></span><button class="pri" id="conn" type="button">Connect</button></div>
+ </div>
+ <button class="danger" id="clearAll" type="button" data-ic="trash">Delete all history</button>
+</aside>
+<main class="main">
+ <div class="top"><button class="menu" id="menu" type="button" aria-label="Chats" data-ic="menu"></button><h1 id="title">New chat</h1>
+  <button id="bLink" type="button" title="Copy link to this chat" aria-label="Copy link to this chat" data-ic="link"></button>
+  <button id="bRen" type="button" title="Rename" aria-label="Rename chat" data-ic="edit"></button>
+  <button id="bExp" type="button" title="Export chat" aria-label="Export chat" data-ic="down"></button>
+  <button id="bDel" type="button" title="Delete this chat" aria-label="Delete this chat" data-ic="trash"></button>
+  <button id="bRep" class="pri" type="button" data-ic="doc"><span class="lbl">AI report (PDF)</span></button>
+  <button id="bTheme" type="button" title="Theme" aria-label="Toggle theme" data-ic="moon"></button></div>
+ <div class="strip">
+  <div class="mdl" id="mdl">
+   <button type="button" class="mdl-b" id="mdlB" aria-haspopup="listbox" aria-expanded="false" aria-controls="mdlM"><span class="k">Model</span><b id="mdlV">Auto</b><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+   <ul class="mdl-m" id="mdlM" role="listbox" aria-label="Model" hidden></ul>
+   <select id="prov" class="sr" tabindex="-1" aria-hidden="true"><option value="auto">Auto</option><option value="groq">Groq</option><option value="nvidia">NVIDIA</option></select>
+  </div>
+  <label class="tg"><input type="checkbox" id="tCtx" checked>Dashboard data</label>
+  <label class="tg"><input type="checkbox" id="tMem" checked>Recall earlier chats</label>
+  <span class="ctx" id="ctxInfo"></span><span class="st" id="st"><u></u><span>Checking…</span></span></div>
+ <div class="log" id="log"><div class="col" id="col"></div></div>
+ <form id="form" autocomplete="off"><div class="box"><textarea id="in" rows="1" maxlength="2000" aria-label="Type your question" placeholder="Type your question…" spellcheck="true" data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false" data-lt-active="false" data-1p-ignore data-lpignore="true" data-form-type="other"></textarea>
+  <button class="pri send" id="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg><svg class="sq" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button></div>
+  <div class="hint"><span>Enter to send · Shift+Enter for a new line</span><span id="cnt">0/2000</span></div></form>
+ <p class="note">Educational tool, not medical advice. Chats are saved only in this browser.</p>
+</main></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id),LS=localStorage,KC="cm-chats-v2",KX="cm-ctx-v1",KA="cm-api-ovr",KS="cm-ast-set";
+const I={spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',plus:'<path d="M12 5v14M5 12h14"/>',link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',down:'<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>',doc:'<path d="M7 3h8l4 4v14H7zM10 13h6M10 17h6"/>',moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',copy:'<path d="M9 9h11v11H9zM5 15V4h11"/>',redo:'<path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5"/>',server:'<rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/>'};
+const ic=n=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+I[n]+"</svg>";
+document.querySelectorAll("[data-ic]").forEach(b=>b.insertAdjacentHTML("afterbegin",ic(b.dataset.ic)));
+const rd=(k,d)=>{try{const v=JSON.parse(LS.getItem(k));return v==null?d:v}catch(e){return d}},wr=(k,v)=>{try{LS.setItem(k,JSON.stringify(v))}catch(e){}};
+const uid=()=>Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-3),reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let S=rd(KC,null)||{cur:null,chats:[]},set=Object.assign({prov:"auto",ctx:true,mem:true},rd(KS,{})),busy=false,ctl=null;
+const old=rd("cm-chat-v1",null);if(old&&Array.isArray(old.h)&&old.h.length&&!S.chats.length)S.chats.push({id:uid(),title:ttl(old.h),ts:Date.now(),msgs:old.h});
+function ttl(m){const u=m.find(x=>x.role=="user");return u?u.content.replace(/\s+/g," ").slice(0,48):"New chat"}
+const save=()=>{S.chats=S.chats.slice(0,100);wr(KC,S)},saveSet=()=>wr(KS,set),cur=()=>S.chats.find(c=>c.id==S.cur);
+const esc=t=>t.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function md(t){t=String(t||"").replace(/<br\s*\/?>/gi," ").replace(/([^\n#\s])\s*(#{2,6})\s+(?=\S)/g,"$1\n$2 ").replace(/^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/gm,"").replace(/^\s{0,3}#{1,6}\s+(.*)$/gm,"**$1**");const rows=t.split("\n"),o=[];let ul=false,i=0;const inl=s=>esc(s).replace(/`([^`\n]+)`/g,"<code>$1</code>").replace(/\*\*([^*\n]+)\*\*/g,"<strong>$1</strong>");const cells=l=>l.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim());const isSep=l=>/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(l);const isRow=l=>l.indexOf("|")>=0&&l.trim().length>1;while(i<rows.length){const l=rows[i];if(isRow(l)&&i+1<rows.length&&isSep(rows[i+1])){if(ul){o.push("</ul>");ul=false}const head=cells(l);i+=2;const body=[];while(i<rows.length&&isRow(rows[i])){body.push(cells(rows[i]));i++}o.push("<ul>"+body.map(r=>"<li><strong>"+inl(r[0]||"")+"</strong>"+(r.length>1?": "+inl(r.slice(1).join(" - ")):"")+"</li>").join("")+"</ul>");continue}const m=l.match(/^\s*(?:[-*\u2022]|\d+[.)])\s+(.*)/);if(m){if(!ul){o.push("<ul>");ul=true}o.push("<li>"+inl(m[1])+"</li>")}else{if(ul){o.push("</ul>");ul=false}if(l.trim())o.push("<p>"+inl(l)+"</p>")}i++}if(ul)o.push("</ul>");return o.join("")}
+const toast=(m,e)=>{const t=$("toast");t.textContent=m;t.className="toast show"+(e?" err":"");clearTimeout(toast.h);toast.h=setTimeout(()=>t.className="toast",3500)};
+const base=()=>{const o=LS.getItem(KA);if(o)return o;const x=rd(KX,null);if(x&&x.api)return x.api;return/^https?:/.test(location.protocol)?location.origin:""};
+const down=f=>{const l=$("log");if(f||l.scrollHeight-l.scrollTop-l.clientHeight<160)l.scrollTop=l.scrollHeight};
+const fmt=ts=>new Date(ts).toLocaleString([],{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+/* ---- recall of earlier chats ---- */
+const STOP=new Set("the and for are you that this with what how why can does about from have has was were will would should could which when where who into your our not but all any just tell give show please explain".split(" "));
+const tok=s=>(s.toLowerCase().match(/[a-z0-9]{3,}/g)||[]).filter(w=>!STOP.has(w)),HIST=/\b(earlier|previous|before|last time|last chat|previously|history|remember|recall|yesterday|we discussed|you said|you told|continue)\b/i;
+function recall(q,ex){const qs=new Set(tok(q)),docs=[];S.chats.forEach(c=>{if(c.id!=ex)c.msgs.forEach((m,i)=>{if(m.role=="user"){const a=c.msgs[i+1];docs.push({id:c.id,title:c.title,ts:c.ts,u:m.content,a:a&&a.role=="assistant"?a.content:""})}})});if(!docs.length)return[];
+ const df={};docs.forEach(d=>{d.t=new Set(tok(d.u+" "+d.a));d.t.forEach(w=>df[w]=(df[w]||0)+1)});
+ let out=docs.map(d=>{let s=0;qs.forEach(w=>{if(d.t.has(w))s+=Math.log(1+docs.length/df[w])});return[s,d]}).filter(x=>x[0]>=1.2).sort((a,b)=>b[0]-a[0]).slice(0,3).map(x=>x[1]);
+ if(!out.length&&HIST.test(q)){const l=S.chats.filter(c=>c.id!=ex&&c.msgs.length).sort((a,b)=>b.ts-a.ts)[0];if(l)out=docs.filter(d=>d.id==l.id).slice(-2)}
+ return out.map(d=>({id:d.id,title:d.title,snippet:"Q: "+d.u.slice(0,300)+"\nA: "+d.a.slice(0,500)}))}
+/* ---- rendering ---- */
+function renderList(){const f=$("q").value.trim().toLowerCase(),L=S.chats.filter(c=>!f||c.title.toLowerCase().includes(f)||c.msgs.some(m=>m.content.toLowerCase().includes(f))).sort((a,b)=>b.ts-a.ts);
+ $("list").innerHTML=L.length?L.map(c=>'<div class="it'+(c.id==S.cur?" on":"")+'" data-id="'+c.id+'"><button class="t" type="button" data-a="open"><b>'+esc(c.title)+"</b><small>"+fmt(c.ts)+" · "+c.msgs.length+' msgs</small></button><span class="ia"><button type="button" data-a="link" aria-label="Copy link">'+ic("link")+'</button><button type="button" data-a="del" aria-label="Delete chat">'+ic("trash")+"</button></span></div>").join(""):'<small style="padding:8px">No chats found.</small>'}
+function msgEl(m,i,last){const d=document.createElement("div"),u=m.role=="user";d.className="msg "+(u?"u":"a");
+ d.innerHTML=(u?"":'<span class="av">'+ic("spark")+"</span>")+'<div class="bub"><div class="b"></div></div>';const b=d.querySelector(".b");if(u)b.textContent=m.content;else b.innerHTML=md(m.content);
+ if(!u){const f=document.createElement("div");f.className="mf";f.innerHTML=(m.via?"<span>via "+esc(m.via)+"</span>":"")+'<button type="button" data-a="copy">Copy</button>'+(last?'<button type="button" data-a="regen">Regenerate</button>':"")+(m.rec||[]).map(r=>'<a href="#c='+esc(r.id)+'" title="Open earlier chat">↩ '+esc(r.title)+"</a>").join("");d.querySelector(".bub").appendChild(f)}return d}
+function renderLog(){const c=cur(),col=$("col");col.innerHTML="";$("title").textContent=c?c.title:"New chat";
+ if(!c||!c.msgs.length){const has=!!ctxData(),sc=has&&ctxData().scenarios;const qs=[["Explain my current result",has?"Uses the latest dashboard prediction":"Run a prediction to add live context"],["What drives this estimate?","Top factors and how to read them"],["How reliable are these models?","Validation metrics and known limitations"],["What is the difference between a prediction and a diagnosis?","Understand research-use limitations"]];if(ctxData()&&ctxData().heart_function_lab)qs.splice(1,0,["Explain my Heart Function Lab setup","Uses the lab's current narrowing and Rest/Exercise state"]);if(sc)qs.splice(3,0,["Compare Scenario A and Scenario B","Uses the latest completed scenario snapshot"]);col.innerHTML='<div class="hero"><h2>How can I help?</h2><p>Your CardioMap research companion. Ask about model outputs, artery exploration, evaluation metrics, or completed What-If comparisons. Explanations use available dashboard context when enabled.</p><div class="cards">'+qs.map(x=>'<button type="button" data-q="'+x[0]+'">'+x[0]+"<small>"+x[1]+"</small></button>").join("")+"</div></div>"}
+ else c.msgs.forEach((m,i)=>col.appendChild(msgEl(m,i,i==c.msgs.length-1&&m.role=="assistant")));down(1);renderList()}
+function go(id){S.cur=id;history.replaceState(null,"","#c="+id);$("side").classList.remove("open");save();renderLog();$("in").focus()}
+function newChat(){const c=cur();if(c&&!c.msgs.length){go(c.id);return}const n={id:uid(),title:"New chat",ts:Date.now(),msgs:[]};S.chats.unshift(n);go(n.id)}
+const link=id=>location.origin.replace("null","file://")+location.pathname+location.search+"#c="+id;
+const copyLink=id=>{const l=link(id);(navigator.clipboard?navigator.clipboard.writeText(l):Promise.reject()).then(()=>toast("Link copied: open it any time to return to this chat"),()=>prompt("Copy this link",l))};
+function delChat(id){const c=S.chats.find(x=>x.id==id);if(!c||!confirm('Delete "'+c.title+'"?'))return;S.chats=S.chats.filter(x=>x.id!=id);if(S.cur==id)S.cur=null;save();S.chats.length?go(S.chats[0].id):newChat()}
+/* ---- dashboard context ---- */
+function hfData(){const h=rd("cm-hfctx-v1",null);if(!h||!h.mode||!h.vessels)return null;const o=Object.assign({captured_at:new Date(h.t).toISOString()},h);delete o.t;return o}
+function ctxData() {if (!set.ctx) return null;const x = rd(KX, null);const c = x && x.ctx;const has = !!(c && c.estimates && Object.keys(c.estimates).length);const hf = hfData();if (!has && !hf) {return null;}const o = {};if (has) {Object.assign(o,{captured_at: new Date(x.t).toISOString(),model_source: c.model_source,selected_vessel: c.selected_vessel,inputs: c.inputs,estimates: c.estimates,validation: c.validation});["scenarios","explainability","next_best_test","not_measured_inputs"].forEach(k=>{if(c[k])o[k]=c[k]});}if (hf) o.heart_function_lab = hf;return o;
+}
+function ctxInfo(){const x=rd(KX,null),e=x&&x.ctx&&x.ctx.estimates&&x.ctx.estimates.CAD;const cx=$("ctxInfo"),hf=hfData();cx.title=cx.textContent=(e?"Dashboard: CAD "+e.probability_pct+"% ("+e.level+") · "+Math.max(0,Math.round((Date.now()-x.t)/60000))+" min ago"+(x.ctx.next_best_test?" · Next-best-test included":((x.ctx.not_measured_inputs||[]).length?" · Next-best-test pending, re-run on dashboard":"")):"No dashboard data yet: run a prediction on the dashboard")+(hf?" · Heart Function lab included":"")}
+async function stat(){let t="Connect the API",ok=false,reach=false,b=base();$("apiurl").value=LS.getItem(KA)||b;if(b){try{const j=await(await fetch(b+"/chat/providers")).json(),a=j.available||[];[...$("prov").options].forEach(o=>{if(o.value!="auto")o.disabled=!a.some(x=>x.id==o.value)});if($("prov").selectedOptions[0].disabled){$("prov").value="auto";set.prov="auto";saveSet()}reach=true;ok=a.length>0;t=a.length?a.map(x=>x.label).join(" · ")+" ready":"No provider key on server"}catch(e){t="Backend not reachable"}}$("st").className="st"+(ok?" ok":"");$("st").lastChild.textContent=t;$("sf").dataset.s=ok?"ok":reach?"warn":"off";$("sfS").lastChild.textContent=ok?"Connected":reach?"No provider key":b?"Unreachable":"Not connected";provSync()}
+/* ---- model picker (custom list; the hidden <select id="prov"> stays the source of truth) ---- */
+function provSync(){const o=$("prov").selectedOptions[0];$("mdlV").textContent=o?o.textContent:"Auto"}
+function provOpen(o){const m=$("mdlM");if(o){m.innerHTML=[...$("prov").options].map(x=>'<li role="option" tabindex="-1" data-v="'+x.value+'" aria-selected="'+(x.value==$("prov").value)+'"'+(x.disabled?' aria-disabled="true"':"")+"><span>"+esc(x.textContent)+"</span>"+(x.disabled?"<small>Not configured</small>":"")+"</li>").join("")}
+ m.hidden=!o;$("mdl").classList.toggle("open",o);$("mdlB").setAttribute("aria-expanded",String(o));if(o){const s=m.querySelector('[aria-selected="true"]')||m.firstChild;s&&s.focus()}}
+function provPick(li){if(!li||li.getAttribute("aria-disabled")=="true")return;$("prov").value=li.dataset.v;$("prov").dispatchEvent(new Event("change"));provOpen(false);$("mdlB").focus()}
+$("mdlB").onclick=e=>{e.stopPropagation();provOpen($("mdlM").hidden)};
+$("mdlM").addEventListener("click",e=>provPick(e.target.closest("li")));
+$("mdlM").addEventListener("keydown",e=>{const L=[...$("mdlM").children],i=L.indexOf(document.activeElement);if(e.key=="ArrowDown"){e.preventDefault();L[Math.min(L.length-1,i+1)].focus()}else if(e.key=="ArrowUp"){e.preventDefault();L[Math.max(0,i-1)].focus()}else if(e.key=="Enter"||e.key==" "){e.preventDefault();provPick(document.activeElement)}else if(e.key=="Escape"||e.key=="Tab"){provOpen(false);$("mdlB").focus()}});
+document.addEventListener("click",e=>{if(!$("mdl").contains(e.target))provOpen(false)});
+/* ---- chat ---- */
+const setBusy=b=>{busy=b;$("send").classList.toggle("stop",b);$("send").setAttribute("aria-label",b?"Stop":"Send")};
+async function gen(c,t){const mem=set.mem?recall(t,c.id):[];setBusy(true);ctl=new AbortController();
+ const col=$("col"),el=msgEl({role:"assistant",content:""},0,false);el.querySelector(".mf").remove();el.querySelector(".b").innerHTML='<span class="dots"><i></i><i></i><i></i></span>';col.appendChild(el);down(1);
+ let acc="",shown=0,via="",done=false,err=null,first=true;const b=el.querySelector(".b");
+ let skip=false;const sg=ctl.signal,tick=()=>{if(shown<acc.length){shown=reduced?acc.length:shown+Math.max(2,Math.ceil((acc.length-shown)/6));b.innerHTML=md(acc.slice(0,shown));b.classList.toggle("caret",!(done&&shown>=acc.length));down()}if(done&&shown>=acc.length){b.classList.remove("caret");if(!skip&&S.cur==c.id&&!busy)renderLog()}else requestAnimationFrame(tick)};requestAnimationFrame(tick);
+ try{const r=await fetch(base()+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({messages:c.msgs.slice(-14).map(x=>({role:x.role,content:x.content.slice(0,4000)})),provider:set.prov,context:ctxData(),memory:mem.map(({title,snippet})=>({title,snippet}))})});
+  if(!r.ok){let e="Request failed ("+r.status+")";try{const j=await r.json();if(typeof j.detail=="string")e=j.detail}catch(_){}throw new Error(e)}
+  via=r.headers.get("X-Provider")||"";const rd2=r.body.getReader(),dc=new TextDecoder();for(;;){const x=await rd2.read();if(x.done)break;acc+=dc.decode(x.value,{stream:true})}acc+=dc.decode()}
+ catch(e){if(e.name!="AbortError")err=e instanceof TypeError?"Could not reach the server. Check the API URL and that uvicorn is running.":e.message}
+ done=true;setBusy(false);if(err||sg.aborted)shown=acc.length;
+ if(err){skip=true;if(c.msgs.length&&c.msgs[c.msgs.length-1].role=="user"&&!c.msgs[c.msgs.length-1].keep){const u=c.msgs.pop();$("in").value=u.content}save();renderLog();const n=msgEl({role:"assistant",content:err},0,false);n.classList.add("err");n.querySelector(".mf").remove();$("col").appendChild(n);down(1);return}
+ if(acc.trim())c.msgs.push({role:"assistant",content:acc,via,rec:mem.map(x=>({id:x.id,title:x.title}))});c.ts=Date.now();save();renderList()}
+async function ask(t){t=t.trim();const c=cur();if(!t||!c)return;if(busy){toast("Still answering. Press Stop to interrupt.");return}
+ if(!base()){toast("Enter the server URL (bottom left) and press Connect first.",1);return}
+ c.msgs.push({role:"user",content:t.slice(0,4000)});if(c.title=="New chat")c.title=ttl(c.msgs);c.ts=Date.now();save();renderLog();await gen(c,t)}
+function regen(){const c=cur();if(!c||busy)return;if(c.msgs.length&&c.msgs[c.msgs.length-1].role=="assistant")c.msgs.pop();const u=c.msgs[c.msgs.length-1];if(!u||u.role!="user")return;u.keep=1;renderLog();gen(c,u.content)}
+/* ---- AI report (PDF) ---- */
+async function report(){const x=rd(KX,null);if(!x||!x.ctx||!x.ctx.estimates||!x.ctx.estimates.CAD){toast("Run a prediction on the dashboard first, then create the report.",1);return}
+ if(!base()){toast("Enter the server URL and press Connect first.",1);return}
+ const b=$("bRep"),h=b.innerHTML;b.disabled=true;b.textContent="Writing report…";
+ try{const r=await fetch(base()+"/report",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({context:x.ctx,provider:set.prov})});
+  if(!r.ok){let e="Report failed ("+r.status+")";try{const j=await r.json();if(typeof j.detail=="string")e=j.detail}catch(_){}throw new Error(e)}
+  const a=document.createElement("a");a.href=URL.createObjectURL(await r.blob());a.download="CardioMap-AI-Report-"+new Date().toISOString().slice(0,10)+".pdf";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast("AI report downloaded")}
+ catch(e){toast(e instanceof TypeError?"Could not reach the server.":e.message,1)}finally{b.disabled=false;b.innerHTML=h}}
+/* ---- events ---- */
+$("form").onsubmit=e=>{e.preventDefault();if(busy){if(e.submitter&&e.submitter.id=="send")ctl.abort();else toast("Still answering. Press Stop to interrupt.");return}const t=$("in").value;$("in").value="";$("in").style.height="auto";$("cnt").textContent="0/2000";ask(t)};
+$("in").addEventListener("keydown",e=>{if(e.key=="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();$("form").requestSubmit()}});
+$("in").addEventListener("input",e=>{const i=e.target;i.style.height="auto";i.style.height=Math.min(i.scrollHeight,140)+"px";$("cnt").textContent=i.value.length+"/2000"});
+$("col").addEventListener("click",e=>{const q=e.target.closest("[data-q]");if(q){ask(q.dataset.q);return}const b=e.target.closest("[data-a]");if(!b)return;if(b.dataset.a=="regen")regen();if(b.dataset.a=="copy"&&navigator.clipboard)navigator.clipboard.writeText(b.closest(".bub").querySelector(".b").textContent).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1200)})});
+$("list").addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b)return;const id=b.closest(".it").dataset.id;b.dataset.a=="open"?go(id):b.dataset.a=="link"?copyLink(id):delChat(id)});
+$("newChat").onclick=newChat;$("q").oninput=renderList;$("menu").onclick=()=>$("side").classList.toggle("open");
+$("bLink").onclick=()=>cur()&&copyLink(cur().id);$("bDel").onclick=()=>cur()&&delChat(cur().id);$("bRep").onclick=report;
+$("bRen").onclick=()=>{const c=cur(),n=c&&prompt("Rename chat",c.title);if(n&&n.trim()){c.title=n.trim().slice(0,80);save();renderLog()}};
+$("bExp").onclick=()=>{const c=cur();if(!c||!c.msgs.length)return;const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["# "+c.title+"\n\n"+c.msgs.map(m=>"**"+(m.role=="user"?"You":"CardioMap Assistant")+"**\n\n"+m.content).join("\n\n---\n\n")],{type:"text/markdown"}));a.download="cardiomap-chat-"+c.id+".md";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)};
+$("clearAll").onclick=()=>{if(!S.chats.length||!confirm("Delete ALL saved chats in this browser? This cannot be undone."))return;if(busy)ctl.abort();S={cur:null,chats:[]};save();newChat();toast("History deleted")};
+$("bTheme").onclick=()=>{const d=document.documentElement.dataset.theme=="dark"?"light":"dark";document.documentElement.dataset.theme=d;try{LS.setItem("cm-theme",d)}catch(e){}};
+$("conn").onclick=()=>{const v=$("apiurl").value.trim().replace(/\/$/,"");v?LS.setItem(KA,v):LS.removeItem(KA);stat()};
+$("prov").onchange=e=>{set.prov=e.target.value;saveSet();provSync()};$("tCtx").onchange=e=>{set.ctx=e.target.checked;saveSet()};$("tMem").onchange=e=>{set.mem=e.target.checked;saveSet()};
+addEventListener("hashchange",()=>{const m=location.hash.match(/c=([a-z0-9]+)/);if(m&&m[1]!=S.cur){if(S.chats.some(c=>c.id==m[1]))go(m[1]);else toast("That chat is not saved in this browser.",1)}});
+addEventListener("storage",e=>{if(e.key==KX)ctxInfo()});
+/* ---- init ---- */
+$("prov").value=set.prov;provSync();$("tCtx").checked=set.ctx;$("tMem").checked=set.mem;
+$("back").href=location.pathname.startsWith("/assistant")?"/app":"index.html";
+const h=(location.hash.match(/c=([a-z0-9]+)/)||[])[1];
+if(h&&!S.chats.some(c=>c.id==h))setTimeout(()=>toast("That chat is not saved in this browser.",1),400);
+const start=S.chats.some(c=>c.id==h)?h:S.chats.some(c=>c.id==S.cur)?S.cur:S.chats[0]&&S.chats[0].id;
+start?go(start):newChat();ctxInfo();stat();
+</script><script src="/static/shell.js?v=20261004d"></script></body></html>

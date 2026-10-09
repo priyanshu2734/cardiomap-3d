@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><script>try{document.documentElement.dataset.theme=localStorage.getItem("cm-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cardiac Research Lab · CardioMap 3D</title>
+<script src="/static/history.js?v=20261007a"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/static/cardiomap.css?v=20261004a">
+<style>
+:root{--rl-ink:#edf6fc;--rl-muted:#a7bdcc;--rl-line:#28445b;--rl-field:#0a1a2b;--rl-accent:#59d6d4;--rl-bar:#2fb7b5;--rl-bar2:#4a7da0;--rl-halo:#0b1b2c;--rl-warn:#f2cc83;--rl-ok:#8ce2bd;--rl-grid:rgba(130,160,185,.28);--rl-soft:rgba(130,160,185,.12);--rl-bad:#ff9b9b}
+html[data-theme=light]{--rl-ink:#0a3547;--rl-muted:#4c7686;--rl-line:rgba(24,150,180,.3);--rl-field:#fff;--rl-accent:#076b7d;--rl-bar:#0a8fa6;--rl-bar2:#86b6c4;--rl-halo:#fff;--rl-warn:#8a5a00;--rl-ok:#17794f;--rl-grid:rgba(10,90,120,.2);--rl-soft:rgba(10,120,150,.08);--rl-bad:#b3261e}
+.wrap{max-width:1200px;margin:auto;padding:26px 20px 56px}
+h1{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.04em;margin:8px 0 12px}
+body.cm-lab .wrap .hero h1{max-width:none}
+h2{font-size:21px;margin:0 0 6px}h3{font-size:15px;margin:18px 0 8px}
+.card{padding:20px;min-width:0;margin-top:18px}.hero.card{margin-top:0}
+body.cm-lab .card.rl-card:hover,body.cm-lab .card.hero:hover{transform:none}
+.rl-lead,.rl-sub,.rl-small{color:var(--rl-muted)}.rl-lead{margin:6px 0;max-width:78ch}.rl-small{font-size:12.5px;margin:6px 0}
+.rl-notice{margin:14px 0 0;padding:12px 14px;border-radius:12px;border:1px solid var(--rl-line);border-left:4px solid var(--rl-warn);background:var(--rl-soft);color:var(--rl-ink);font-size:13.5px}
+.rl-flow{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:s}
+.rl-flow li{counter-increment:s;position:relative;border:1px solid var(--rl-line);border-radius:14px;padding:12px 12px 12px 42px;font-size:13.5px;color:var(--rl-ink);min-width:0}
+.rl-flow li:before{content:counter(s);position:absolute;left:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--rl-bar);color:#04202a;font-weight:700;font-size:12px;display:grid;place-items:center}
+.rl-flow small{display:block;color:var(--rl-muted);font-size:12px;margin-top:2px}
+.rl-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.rl-chip{border:1px solid var(--rl-line);border-radius:999px;padding:4px 11px;font-size:12.5px;color:var(--rl-ink);background:var(--rl-soft)}
+.rl-chip b{color:var(--rl-accent)}
+.rl-params{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end}
+.rl-params label{display:flex;flex-direction:column;gap:4px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--rl-muted)}
+.rl-params input,.rl-ctl select{min-height:40px;width:130px;background:var(--rl-field);color:var(--rl-ink);border:1px solid var(--rl-line);border-radius:10px;padding:0 10px;font:inherit;font-size:14px;text-transform:none;letter-spacing:0;font-weight:500}
+.rl-ctl select{width:auto;min-width:150px}
+.rl-params input:focus-visible,.rl-ctl select:focus-visible,.rl-card button:focus-visible,.rl-card summary:focus-visible{outline:2px solid var(--rl-accent);outline-offset:2px}
+.rl-err{color:var(--rl-bad);font-size:13px;min-height:1em;margin:8px 0 0}
+.rl-exp-head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.rl-q{font-size:16px;color:var(--rl-ink);margin:4px 0;max-width:70ch}
+.rl-run{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:14px}
+.rl-run label.rl-chk{display:inline-flex;gap:7px;align-items:center;font-size:13px;color:var(--rl-muted)}
+.rl-run .btn{min-height:42px;font-weight:600}
+.rl-prog{margin-top:14px}.rl-prog[hidden]{display:none}
+.rl-track{height:10px;border-radius:99px;background:var(--rl-soft);border:1px solid var(--rl-line);overflow:hidden}
+.rl-track i{display:block;height:100%;width:0;background:var(--rl-bar);border-radius:99px;transition:width .5s ease}
+.rl-progtext{font-size:12.5px;color:var(--rl-muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.rl-status{font-size:13px;color:var(--rl-muted);margin:8px 0 0;min-height:1em}
+.rl-status.bad{color:var(--rl-bad)}
+.rl-hint{margin-top:14px;padding:16px;border:1px dashed var(--rl-line);border-radius:12px;color:var(--rl-muted);font-size:13.5px}
+.rl-overall{margin-top:18px;padding:12px 14px;border:1px solid var(--rl-line);border-radius:12px;background:var(--rl-soft);font-size:14px}
+.rl-overall h3{margin:0 0 4px}.rl-overall p{margin:0;color:var(--rl-ink)}
+.rl-ctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:16px}
+.rl-ctl .lbl{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--rl-muted);margin-right:6px}
+.rl-seg{display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center}
+.rl-seg .btn{min-height:38px;min-width:58px;padding:0 12px;font-weight:600}
+.rl-res{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:8px 22px;margin-top:6px}
+.rl-res>div{min-width:0}
+.rl-chart{width:100%;min-height:120px}.rl-chart svg{display:block;max-width:100%}
+.rl-chart text{font-family:Inter,system-ui,sans-serif;fill:var(--rl-ink)}
+.rl-chart .mut{fill:var(--rl-muted)}.rl-chart .grid{stroke:var(--rl-grid);stroke-width:1}.rl-chart .chance{stroke:var(--rl-warn);stroke-width:1.5;stroke-dasharray:4 4}
+.rl-chart .bar{fill:var(--rl-bar2)}.rl-chart .bar.best{fill:var(--rl-bar)}
+.rl-chart .halo{stroke:var(--rl-halo);stroke-width:5;stroke-linecap:round}.rl-chart .wh{stroke:var(--rl-ink);stroke-width:2;stroke-linecap:round}
+.rl-take{padding:12px 14px;border:1px solid var(--rl-line);border-left:4px solid var(--rl-bar);border-radius:12px;background:var(--rl-soft);margin-top:10px}
+.rl-take h3{margin:0 0 4px}.rl-take p{margin:0;font-size:14px;line-height:1.55}
+.rl-deltas{list-style:none;margin:0;padding:0}
+.rl-deltas li{padding:8px 0;border-bottom:1px dashed var(--rl-line);font-size:13.5px;display:grid;gap:3px}
+.rl-deltas .nm{color:var(--rl-muted)}.rl-deltas b{font-variant-numeric:tabular-nums}
+.rl-pill{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:600;margin-left:6px;white-space:nowrap}
+.rl-pill.noise{color:var(--rl-warn)}.rl-pill.beyond{color:var(--rl-ok)}.rl-pill.ref{color:var(--rl-muted)}
+.rl-table{width:100%;border-collapse:collapse;min-width:760px;font-size:13px}
+.rl-table th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--rl-muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--rl-line);white-space:nowrap}
+.rl-table td{padding:9px 10px;border-bottom:1px solid var(--rl-line);font-variant-numeric:tabular-nums;vertical-align:top}
+.rl-table td:first-child{font-weight:600;color:var(--rl-ink)}
+.rl-dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 16px;margin:0;font-size:13px}
+.rl-dl dt{color:var(--rl-muted)}.rl-dl dd{margin:0;overflow-wrap:anywhere;color:var(--rl-ink)}.rl-mono{font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+.rl-card details{margin-top:10px}.rl-card summary{cursor:pointer;color:var(--rl-accent);font-weight:600;font-size:13.5px}
+.rl-json{white-space:pre-wrap;overflow:auto;max-height:260px;padding:12px;border:1px solid var(--rl-line);border-radius:10px;background:var(--rl-field);color:var(--rl-ink);margin:8px 0 0}
+.rl-notes{margin:0;padding-left:18px;font-size:13.5px;color:var(--rl-muted)}.rl-notes li{margin:4px 0}
+.rl-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+.rl-acts .btn,.rl-saved .btn{min-height:40px;font-weight:600}
+.rl-saved{display:grid;gap:10px;margin-top:12px}
+.rl-item{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;align-items:center;border:1px solid var(--rl-line);border-radius:12px;padding:10px 14px}
+.rl-item>div:first-child{min-width:0;flex:1 1 260px}.rl-item strong{display:block}.rl-item .rl-mono{color:var(--rl-muted);overflow-wrap:anywhere}
+.rl-item .rl-acts{margin:0}
+.rl-empty{padding:18px;text-align:center;color:var(--rl-muted);border:1px dashed var(--rl-line);border-radius:12px}
+.rl-chart .bar.warn{fill:none;stroke:var(--rl-bar2);stroke-width:1.5;stroke-dasharray:4 3}
+.rl-chart .diag{stroke:var(--rl-warn);stroke-width:1.5;stroke-dasharray:4 4;fill:none}
+.rl-chart .line{fill:none;stroke:var(--rl-bar);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.rl-chart .dot{fill:var(--rl-bar);stroke:var(--rl-halo);stroke-width:1.5}.rl-chart .dot.hollow{fill:var(--rl-halo);stroke:var(--rl-bar);stroke-width:2}
+.rl-chart .band{fill:var(--rl-soft);stroke:var(--rl-line);stroke-width:1}.rl-chart .mean{stroke:var(--rl-ink);stroke-width:2.5;stroke-linecap:round}
+.rl-chart .posbar{fill:var(--rl-bar)}.rl-chart .negbar{fill:var(--rl-bar2)}.rl-chart .lo{opacity:.5}
+.rl-legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;color:var(--rl-muted);margin:6px 0 0}.rl-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+.rl-table.sm{min-width:540px}.rl-table.xs{min-width:340px}
+.rl-chart .halot{paint-order:stroke;stroke:var(--rl-halo);stroke-width:4px;stroke-linejoin:round}
+.rl-why{list-style:none;margin:0;padding:0;display:grid;gap:10px}.rl-why li{border:1px solid var(--rl-line);border-radius:12px;padding:10px 12px;min-width:0}.rl-why strong{color:var(--rl-ink)}.rl-why p{margin:5px 0 0;font-size:13.5px;line-height:1.55;color:var(--rl-ink)}
+.rl-warnbox{margin:12px 0 0;padding:11px 14px;border:1px solid var(--rl-line);border-left:4px solid var(--rl-warn);border-radius:12px;background:var(--rl-soft);font-size:13.5px;color:var(--rl-ink)}
+.rl-stat{list-style:none;margin:0;padding:0}.rl-stat li{padding:8px 0;border-bottom:1px dashed var(--rl-line);font-size:13.5px;display:grid;gap:3px}.rl-stat .nm{color:var(--rl-muted)}.rl-stat b{font-variant-numeric:tabular-nums}
+@media(max-width:1000px){.rl-res{grid-template-columns:minmax(0,1fr)}.rl-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.wrap{padding:16px 12px 40px}.card{padding:15px}.rl-flow{grid-template-columns:1fr}.rl-params input{width:100%}.rl-params label{flex:1 1 40%}.rl-run .btn{flex:1 1 100%}.rl-dl{grid-template-columns:1fr;gap:0}.rl-dl dd{margin-bottom:8px}.rl-acts .btn{flex:1 1 40%}.rl-seg .btn{flex:1}.rl-seg .lbl{flex:1 1 100%;margin:0}}
+@media(prefers-reduced-motion:reduce){.rl-track i{transition:none}}
+</style>
+</head>
+<body class="cm-lab"><main class="wrap">
+<section class="card hero">
+  <div class="eyebrow">Cardiac Research Lab · Pre-angiography triage</div>
+  <h1>Who needs a closer look before the angiogram?</h1>
+  <p class="rl-lead">A chest-pain patient arrives. Using only non-invasive data, how well can we rank who likely has significant CAD (≥50% stenosis) and in which vessel (LAD, LCX or RCA), before an invasive angiogram? Five experiments test how much each kind of data and each model type adds, why LCX and RCA are harder, whether results hold across sex and age, and whether the probabilities can be trusted, with uncertainty shown for every number.</p>
+  <ol class="rl-flow" aria-label="Triage scenario">
+    <li>Chest-pain patient arrives<small>Referral to angiography is being considered</small></li>
+    <li>Non-invasive data only<small>Demographics, history, vitals, labs, ECG, echo</small></li>
+    <li>Rank likelihood of CAD<small>Overall and for LAD, LCX, RCA</small></li>
+    <li>Angiogram decides<small>Estimates help prioritise; they never replace imaging</small></li>
+  </ol>
+  <div class="rl-facts" id="facts" aria-live="polite"><span class="rl-chip">Loading lab details…</span></div>
+  <div class="rl-notice" role="note"><strong>Educational decision support, not a substitute for formal diagnostic imaging.</strong> Results are research estimates for triage discussion, not a diagnosis or medical advice.</div>
+</section>
+
+<section class="card rl-card" aria-labelledby="hSet">
+  <h2 id="hSet">Run settings</h2>
+  <p class="rl-small">Fixed seeds make every run repeatable. Identical settings reuse the saved server result instead of recomputing.</p>
+  <div class="rl-params">
+    <label>Seed<input id="pSeed" type="number" inputmode="numeric" step="1" value="0"></label>
+    <label>CV repeats<input id="pRep" type="number" inputmode="numeric" step="1" value="2"></label>
+    <label>Bootstrap resamples<input id="pBoot" type="number" inputmode="numeric" step="100" value="1000"></label>
+  </div>
+  <p class="rl-err" id="pErr" role="alert"></p>
+</section>
+
+<section class="card rl-card" id="card-ablation" aria-labelledby="hAbl">
+  <div class="eyebrow">Experiment 1</div>
+  <h2 id="hAbl">Feature-group ablation</h2>
+  <p class="rl-q">Which kinds of non-invasive data actually improve who we flag, and where does adding more stop mattering?</p>
+  <p class="rl-small" id="dAbl">Adds data cumulatively (demographics &amp; history, then labs, ECG, echo) for CAD, LAD, LCX and RCA, and gives each step's AUC change a paired 95% CI.</p>
+  <div class="rl-run"><button type="button" class="btn primary" data-run="ablation">Run experiment</button><label class="rl-chk"><input type="checkbox" data-force="ablation"> Recompute (ignore saved result)</label></div>
+  <div class="rl-prog" hidden><div class="rl-track" role="progressbar" aria-label="Ablation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><div class="rl-progtext" aria-hidden="true"></div></div>
+  <p class="rl-status" role="status" aria-live="polite"></p>
+  <div class="rl-out"><div class="rl-hint">Run the experiment to see the AUC for each data tier with 95% bootstrap intervals, a plain-language triage takeaway, limitations and the full manifest.</div></div>
+</section>
+
+<section class="card rl-card" id="card-models" aria-labelledby="hMod">
+  <div class="eyebrow">Experiment 2</div>
+  <h2 id="hMod">Model comparison</h2>
+  <p class="rl-q">Does the choice of algorithm matter, or is the information in the data the limit?</p>
+  <p class="rl-small" id="dMod">Compares logistic regression, random forest and gradient boosting on every non-invasive feature; hyperparameters are chosen inside the inner CV.</p>
+  <div class="rl-run"><button type="button" class="btn primary" data-run="models">Run experiment</button><label class="rl-chk"><input type="checkbox" data-force="models"> Recompute (ignore saved result)</label></div>
+  <div class="rl-prog" hidden><div class="rl-track" role="progressbar" aria-label="Model comparison progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><div class="rl-progtext" aria-hidden="true"></div></div>
+  <p class="rl-status" role="status" aria-live="polite"></p>
+  <div class="rl-out"><div class="rl-hint">Run the experiment to compare the three model families with paired 95% intervals on the AUC difference.</div></div>
+</section>
+
+<section class="card rl-card" id="card-weakvessel" aria-labelledby="hWeak">
+  <div class="eyebrow">Experiment 3</div>
+  <h2 id="hWeak">Weak-vessel analysis (LCX and RCA)</h2>
+  <p class="rl-q">Why are LCX and RCA harder to rank than LAD, and would more patients help?</p>
+  <p class="rl-small">Compares LCX and RCA with LAD (the reference): class balance, fold-to-fold variance, a learning curve on growing training sets, and plain-language reasons. Reasons are labelled as measured here or as general reasoning not tested here.</p>
+  <div class="rl-run"><button type="button" class="btn primary" data-run="weakvessel">Run experiment</button><label class="rl-chk"><input type="checkbox" data-force="weakvessel"> Recompute (ignore saved result)</label></div>
+  <div class="rl-prog" hidden><div class="rl-track" role="progressbar" aria-label="Weak-vessel progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><div class="rl-progtext" aria-hidden="true"></div></div>
+  <p class="rl-status" role="status" aria-live="polite"></p>
+  <div class="rl-out"><div class="rl-hint">Run the experiment to see class balance, per-fold variance, a learning curve with 95% intervals and the reasons these vessels are harder.</div></div>
+</section>
+
+<section class="card rl-card" id="card-subgroups" aria-labelledby="hSub">
+  <div class="eyebrow">Experiment 4</div>
+  <h2 id="hSub">Subgroup check (sex and age band)</h2>
+  <p class="rl-q">Do the numbers look similar across sex and age bands, and where is the group too small to say?</p>
+  <p class="rl-small">Descriptive only. Shows sample size, prevalence and out-of-fold performance for each group, with a warning when a group is small. No test between groups is run.</p>
+  <div class="rl-run"><button type="button" class="btn primary" data-run="subgroups">Run experiment</button><label class="rl-chk"><input type="checkbox" data-force="subgroups"> Recompute (ignore saved result)</label></div>
+  <div class="rl-prog" hidden><div class="rl-track" role="progressbar" aria-label="Subgroup progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><div class="rl-progtext" aria-hidden="true"></div></div>
+  <p class="rl-status" role="status" aria-live="polite"></p>
+  <div class="rl-out"><div class="rl-hint">Run the experiment to see group sizes, prevalence and performance by sex and age band, with small-group warnings.</div></div>
+</section>
+
+<section class="card rl-card" id="card-calibration" aria-labelledby="hCal">
+  <div class="eyebrow">Experiment 5</div>
+  <h2 id="hCal">Calibration and triage bands</h2>
+  <p class="rl-q">When the tool gives a patient a high score, how many such patients truly had CAD?</p>
+  <p class="rl-small">Reliability curve, Brier score and calibration slope, then a triage view: for each probability band, how many patients truly had the condition.</p>
+  <div class="rl-run"><button type="button" class="btn primary" data-run="calibration">Run experiment</button><label class="rl-chk"><input type="checkbox" data-force="calibration"> Recompute (ignore saved result)</label></div>
+  <div class="rl-prog" hidden><div class="rl-track" role="progressbar" aria-label="Calibration progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><div class="rl-progtext" aria-hidden="true"></div></div>
+  <p class="rl-status" role="status" aria-live="polite"></p>
+  <div class="rl-out"><div class="rl-hint">Run the experiment to see the reliability curve, Brier score and how many patients in each probability band truly had CAD.</div></div>
+</section>
+
+<section class="card rl-card" aria-labelledby="hSaved">
+  <div class="rl-exp-head"><div><h2 id="hSaved">Saved runs in this browser</h2><p class="rl-small">Each finished run is saved here (newest 12) and logged in <a href="/history">History</a>. Nothing is stored on the server by the browser, and clearing site data removes it.</p></div><button type="button" class="btn" id="clearSaved">Delete all saved runs</button></div>
+  <div class="rl-saved" id="saved"></div>
+</section>
+</main>
+
+<script>
+(()=>{'use strict';
+const API='/api/research-lab',STORE='cm-research-lab-v1',MAXSAVE=12,TG=['CAD','LAD','LCX','RCA'];
+const METRIC={roc_auc:'ROC-AUC',accuracy:'Accuracy',precision:'Precision',recall:'Recall (sensitivity)',f1:'F1 score'};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const f2=x=>Number.isFinite(x)?(Math.round(x*100)/100).toFixed(2):'n/a';
+const sg=x=>{if(!Number.isFinite(x))return'n/a';let v=Math.round(x*100)/100;if(Object.is(v,-0))v=0;return(v>0?'+':v<0?'\u2212':'')+Math.abs(v).toFixed(2)};
+const ci=m=>m&&m.ci95?`${f2(m.value)} (${f2(m.ci95[0])}\u2013${f2(m.ci95[1])})`:'n/a';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NEWX=['weakvessel','subgroups','calibration'],ALLX=['ablation','models',...NEWX],
+  SUBMET={prevalence:'Prevalence (share with disease)',roc_auc:'ROC-AUC',sensitivity:'Sensitivity (recall)',specificity:'Specificity'},
+  ML=Object.assign({},METRIC,SUBMET),DEFSEL={ablation:'CAD',models:'CAD',weakvessel:'LCX',subgroups:'CAD',calibration:'CAD'},
+  S={meta:null,busy:false,res:Object.fromEntries(ALLX.map(k=>[k,null])),sel:{...DEFSEL},met:{ablation:'roc_auc',models:'roc_auc',subgroups:'prevalence'}};
+const pc=x=>Number.isFinite(x)?Math.round(x*100)+'%':'n/a';
+const pcI=m=>m&&m.ci95?`${pc(m.value)} (${pc(m.ci95[0])}\u2013${pc(m.ci95[1])})`:'n/a';
+
+async function api(path,opts){const r=await fetch(API+path,opts&&{headers:{'Content-Type':'application/json'},...opts});let j;try{j=await r.json()}catch{j={detail:'Invalid server response'}}
+  if(!r.ok){const d=j.detail;throw new Error(Array.isArray(d)?d.map(x=>x.msg).join('; '):(d||`Request failed (${r.status})`))}return j}
+
+/* ---------- rows for one target ---------- */
+function rowsFor(exp,r,t){const T=r.targets[t];
+  if(exp==='ablation'){const n=T.steps.length;return T.steps.map((s,i)=>({label:s.label,feat:s.n_features,metrics:s.metrics,delta:s.delta_auc_vs_prev,ref:i?T.steps[i-1].label:null,best:i===n-1}))}
+  const b=T.models.find(m=>m.is_best);return T.models.map(m=>({label:m.label,metrics:m.metrics,delta:m.is_best?null:m.delta_auc_vs_best,ref:b?b.label:null,best:m.is_best}))}
+
+/* ---------- SVG bar chart with CI whiskers (sized in real px so text stays readable) ---------- */
+function wrapLabel(s,max){const out=[];let cur='';s.split(' ').forEach(w=>{if(cur&&(cur+' '+w).length>max){out.push(cur);cur=w}else cur=cur?cur+' '+w:w});if(cur)out.push(cur);return out}
+function chartSVG(rows,metric,w){
+  const lab=Math.round(Math.min(150,Math.max(100,w*.32))),pl=lab+10,pr=16,pw=Math.max(80,w-pl-pr),rowH=56,top=10,H=top+rows.length*rowH+26,max=Math.max(8,Math.floor((lab-8)/7.2));
+  const x=v=>pl+Math.max(0,Math.min(1,v))*pw;let g='',b='';
+  [0,.25,.5,.75,1].forEach(v=>{g+=`<line class="grid" x1="${x(v)}" x2="${x(v)}" y1="${top}" y2="${H-24}"/><text class="mut" x="${x(v)}" y="${H-8}" text-anchor="middle" font-size="11">${v.toFixed(v===0||v===1?1:2)}</text>`});
+  if(metric==='roc_auc')g+=`<line class="chance" x1="${x(.5)}" x2="${x(.5)}" y1="${top}" y2="${H-24}"/>`;
+  rows.forEach((r,i)=>{const m=r.metrics[metric],y=top+i*rowH+8,cy=y+9,ok=m&&Number.isFinite(m.value),lines=wrapLabel(r.label,max);
+    const t0=cy-(lines.length-1)*7+4;
+    b+=`<text x="${lab}" y="${t0}" text-anchor="end" font-size="12" font-weight="600">${lines.map((l,k)=>`<tspan x="${lab}" dy="${k?14:0}">${esc(l)}</tspan>`).join('')}</text>`;
+    if(ok){const lo=m.ci95[0],hi=m.ci95[1];
+      b+=`<rect class="bar${r.best?' best':''}${r.warn?' warn':''}" x="${pl}" y="${y}" width="${Math.max(1,x(m.value)-pl)}" height="18" rx="4"/>`;
+      if(Number.isFinite(lo)&&Number.isFinite(hi))b+=`<path class="halo" d="M${x(lo)} ${cy}H${x(hi)}M${x(lo)} ${cy-6}V${cy+6}M${x(hi)} ${cy-6}V${cy+6}"/><path class="wh" d="M${x(lo)} ${cy}H${x(hi)}M${x(lo)} ${cy-6}V${cy+6}M${x(hi)} ${cy-6}V${cy+6}"/>`;
+      b+=`<text x="${pl}" y="${y+34}" font-size="12">${esc(ci(m))}${r.warn?' \u00b7 small group':''}</text>`}
+    else b+=`<text class="mut" x="${pl}" y="${y+14}" font-size="12">${esc(r.na||'n/a')}</text>`});
+  const sum=rows.map(r=>`${r.label}: ${ci(r.metrics[metric])}`).join('; ');
+  return `<svg width="${w}" height="${H}" viewBox="0 0 ${w} ${H}" role="img" aria-label="${esc(ML[metric])} with 95% confidence intervals. ${esc(sum)}">${g}${b}</svg>`}
+
+/* ---------- result rendering ---------- */
+function deltaHTML(exp,r,t){const T=r.targets[t],rows=rowsFor(exp,r,t);let li='';
+  rows.forEach(x=>{if(!x.delta||!x.ref)return;const d=x.delta,txt=exp==='ablation'?`${esc(x.label)} vs ${esc(x.ref)}`:`${esc(x.label)} vs ${esc(x.ref)} (best)`;
+    li+=`<li><span class="nm">${txt}</span><span><b>\u0394AUC ${sg(d.value)}</b> <span class="rl-small">95% CI ${sg(d.ci95[0])} to ${sg(d.ci95[1])}</span><span class="rl-pill ${d.within_noise?'noise':'beyond'}">${d.within_noise?'Within noise':'Beyond noise'}</span></span></li>`});
+  if(exp==='ablation'&&T.delta_auc_full_vs_base){const d=T.delta_auc_full_vs_base;li+=`<li><span class="nm">All non-invasive data vs demographics &amp; history alone</span><span><b>\u0394AUC ${sg(d.value)}</b> <span class="rl-small">95% CI ${sg(d.ci95[0])} to ${sg(d.ci95[1])}</span><span class="rl-pill ${d.within_noise?'noise':'beyond'}">${d.within_noise?'Within noise':'Beyond noise'}</span></span></li>`}
+  if(!li)li='<li><span class="nm">No paired differences for this target.</span></li>';return `<ul class="rl-deltas">${li}</ul>`}
+
+function tableHTML(exp,r,t){const rows=rowsFor(exp,r,t),ab=exp==='ablation';
+  return `<table class="rl-table"><thead><tr><th>${ab?'Data tier':'Model'}</th>${ab?'<th>Features</th>':''}${Object.keys(METRIC).map(k=>`<th>${esc(METRIC[k])}</th>`).join('')}<th>\u0394AUC ${ab?'vs previous':'vs best'}</th></tr></thead><tbody>`+
+  rows.map(x=>`<tr><td>${esc(x.label)}${x.best?' <span class="rl-pill ref">'+(ab?'full set':'best AUC')+'</span>':''}</td>${ab?`<td>${esc(x.feat)}</td>`:''}${Object.keys(METRIC).map(k=>`<td>${esc(ci(x.metrics[k]))}</td>`).join('')}<td>${x.delta?`${sg(x.delta.value)} (${sg(x.delta.ci95[0])} to ${sg(x.delta.ci95[1])}) ${x.delta.within_noise?'· within noise':'· beyond noise'}`:'reference'}</td></tr>`).join('')+'</tbody></table>'}
+
+function manifestHTML(r){const m=r.manifest||{},c=m.code_sha256||{},p=m.params||{};
+  const files=Object.keys(c).filter(k=>k!=='combined').map(k=>`${esc(k)} ${esc(String(c[k]).slice(0,12))}\u2026`).join(' · ');
+  return `<dl class="rl-dl"><dt>Experiment ID</dt><dd class="rl-mono">${esc(m.experiment_id)}</dd><dt>Seed</dt><dd>${esc(m.seed)}</dd><dt>Created (UTC)</dt><dd>${esc(m.created_utc)} · ${esc(m.runtime_seconds)} s</dd>
+  <dt>Parameters</dt><dd class="rl-mono">${esc(Object.keys(p).map(k=>k+'='+p[k]).join(', '))}</dd>
+  <dt>data.xlsx SHA-256</dt><dd class="rl-mono">${esc(m.data_sha256)}</dd><dt>Code SHA-256</dt><dd class="rl-mono">${esc(c.combined)}<br>${files}</dd>
+  <dt>Libraries</dt><dd class="rl-mono">${esc(Object.entries(m.libraries||{}).map(e=>e.join(' ')).join(' · '))}</dd>
+  <dt>Data</dt><dd>${esc(m.n_rows)} patients · ${esc(m.n_features)} non-invasive features · never inputs: ${esc((m.inputs_exclude||[]).join(', '))}</dd></dl>
+  <details><summary>Full manifest JSON</summary><pre class="rl-json rl-mono">${esc(JSON.stringify(m,null,2))}</pre></details>`}
+
+const MOPT=exp=>exp==='subgroups'?SUBMET:(exp==='ablation'||exp==='models')?METRIC:null;
+function renderResult(exp){const r=S.res[exp],card=$('card-'+exp),out=card.querySelector('.rl-out');
+  if(!r){return}
+  out.innerHTML=`<div class="rl-overall"><h3>Overall</h3><p>${esc(r.overall_takeaway)}</p></div>
+  <div class="rl-ctl"><span class="rl-seg" role="group" aria-label="Target"><span class="lbl">Target</span>${Object.keys(r.targets).map(t=>`<button type="button" class="btn" data-t="${t}" aria-pressed="${t===S.sel[exp]}">${t}${r.targets[t].role==='reference'?' (reference)':''}</button>`).join('')}</span>
+   ${MOPT(exp)?`<label><span class="lbl">Metric</span><select data-m aria-label="Metric">${Object.keys(MOPT(exp)).map(k=>`<option value="${k}"${k===S.met[exp]?' selected':''}>${esc(MOPT(exp)[k])}</option>`).join('')}</select></label>`:''}</div>
+  <div class="rl-dyn"></div>
+  <h3>Manifest</h3>${manifestHTML(r)}
+  <h3>Limitations</h3><ul class="rl-notes">${(r.notes||[]).map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+  <div class="rl-acts"><button type="button" class="btn" data-exp-json="${exp}">Export JSON</button><button type="button" class="btn" data-exp-csv="${exp}">Export CSV</button><span class="rl-small">Protocol: ${esc(r.protocol)}</span></div>`;
+  renderDyn(exp)}
+
+function renderDyn(exp){if(NEWX.includes(exp))return renderNew(exp);const r=S.res[exp],card=$('card-'+exp),t=S.sel[exp],m=S.met[exp],T=r&&r.targets&&r.targets[t];if(!T)return;
+  const dyn=card.querySelector('.rl-dyn'),ab=exp==='ablation';
+  dyn.innerHTML=`<div class="rl-res"><div><h3>${esc(METRIC[m])} for ${esc(t)}</h3><div class="rl-chart"></div><p class="rl-small">${esc(T.positives)} of ${esc(T.n)} patients are positive (${f2(T.prevalence*100).replace(/\.00$/,'')}%). Bars: out-of-fold estimate from nested CV. Whiskers: bootstrap 95% CI.${m==='roc_auc'?' Dashed line: chance (0.5).':''} Threshold 0.5 for the other metrics.</p></div>
+   <div><div class="rl-take"><h3>Triage takeaway</h3><p>${esc(T.triage_takeaway)}</p></div><h3>Paired differences (AUC)</h3>${deltaHTML(exp,r,t)}<p class="rl-small">Within noise: the paired 95% CI for the AUC difference includes 0. That means no detectable difference, not proof the options are equivalent.</p></div></div>
+   <h3>All metrics for ${esc(t)}</h3><div class="rl-tw">${tableHTML(exp,r,t)}</div>`;
+  card.querySelectorAll('[data-t]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)));
+  const host=dyn.querySelector('.rl-chart'),draw=()=>{const w=Math.floor(host.clientWidth);if(w<80||host._w===w)return;host._w=w;host.innerHTML=chartSVG(rowsFor(exp,r,t),m,w)};
+  draw();if('ResizeObserver' in window){let tm=0;new ResizeObserver(()=>{clearTimeout(tm);tm=setTimeout(draw,RM?0:60)}).observe(host)}else addEventListener('resize',draw);
+  wrapTables(dyn)}
+
+function wrapTables(root){root.querySelectorAll('table').forEach(t=>{const p=t.parentElement;if(!p||p.classList.contains('cm-tablewrap'))return;const w=document.createElement('div');w.className='cm-tablewrap';w.tabIndex=0;w.setAttribute('role','region');w.setAttribute('aria-label','Scrollable table');p.insertBefore(w,t);w.appendChild(t)})}
+
+/* ---------- experiments 3-5: charts ---------- */
+function labelSVG(label,lab,cy,max){const lines=wrapLabel(label,max),t0=cy-(lines.length-1)*7+4;return `<text x="${lab}" y="${t0}" text-anchor="end" font-size="12" font-weight="600">${lines.map((l,k)=>`<tspan x="${lab}" dy="${k?14:0}">${esc(l)}</tspan>`).join('')}</text>`}
+function stackSVG(rows,w,maxN,aria){/* stacked bar per row: a = with disease, b = without; bar length follows the patient count */
+  const lab=Math.round(Math.min(130,Math.max(84,w*.28))),pl=lab+10,pw=Math.max(80,w-pl-14),rowH=50,top=6,H=top+rows.length*rowH+4,max=Math.max(7,Math.floor((lab-8)/7.2));let b='';
+  rows.forEach((r,i)=>{const y=top+i*rowH+6,cy=y+9,tot=r.a+r.b,len=maxN?pw*tot/maxN:pw,wa=tot?len*r.a/tot:0,c=r.low?' lo':'';b+=labelSVG(r.label,lab,cy,max);
+    if(tot)b+=`<rect class="posbar${c}" x="${pl}" y="${y}" width="${r.a?Math.max(wa,1):0}" height="18" rx="3"/><rect class="negbar${c}" x="${pl+wa}" y="${y}" width="${r.b?Math.max(len-wa,1):0}" height="18" rx="3"/>`;
+    else b+=`<text class="mut" x="${pl}" y="${y+14}" font-size="12">no patients</text>`;
+    b+=`<text x="${pl}" y="${y+34}" font-size="12">${esc(r.text)}</text>`});
+  return `<svg width="${w}" height="${H}" viewBox="0 0 ${w} ${H}" role="img" aria-label="${esc(aria)}">${b}</svg>`}
+const LEG='<div class="rl-legend"><span><i style="background:var(--rl-bar)"></i>Has the condition</span><span><i style="background:var(--rl-bar2)"></i>Does not</span></div>';
+
+function stripSVG(rows,w,aria){/* fold-level AUC dots per row, mean line and +/-1 SD band; axis starts at 0.4 */
+  const lab=Math.round(Math.min(100,Math.max(60,w*.2))),pl=lab+10,pw=Math.max(80,w-pl-14),rowH=66,top=8,H=top+rows.length*rowH+26,x=v=>pl+Math.max(0,Math.min(1,(v-.4)/.6))*pw;let g='',b='';
+  [.4,.5,.6,.7,.8,.9,1].forEach(v=>{g+=`<line class="grid" x1="${x(v)}" x2="${x(v)}" y1="${top}" y2="${H-24}"/><text class="mut" x="${x(v)}" y="${H-8}" text-anchor="middle" font-size="11">${v.toFixed(1)}</text>`});
+  g+=`<line class="chance" x1="${x(.5)}" x2="${x(.5)}" y1="${top}" y2="${H-24}"/>`;
+  rows.forEach((r,i)=>{const y=top+i*rowH,cy=y+22,f=r.f;b+=labelSVG(r.label,lab,cy,Math.max(6,Math.floor((lab-6)/7.2)));
+    b+=`<rect class="band" x="${x(f.mean-f.sd)}" y="${cy-18}" width="${Math.max(2,x(f.mean+f.sd)-x(f.mean-f.sd))}" height="36" rx="5"/>`;
+    f.values.forEach((v,k)=>{b+=`<circle class="dot" cx="${x(v)}" cy="${cy+((k%5)-2)*6}" r="3.6"/>`});
+    b+=`<line class="mean" x1="${x(f.mean)}" x2="${x(f.mean)}" y1="${cy-20}" y2="${cy+20}"/><text class="halot" x="${pl}" y="${y+56}" font-size="12">${esc(r.text)}</text>`});
+  return `<svg width="${w}" height="${H}" viewBox="0 0 ${w} ${H}" role="img" aria-label="${esc(aria)}">${g}${b}</svg>`}
+
+function curveSVG(pts,w,aria){/* learning curve: AUC with bootstrap whiskers against training size */
+  const l=46,r=14,t=12,bt=56,pw=Math.max(80,w-l-r),ph=210,H=t+ph+bt,maxN=Math.max(...pts.map(p=>p.n_train))*1.06,
+    lo=Math.max(0,Math.floor((Math.min(...pts.map(p=>p.roc_auc.ci95[0]))-.03)*20)/20),hi=Math.min(1,Math.ceil((Math.max(...pts.map(p=>p.roc_auc.ci95[1]))+.03)*20)/20),
+    x=n=>l+n/maxN*pw,y=v=>t+ph-(v-lo)/(hi-lo)*ph;let g='',b='';
+  for(let v=lo;v<=hi+1e-9;v+=.05)g+=`<line class="grid" x1="${l}" x2="${l+pw}" y1="${y(v)}" y2="${y(v)}"/><text class="mut" x="${l-6}" y="${y(v)+4}" text-anchor="end" font-size="11">${v.toFixed(2)}</text>`;
+  if(lo<=.5&&hi>=.5)g+=`<line class="chance" x1="${l}" x2="${l+pw}" y1="${y(.5)}" y2="${y(.5)}"/>`;
+  b+=`<path class="line" d="${pts.map((p,i)=>(i?'L':'M')+x(p.n_train).toFixed(1)+' '+y(p.roc_auc.value).toFixed(1)).join('')}"/>`;
+  pts.forEach(p=>{const a=p.roc_auc,cx=x(p.n_train),d=`M${cx} ${y(a.ci95[0])}V${y(a.ci95[1])}M${cx-5} ${y(a.ci95[0])}H${cx+5}M${cx-5} ${y(a.ci95[1])}H${cx+5}`;
+    b+=`<path class="halo" d="${d}"/><path class="wh" d="${d}"/><circle class="dot" cx="${cx}" cy="${y(a.value)}" r="4.5"/><text class="mut" x="${cx}" y="${t+ph+16}" text-anchor="middle" font-size="11">${Math.round(p.n_train)}</text><text class="mut" x="${cx}" y="${t+ph+29}" text-anchor="middle" font-size="10.5">${Math.round(p.fraction*100)}%</text>`});
+  b+=`<text class="mut" x="${l+pw/2}" y="${H-3}" text-anchor="middle" font-size="11">Training patients (share of each training part)</text><text class="mut" transform="translate(12 ${t+ph/2}) rotate(-90)" text-anchor="middle" font-size="11">ROC-AUC</text>`;
+  return `<svg width="${w}" height="${H}" viewBox="0 0 ${w} ${H}" role="img" aria-label="${esc(aria)}">${g}${b}</svg>`}
+
+function relSVG(rows,w,aria){/* reliability curve: observed share vs mean predicted probability per bin */
+  const l=46,r=14,t=10,bt=42,pw=Math.max(120,w-l-r),ph=Math.min(pw,360),H=t+ph+bt,x=v=>l+v*pw,y=v=>t+ph-v*ph;let g='',b='';
+  [0,.2,.4,.6,.8,1].forEach(v=>{g+=`<line class="grid" x1="${x(v)}" x2="${x(v)}" y1="${t}" y2="${t+ph}"/><line class="grid" x1="${l}" x2="${l+pw}" y1="${y(v)}" y2="${y(v)}"/><text class="mut" x="${x(v)}" y="${t+ph+15}" text-anchor="middle" font-size="11">${v.toFixed(1)}</text><text class="mut" x="${l-6}" y="${y(v)+4}" text-anchor="end" font-size="11">${v.toFixed(1)}</text>`});
+  g+=`<line class="diag" x1="${x(0)}" y1="${y(0)}" x2="${x(1)}" y2="${y(1)}"/>`;
+  const used=rows.filter(q=>q.n>0);
+  b+=`<path class="line" style="stroke-width:1.5;opacity:.6" d="${used.map((q,i)=>(i?'L':'M')+x(q.mean_predicted).toFixed(1)+' '+y(q.observed).toFixed(1)).join('')}"/>`;
+  used.forEach(q=>{const cx=x(q.mean_predicted),c=q.observed_ci95,d=`M${cx} ${y(c[0])}V${y(c[1])}M${cx-4} ${y(c[0])}H${cx+4}M${cx-4} ${y(c[1])}H${cx+4}`;
+    b+=`<path class="halo" d="${d}"/><path class="wh" d="${d}"/><circle class="dot${q.small?' hollow':''}" cx="${cx}" cy="${y(q.observed)}" r="${(4+Math.min(5,Math.sqrt(q.n)/2.2)).toFixed(1)}"/>`});
+  b+=`<text class="mut" x="${l+pw/2}" y="${H-3}" text-anchor="middle" font-size="11">Predicted probability (out-of-fold)</text><text class="mut" transform="translate(12 ${t+ph/2}) rotate(-90)" text-anchor="middle" font-size="11">Observed share with the condition</text>`;
+  return `<svg width="${w}" height="${H}" viewBox="0 0 ${w} ${H}" role="img" aria-label="${esc(aria)}">${g}${b}</svg>`}
+
+/* ---------- experiments 3-5: result panels ---------- */
+const liD=(txt,d)=>`<li><span class="nm">${txt}</span><span><b>\u0394AUC ${sg(d.value)}</b> <span class="rl-small">95% CI ${sg(d.ci95[0])} to ${sg(d.ci95[1])}</span><span class="rl-pill ${d.within_noise?'noise':'beyond'}">${d.within_noise?'Within noise':'Beyond noise'}</span></span></li>`;
+const tbl=(head,rows,cls)=>`<table class="rl-table ${cls||'sm'}"><thead><tr>${head.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+
+function weakHTML(r,t,T){const L=T.learning_curve,V=Object.keys(r.targets);let li=T.delta_auc_vs_LAD?liD(`${esc(t)} vs LAD (reference)`,T.delta_auc_vs_LAD):'<li><span class="nm">LAD is the reference; no difference is computed against itself.</span></li>';
+  li+=liD('100% vs 50% of the training data',L.delta_full_vs_half)+liD('100% vs 75% of the training data',L.delta_full_vs_three_quarter);
+  const bal=V.map(v=>{const q=r.targets[v];return [esc(v)+(q.role==='reference'?' (reference)':''),`${q.positives} (${pcI({value:q.prevalence,ci95:q.prevalence_ci95})})`,q.negatives,q.minority_class_n+' ('+q.minority_per_feature.toFixed(1)+' per feature)',
+    Object.entries(q.co_occurrence).map(([k,c])=>`${pc(c.share_of_positives)} also ${esc(k)}`).join(', ')]});
+  const fold=V.map(v=>{const f=r.targets[v].fold_auc;return [esc(v),f.mean.toFixed(2),f.sd.toFixed(2),f.min.toFixed(2)+' to '+f.max.toFixed(2),f.values.length]});
+  const ptsT=L.points.map(p=>[Math.round(p.fraction*100)+'%','about '+Math.round(p.n_train),esc(ci(p.roc_auc))]);
+  return `<div class="rl-res"><div><h3>Learning curve for ${esc(t)}: does more data help?</h3><div class="rl-chart c-lc"></div>
+   <p class="rl-small">Model: ${esc(L.model_label)} with fixed settings, refit on 25, 50, 75 and 100% of each training part and scored on the same held-out folds. Whiskers: bootstrap 95% CI. The largest size is about 80% of all patients, so the curve cannot show what happens beyond that.</p></div>
+   <div><div class="rl-take"><h3>Triage takeaway</h3><p>${esc(T.triage_takeaway)}</p></div><h3>Paired differences (AUC)</h3><ul class="rl-deltas">${li}</ul>
+   <p class="rl-small">Within noise: the paired 95% CI includes 0. That means no detectable difference, not proof the options are equivalent.</p></div></div>
+  <div class="rl-tw">${tbl(['Training share','Training patients','ROC-AUC (95% CI)'],ptsT,'xs')}</div>
+  <h3>Class balance</h3><div class="rl-res"><div><div class="rl-chart c-bal"></div>${LEG}</div><div class="rl-tw">${tbl(['Vessel','With stenosis (prevalence, 95% CI)','Without','Rarer class (per input feature)','Overlap with other vessels'],bal,'sm')}</div></div>
+  <h3>Variance across outer CV folds</h3><div class="rl-res"><div><div class="rl-chart c-fold"></div><p class="rl-small">Each dot is the AUC of one held-out fold; the line is the mean and the band is \u00b11 SD. Axis starts at 0.4; dashed line: chance. Folds hold about 60 patients, so single-fold AUCs are noisy by nature.</p></div>
+   <div class="rl-tw">${tbl(['Vessel','Mean AUC','SD','Range','Folds'],fold,'xs')}</div></div>
+  <h3>Why are LCX and RCA harder?</h3><ul class="rl-why">${r.why.map(w=>`<li><strong>${esc(w.title)}</strong><span class="rl-pill ${w.kind==='measured'?'beyond':'noise'}">${w.kind==='measured'?'Measured in this run':'General reasoning, not tested here'}</span><p>${esc(w.text)}</p></li>`).join('')}</ul>`}
+
+function subRows(T,m){return T.groups.map(g=>({label:`${g.label} (n=${g.n})`,metrics:{[m]:g.metrics[m]},best:g.dimension==='All',warn:g.small&&g.dimension!=='All',na:m==='roc_auc'&&!g.auc_estimated?'not estimated (rarer class < 10)':'n/a'}))}
+function subHTML(r,t,T,m){const th=r.thresholds,small=T.groups.filter(g=>g.small&&g.dimension!=='All'),warn=T.groups.filter(g=>g.warnings.length);
+  const rows=T.groups.map(g=>{const q=g.metrics;return [esc(g.label)+(g.small&&g.dimension!=='All'?' <span class="rl-pill noise">small</span>':''),g.n,g.positives,pcI(q.prevalence),g.auc_estimated?esc(ci(q.roc_auc)):'not estimated',pcI(q.sensitivity),pcI(q.specificity)]});
+  return `${small.length?`<div class="rl-warnbox" role="note"><strong>Small-group warning.</strong> ${esc(small.map(g=>`${g.label} (n=${g.n}, rarer class ${Math.min(g.positives,g.negatives)})`).join('; '))}. Estimates for these groups are anecdotal: the intervals are wide and one or two patients can move them.</div>`:''}
+  <div class="rl-res"><div><h3>${esc(SUBMET[m])} for ${esc(t)} by group</h3><div class="rl-chart c-sub"></div>
+   <p class="rl-small">Descriptive only; no test between groups is run. Dashed outline: small group. Whiskers: 95% CI (Wilson for proportions, bootstrap for AUC). The first row is all patients. Threshold 0.5 for sensitivity and specificity. Warnings appear when n &lt; ${th.small_n} or the rarer class is &lt; ${th.small_class}; AUC is withheld below ${th.min_class}.</p></div>
+   <div><div class="rl-take"><h3>Triage takeaway</h3><p>${esc(T.triage_takeaway)}</p></div><h3>Group warnings</h3>${warn.length?`<ul class="rl-deltas">${warn.map(g=>`<li><span class="nm">${esc(g.label)}</span><span>${esc(g.warnings.join(' '))}</span></li>`).join('')}</ul>`:'<p class="rl-small">No group triggers a warning for this target.</p>'}</div></div>
+  <h3>All numbers for ${esc(t)}</h3><div class="rl-tw">${tbl(['Group','n','With condition','Prevalence (95% CI)','ROC-AUC (95% CI)','Sensitivity (95% CI)','Specificity (95% CI)'],rows,'')}</div>`}
+
+function calHTML(r,t,T){const st=(nm,v,pill)=>`<li><span class="nm">${nm}</span><span>${v}${pill||''}</span></li>`,pl=(c,a,b)=>`<span class="rl-pill ${c?'noise':'beyond'}">${c?a:b}</span>`;
+  const rel=T.reliability.map(q=>[esc(q.band),q.n,q.positives,q.n?pc(q.mean_predicted):'\u2013',q.n?pcI({value:q.observed,ci95:q.observed_ci95}):'\u2013',q.small?(q.n?'fewer than 10 patients: unreliable':'empty'):'']);
+  return `<div class="rl-res"><div><h3>Reliability curve for ${esc(t)}</h3><div class="rl-chart c-rel"></div>
+   <p class="rl-small">Each dot is a 0.1-wide probability bin: x = average predicted probability, y = share who truly had ${esc(t)}. On the dashed diagonal the score means what it says. Whiskers: Wilson 95% CI. Dot size grows with patients; hollow dots hold fewer than 10 patients and are unreliable.</p></div>
+   <div><div class="rl-take"><h3>Triage takeaway</h3><p>${esc(T.triage_takeaway)}</p></div><h3>Scores</h3><ul class="rl-stat">
+   ${st('Brier score (lower is better)',`<b>${T.brier.value.toFixed(3)}</b> <span class="rl-small">95% CI ${T.brier.ci95[0].toFixed(3)} to ${T.brier.ci95[1].toFixed(3)}; always predicting the cohort average: ${T.brier_reference.toFixed(3)}</span>`)}
+   ${st('Brier skill vs that average',`<b>${sg(T.brier_skill.value)}</b> <span class="rl-small">95% CI ${sg(T.brier_skill.ci95[0])} to ${sg(T.brier_skill.ci95[1])}</span>`,pl(T.brier_skill.within_noise,'Within noise','Beyond noise'))}
+   ${st('Calibration slope (ideal 1)',`<b>${T.slope.value.toFixed(2)}</b> <span class="rl-small">95% CI ${T.slope.ci95[0].toFixed(2)} to ${T.slope.ci95[1].toFixed(2)}</span>`,pl(T.slope.differs_from_1,'Differs from 1','Consistent with 1'))}
+   ${st('Average predicted vs observed',`<b>${pc(T.mean_predicted)} vs ${pc(T.prevalence)}</b> <span class="rl-small">difference ${sg(T.citl.value)}, 95% CI ${sg(T.citl.ci95[0])} to ${sg(T.citl.ci95[1])}</span>`,pl(T.citl.differs_from_0,'Differs from 0','Consistent with 0'))}
+   ${st('ROC-AUC (ranking, for context)',`<b>${esc(ci(T.roc_auc))}</b>`)}</ul></div></div>
+  <h3>Triage view: how many patients in each band truly had ${esc(t)}?</h3><div class="rl-chart c-tri"></div>${LEG}
+  <p class="rl-small">Bar length follows the number of patients in the band. Observed shares describe this referral cohort (${pc(T.prevalence)} positive), not an undifferentiated chest-pain clinic. Faded bars hold fewer than 10 patients.</p>
+  <ul class="rl-deltas">${T.triage_bands.map(q=>`<li><span class="nm">${esc(q.band)}</span><span>${esc(q.sentence)}${q.n?` <span class="rl-small">95% CI ${pc(q.observed_ci95[0])}\u2013${pc(q.observed_ci95[1])}</span>`:''}${q.small&&q.n?'<span class="rl-pill noise">small</span>':''}</span></li>`).join('')}</ul>
+  <details><summary>Reliability bins (table)</summary><div class="rl-tw">${tbl(['Bin','Patients','With condition','Mean predicted','Observed (95% CI)','Note'],rel,'sm')}</div></details>`}
+
+const NEWH={weakvessel:weakHTML,subgroups:subHTML,calibration:calHTML};
+function renderNew(exp){const r=S.res[exp],card=$('card-'+exp),t=S.sel[exp],m=S.met[exp],T=r&&r.targets&&r.targets[t];if(!T)return;
+  const dyn=card.querySelector('.rl-dyn');dyn.innerHTML=NEWH[exp](r,t,T,m);
+  card.querySelectorAll('[data-t]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)));
+  const sum=(a)=>a.join('; '),specs=[];
+  if(exp==='weakvessel'){const V=Object.keys(r.targets);
+    specs.push(['c-lc',w=>curveSVG(T.learning_curve.points,w,`Learning curve for ${t}. ${sum(T.learning_curve.points.map(p=>`${Math.round(p.fraction*100)}% of training data, about ${Math.round(p.n_train)} patients: AUC ${ci(p.roc_auc)}`))}`)]);
+    specs.push(['c-bal',w=>stackSVG(V.map(v=>{const q=r.targets[v];return{label:v+(q.role==='reference'?' (ref)':''),a:q.positives,b:q.negatives,text:`${q.positives} with, ${q.negatives} without`}}),w,r.targets[V[0]].n,`Class balance. ${sum(V.map(v=>`${v}: ${r.targets[v].positives} with stenosis, ${r.targets[v].negatives} without`))}`)]);
+    specs.push(['c-fold',w=>stripSVG(V.map(v=>{const f=r.targets[v].fold_auc;return{label:v,f,text:`mean ${f.mean.toFixed(2)} \u00b7 SD ${f.sd.toFixed(2)} \u00b7 ${f.min.toFixed(2)}\u2013${f.max.toFixed(2)}`}}),w,`Fold-level AUC. ${sum(V.map(v=>`${v}: mean ${r.targets[v].fold_auc.mean.toFixed(2)}, SD ${r.targets[v].fold_auc.sd.toFixed(2)}`))}`)])}
+  if(exp==='subgroups')specs.push(['c-sub',w=>chartSVG(subRows(T,m),m,w)]);
+  if(exp==='calibration'){specs.push(['c-rel',w=>relSVG(T.reliability,w,`Reliability curve for ${t}. ${sum(T.reliability.filter(q=>q.n).map(q=>`bin ${q.band}: predicted ${pc(q.mean_predicted)}, observed ${pc(q.observed)}, n=${q.n}`))}`)]);
+    const mx=Math.max(...T.triage_bands.map(q=>q.n),1);
+    specs.push(['c-tri',w=>stackSVG(T.triage_bands.map(q=>({label:q.band,a:q.positives,b:q.n-q.positives,low:q.small,text:q.n?`${q.positives} of ${q.n} (${pc(q.observed)}) \u00b7 CI ${pc(q.observed_ci95[0])}\u2013${pc(q.observed_ci95[1])}`:'none'})),w,mx,`Triage bands for ${t}. ${sum(T.triage_bands.map(q=>q.sentence))}`)])}
+  specs.forEach(([cls,fn])=>{const host=dyn.querySelector('.'+cls);if(!host)return;const draw=()=>{const w=Math.floor(host.clientWidth);if(w<80||host._w===w)return;host._w=w;host.innerHTML=fn(w)};
+    draw();if('ResizeObserver' in window){let tm=0;new ResizeObserver(()=>{clearTimeout(tm);tm=setTimeout(draw,RM?0:60)}).observe(host)}else addEventListener('resize',draw)});
+  wrapTables(dyn)}
+
+/* ---------- experiments 3-5: CSV (long format) ---------- */
+function csvLong(r){const m=r.manifest,rows=[],b0=[m.experiment_id,r.experiment,m.seed,m.created_utc,m.data_sha256],ex=r.experiment;
+  const add=(t,sec,item,met,v,lo,hi,note)=>rows.push([...b0,t,sec,item,met,v??'',lo??'',hi??'',note||''].map(q).join(','));
+  const E=(t,sec,item,met,e,note)=>{if(e)add(t,sec,item,met,e.value,e.ci95?e.ci95[0]:'',e.ci95?e.ci95[1]:'',note)};
+  Object.keys(r.targets).forEach(t=>{const T=r.targets[t];
+    if(ex==='weakvessel'){const L=T.learning_curve;E(t,'discrimination','all non-invasive inputs','roc_auc',T.metrics.roc_auc);
+      if(T.delta_auc_vs_LAD)E(t,'discrimination','vs LAD','delta_auc',T.delta_auc_vs_LAD,T.delta_auc_vs_LAD.within_noise?'within noise':'beyond noise');
+      add(t,'class_balance','all','positives',T.positives);add(t,'class_balance','all','negatives',T.negatives);E(t,'class_balance','all','prevalence',{value:T.prevalence,ci95:T.prevalence_ci95});add(t,'class_balance','all','rarer_class_per_feature',T.minority_per_feature);
+      T.fold_auc.values.forEach((v,i)=>add(t,'fold_auc','fold '+(i+1),'roc_auc',v));add(t,'fold_auc','summary','sd',T.fold_auc.sd);
+      L.points.forEach(p=>E(t,'learning_curve',`${Math.round(p.fraction*100)}% (about ${Math.round(p.n_train)} patients)`,'roc_auc',p.roc_auc,L.model_label));
+      E(t,'learning_curve','100% vs 50%','delta_auc',L.delta_full_vs_half,L.delta_full_vs_half.within_noise?'within noise':'beyond noise');E(t,'learning_curve','100% vs 75%','delta_auc',L.delta_full_vs_three_quarter,L.delta_full_vs_three_quarter.within_noise?'within noise':'beyond noise')}
+    else if(ex==='subgroups')T.groups.forEach(g=>{const w=g.warnings.join(' ');add(t,g.dimension,g.label,'n',g.n,'','',w);add(t,g.dimension,g.label,'positives',g.positives);
+      ['prevalence','roc_auc','sensitivity','specificity'].forEach(k=>E(t,g.dimension,g.label,k,g.metrics[k],g.metrics[k]?'':'not estimated'))});
+    else{[['brier',T.brier],['brier_skill',T.brier_skill],['calibration_slope',T.slope],['mean_predicted_minus_observed',T.citl],['roc_auc',T.roc_auc]].forEach(([k,e])=>E(t,'summary','all patients',k,e));
+      add(t,'summary','all patients','brier_reference',T.brier_reference);add(t,'summary','all patients','mean_predicted',T.mean_predicted);add(t,'summary','all patients','prevalence',T.prevalence);
+      T.reliability.forEach(q=>q.n&&E(t,'reliability_bin',q.band,'observed_share',{value:q.observed,ci95:q.observed_ci95},`n=${q.n}, mean predicted ${q.mean_predicted}`));
+      T.triage_bands.forEach(q=>q.n&&E(t,'triage_band',q.band,'observed_share',{value:q.observed,ci95:q.observed_ci95},`${q.positives} of ${q.n}`))}});
+  return [['experiment_id','experiment','seed','created_utc','data_sha256','target','section','item','metric','value','ci95_low','ci95_high','note'].join(','),...rows].join('\n')}
+
+/* ---------- exports ---------- */
+function download(name,type,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+const q=v=>{v=v==null?'':String(v);return/[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+function toCSV(r){if(NEWX.includes(r.experiment))return csvLong(r);const m=r.manifest,ab=r.experiment==='ablation';
+  const head=['experiment_id','experiment','seed','created_utc','data_sha256','target','group_or_model','n_features','metric','value','ci95_low','ci95_high','delta_auc','delta_auc_ci95_low','delta_auc_ci95_high','delta_basis','within_noise'],lines=[head.join(',')];
+  TG.forEach(t=>{const rows=rowsFor(r.experiment,r,t);rows.forEach(x=>Object.keys(METRIC).forEach(k=>{const e=x.metrics[k],d=k==='roc_auc'?x.delta:null;
+    lines.push([m.experiment_id,r.experiment,m.seed,m.created_utc,m.data_sha256,t,x.label,ab?x.feat:'',k,e.value,e.ci95[0],e.ci95[1],d?d.value:'',d?d.ci95[0]:'',d?d.ci95[1]:'',d?(ab?'vs previous: ':'vs best: ')+x.ref:'',d?d.within_noise:''].map(q).join(','))}))});
+  return lines.join('\n')}
+const fname=(r,ext)=>`cardiomap-research-lab-${r.manifest.experiment_id}.${ext}`;
+
+/* ---------- saved runs (localStorage) + History ---------- */
+function readSaved(){try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');return Array.isArray(a)?a.filter(r=>r&&r.manifest&&r.targets&&r.experiment):[]}catch{return[]}}
+function writeSaved(a){a=a.slice(0,MAXSAVE);for(;;){try{localStorage.setItem(STORE,JSON.stringify(a));return true}catch{if(a.length<=1)return false;a=a.slice(0,-1)}}}
+function saveRun(r){const k=r.manifest.cache_key+'|'+r.manifest.created_utc,a=readSaved().filter(x=>x.manifest.cache_key+'|'+x.manifest.created_utc!==k);a.unshift(r);const ok=writeSaved(a);renderSaved();return ok}
+function logHistory(r){try{const H=window.cmHistory;if(!H||!H.record)return;const p=r.manifest.params,ex=r.experiment,ab=ex==='ablation',res={};
+  if(NEWX.includes(ex)){const L={weakvessel:'AUC, all non-invasive data',subgroups:'AUC, all patients',calibration:'Brier score'}[ex];
+    Object.keys(r.targets).forEach(t=>{const T=r.targets[t],a=ex==='calibration'?T.brier:ex==='subgroups'?T.groups[0].metrics.roc_auc:T.metrics.roc_auc;if(a)res[t]={p:a.value,lo:a.ci95[0],hi:a.ci95[1]}});
+    H.record('research',{seed:p.seed,repeats:p.repeats,boot:p.boot},res,{label:`${r.title} \u00b7 ${r.manifest.experiment_id} \u00b7 ${L}`,metric:ex==='calibration'?'brier':'roc_auc'});return}
+  TG.forEach(t=>{const T=r.targets[t],row=ab?T.steps[T.steps.length-1]:T.models.find(m=>m.is_best),a=row.metrics.roc_auc;res[t]={p:a.value,lo:a.ci95[0],hi:a.ci95[1]}});
+  H.record('research',{seed:p.seed,repeats:p.repeats,boot:p.boot},res,{label:`${r.title} · ${r.manifest.experiment_id} · ${ab?'all non-invasive data':'best model'}`,metric:'roc_auc'})}catch(_){}}
+function renderSaved(){const a=readSaved(),box=$('saved');$('clearSaved').disabled=!a.length;
+  if(!a.length){box.innerHTML='<div class="rl-empty">No saved runs yet. Finished runs appear here.</div>';return}
+  box.innerHTML=a.map((r,i)=>`<div class="rl-item"><div><strong>${esc(r.title)}</strong><span class="rl-mono">${esc(r.manifest.experiment_id)} · ${esc(r.manifest.created_utc)} · seed ${esc(r.manifest.seed)}, repeats ${esc(r.manifest.params.repeats)}, bootstrap ${esc(r.manifest.params.boot)}</span></div>
+  <div class="rl-acts"><button type="button" class="btn" data-load="${i}">Open</button><button type="button" class="btn" data-sj="${i}">JSON</button><button type="button" class="btn" data-sc="${i}">CSV</button><button type="button" class="btn" data-del="${i}" aria-label="Delete saved run ${esc(r.manifest.experiment_id)}">Delete</button></div></div>`).join('')}
+
+/* ---------- running ---------- */
+function params(){const L=(S.meta&&S.meta.limits)||{seed:[0,2147482648],repeats:[1,5],boot:[200,2000]},o={},err=$('pErr');err.textContent='';
+  for(const [k,id,name] of [['seed','pSeed','Seed'],['repeats','pRep','CV repeats'],['boot','pBoot','Bootstrap resamples']]){const raw=$(id).value.trim(),v=Number(raw);
+    if(raw===''||!Number.isInteger(v)||v<L[k][0]||v>L[k][1]){err.textContent=`${name} must be a whole number from ${L[k][0]} to ${L[k][1]}.`;$(id).focus();return null}o[k]=v}return o}
+function setBusy(b){S.busy=b;document.querySelectorAll('[data-run]').forEach(x=>x.disabled=b||!S.meta)}
+function progress(card,s){const pr=s.progress||{},pct=Math.round((pr.fraction||0)*100),tr=card.querySelector('.rl-track');tr.setAttribute('aria-valuenow',pct);tr.firstElementChild.style.width=pct+'%';
+  card.querySelector('.rl-progtext').textContent=s.status==='queued'?'Queued…':`${pr.done} of ${pr.total} CV fold tasks · ${pct}% · ${Math.round(s.elapsed_seconds||0)} s`}
+async function poll(id){for(let tries=0;;){try{return await api('/status/'+encodeURIComponent(id)+'?result=false')}catch(e){if(++tries>3)throw e;await sleep(1500)}}}
+async function run(exp){if(S.busy)return;const p=params();if(!p)return;const card=$('card-'+exp),st=card.querySelector('.rl-status'),pg=card.querySelector('.rl-prog');
+  st.className='rl-status';st.textContent='Starting…';pg.hidden=false;progress(card,{status:'queued',progress:{fraction:0}});setBusy(true);
+  try{let s=await api('/run',{method:'POST',body:JSON.stringify({experiment:exp,seed:p.seed,repeats:p.repeats,boot:p.boot,force:card.querySelector('[data-force]').checked})});
+    while(s.status==='queued'||s.status==='running'){progress(card,s);await sleep(1000);s=await poll(s.job_id)}
+    if(s.status==='failed')throw new Error(s.error||'The run failed.');
+    const full=await api('/status/'+encodeURIComponent(s.job_id)+'?result=true');if(!full.result)throw new Error('The server returned no result.');
+    S.res[exp]=full.result;progress(card,{status:'done',progress:{done:1,total:1,fraction:1},elapsed_seconds:full.elapsed_seconds});
+    const ok=saveRun(full.result);logHistory(full.result);renderResult(exp);card.querySelector('[data-force]').checked=false;
+    st.textContent=(full.cached?'Loaded the saved server result for these settings. ':'Run complete. ')+(ok?'Saved in this browser and logged in History.':'Could not save in this browser (storage full or blocked); use Export.');
+    setTimeout(()=>{pg.hidden=true},700)}
+  catch(e){pg.hidden=true;st.className='rl-status bad';st.textContent='Run failed: '+e.message}
+  finally{setBusy(false)}}
+
+function openSaved(i){const r=readSaved()[i];if(!r||!(r.experiment in S.res))return;S.res[r.experiment]=r;S.sel[r.experiment]=DEFSEL[r.experiment];S.met[r.experiment]=r.experiment==='subgroups'?'prevalence':'roc_auc';renderResult(r.experiment);
+  const c=$('card-'+r.experiment),st=c.querySelector('.rl-status');st.className='rl-status';st.textContent='Showing a saved run from this browser (not re-run).';c.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})}
+
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b)return;
+  if(b.dataset.run)return run(b.dataset.run);
+  const card=b.closest('.rl-card'),exp=card&&card.id.replace('card-','');
+  if(b.dataset.t&&exp in S.res){S.sel[exp]=b.dataset.t;return renderDyn(exp)}
+  if(b.dataset.expJson){const r=S.res[b.dataset.expJson];if(r)download(fname(r,'json'),'application/json',JSON.stringify(r,null,2));return}
+  if(b.dataset.expCsv){const r=S.res[b.dataset.expCsv];if(r)download(fname(r,'csv'),'text/csv',toCSV(r));return}
+  const a=readSaved();
+  if(b.dataset.load!==undefined)return openSaved(+b.dataset.load);
+  if(b.dataset.sj!==undefined){const r=a[+b.dataset.sj];if(r)download(fname(r,'json'),'application/json',JSON.stringify(r,null,2));return}
+  if(b.dataset.sc!==undefined){const r=a[+b.dataset.sc];if(r)download(fname(r,'csv'),'text/csv',toCSV(r));return}
+  if(b.dataset.del!==undefined){a.splice(+b.dataset.del,1);writeSaved(a);renderSaved()}});
+document.addEventListener('change',e=>{if(!e.target.matches||!e.target.matches('[data-m]'))return;const exp=e.target.closest('.rl-card').id.replace('card-','');S.met[exp]=e.target.value;renderDyn(exp)});
+$('clearSaved').addEventListener('click',()=>{if(confirm('Delete all saved Research Lab runs from this browser? History entries are kept.')){try{localStorage.removeItem(STORE)}catch{}renderSaved()}});
+
+(async()=>{renderSaved();setBusy(true);
+  try{const m=await api('/meta');S.meta=m;const d=m.defaults;$('pSeed').value=d.seed;$('pRep').value=d.repeats;$('pBoot').value=d.boot;
+    $('facts').innerHTML=`<span class="rl-chip"><b>${esc(m.n_rows)}</b> patients</span><span class="rl-chip"><b>${esc(m.n_features)}</b> non-invasive features in ${esc(m.groups.length)} groups</span><span class="rl-chip">Targets: ${esc(m.targets.join(', '))}</span><span class="rl-chip">Never inputs: ${esc(m.inputs_exclude.join(', '))}</span><span class="rl-chip">Z-Alizadeh Sani cohort (referred for angiography)</span>`;setBusy(false)}
+  catch(e){$('facts').innerHTML=`<span class="rl-chip" style="color:var(--rl-bad)">Lab unavailable: ${esc(e.message)}</span>`;S.busy=false;document.querySelectorAll('[data-run]').forEach(x=>x.disabled=true)}})();
+})();
+</script>
+<script src="/static/shell.js?v=20261006a"></script>
+</body></html>

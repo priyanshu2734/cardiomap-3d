@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><script>try{document.documentElement.dataset.theme=localStorage.getItem("cm-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prediction History · CardioMap 3D</title>
+<script src="/static/history.js?v=20261007a"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/static/cardiomap.css?v=20261004a">
+<style>
+:root{--h-btn-line:var(--h-line);--h-btn-bg:var(--h-field);--h-shadow:none;--h-tool:rgba(16,37,58,.6);--h-ink:#edf6fc;--h-muted:#a7bdcc;--h-line:#28445b;--h-field:#0a1a2b;--h-accent:#59d6d4;--h-warn:#f2cc83;--h-bar:rgba(130,160,185,.22)}
+html[data-theme=light]{--h-tool:rgba(10,143,166,.08);--h-btn-line:rgba(10,110,140,.5);--h-btn-bg:#fff;--h-shadow:0 1px 3px rgba(10,60,80,.18);--h-ink:#0a3547;--h-muted:#4c7686;--h-line:rgba(24,150,180,.22);--h-field:#fff;--h-accent:#0a8fa6;--h-warn:#a06a00;--h-bar:rgba(10,120,150,.14)}
+.wrap{max-width:1200px;margin:auto;padding:26px 20px 56px}
+h1{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.04em;margin:8px 0 12px}
+.card{padding:20px;min-width:0}
+.hero p,.sub{color:var(--h-muted);margin:6px 0}
+.htool{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin:18px 0 14px;padding:12px 16px;border:1px solid var(--h-line);border-radius:16px;background:var(--h-tool)}
+.htool .grp{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center}
+.htool label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--h-muted)}
+.htool select{min-height:40px;min-width:180px;background:var(--h-field);color:var(--h-ink);border:1px solid var(--h-line);border-radius:10px;padding:0 12px;font:inherit;cursor:pointer}
+.htool select:focus-visible,.htool .btn:focus-visible{outline:2px solid var(--h-accent);outline-offset:2px}
+.htool .cnt{font-size:13px;color:var(--h-muted);padding:6px 12px;border-radius:999px;background:var(--h-bar);white-space:nowrap}
+.htool .cnt:empty{display:none}
+body.cm-lab .htool .btn{min-height:40px;white-space:nowrap;padding:0 16px;background:var(--h-btn-bg);border:1px solid var(--h-btn-line);box-shadow:var(--h-shadow);border-radius:10px;color:var(--h-ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s;display:inline-flex;align-items:center;gap:7px}
+body.cm-lab .htool .btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.htool .sep{width:1px;height:24px;background:var(--h-line)}
+body.cm-lab .htool .btn:hover:not(:disabled){border-color:var(--h-accent)}.htool .btn:disabled{opacity:.45;cursor:not-allowed}
+body.cm-lab .htool .btn.danger{color:#ff9b9b;border-color:rgba(255,155,155,.4)}
+body.cm-lab .htool .btn.danger:hover:not(:disabled){background:rgba(255,120,120,.14);border-color:#ff9b9b}
+html[data-theme=light] body.cm-lab .htool .btn.danger{color:#b3261e;border-color:rgba(179,38,30,.55)}
+html[data-theme=light] body.cm-lab .htool .btn:not(.danger){border:1px solid var(--h-btn-line)!important}
+html[data-theme=light] body.cm-lab .htool .btn:not(.danger):hover{border-color:var(--h-accent)!important;background:#f2fbfd!important;color:var(--h-ink)!important}
+html[data-theme=light] .htool select{border-color:var(--h-btn-line);box-shadow:var(--h-shadow)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.kpis div{border:1px solid var(--h-line);border-radius:12px;padding:12px 14px}
+.kpis b{display:block;font-size:22px;color:var(--h-accent)}.kpis span{font-size:12px;color:var(--h-muted)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:820px}
+th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--h-muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--h-line);font-weight:700}
+td{padding:11px 10px;border-bottom:1px solid var(--h-line);vertical-align:top;font-size:14px}
+tr.det td{background:var(--h-bar);padding:12px 14px}
+.when{white-space:nowrap}.when small,.sec small{display:block;color:var(--h-muted);font-size:12px}
+.pr{min-width:84px}.pr b{font-variant-numeric:tabular-nums}.pr small{display:block;color:var(--h-muted);font-size:11px;white-space:nowrap}
+.mb{height:5px;border-radius:3px;background:var(--h-bar);margin-top:4px;overflow:hidden}.mb i{display:block;height:100%;background:var(--h-accent)}.mb i.hi{background:var(--h-warn)}
+.na{color:var(--h-muted)}
+.acts{display:flex;gap:6px;flex-wrap:wrap}.acts .btn{padding:6px 10px;font-size:12px}
+.ins{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 18px;margin:0;padding:0;list-style:none}
+.ins li{display:flex;gap:8px;font-size:13px;border-bottom:1px dashed var(--h-line);padding:3px 0}
+.ins li span:first-child{color:var(--h-muted)}.ins li span:first-child:after{content:':'}.ins li span:last-child{font-weight:600}
+.empty{padding:28px 10px;text-align:center;color:var(--h-muted)}
+@media(max-width:640px){.kpis{grid-template-columns:1fr}.htool .sep{display:none}.htool .grp{width:100%}.htool select{flex:1}.htool .grp .btn{flex:1;justify-content:center;padding:0 10px}}
+@media(max-width:760px){
+ body.cm-lab table{min-width:0;width:100%}thead{display:none}table,tbody{display:block}
+ tbody tr:not(.det){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px;padding:12px 0;border-bottom:1px solid var(--h-line)}
+ tbody tr:not(.det) td{border:0;padding:2px 0;min-width:0}
+ td.when,td.sec,td.in,td.ac{grid-column:1/-1}
+ .pr:before{content:attr(data-t);display:block;font-size:11px;letter-spacing:.1em;color:var(--h-muted);font-weight:700}
+ .pr{min-width:0}.pr small{white-space:normal}
+ tr.det,tr.det td{display:block}
+}
+</style>
+</head>
+<body class="cm-lab"><div class="wrap">
+<section class="card hero">
+  <div class="eyebrow">Every run · Saved in this browser</div>
+  <h1>Prediction History</h1>
+  <p>Every prediction made in any section (Dashboard, What-If, Digital Twin, AI Detective, Stress Test, Case Replay, What Next) is logged here with the exact inputs that produced it.</p>
+  <p class="sub">History is stored only in this browser (local storage). Nothing is sent to or kept by the server, and it is lost if you clear site data. Newest 500 entries are kept. Educational research output, not a diagnosis.</p>
+  <div class="kpis"><div><b id="kTotal">0</b><span>Saved predictions</span></div><div><b id="kSec">0</b><span>Sections used</span></div><div><b id="kLast">–</b><span>Most recent</span></div></div>
+</section>
+
+<div class="htool" role="toolbar" aria-label="History filters and actions">
+  <div class="grp"><label for="fSec">Section</label><select id="fSec"><option value="">All sections</option></select><span id="count" class="cnt"></span></div>
+  <div class="grp">
+    <button class="btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>Export CSV</button>
+    <button class="btn" id="json" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>Export JSON</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="btn danger" id="clear" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Clear history</button>
+  </div>
+</div>
+
+<section class="card"><div class="tw"><table>
+<thead><tr><th>When</th><th>Section</th><th>Inputs</th><th>CAD</th><th>LAD</th><th>LCX</th><th>RCA</th><th></th></tr></thead>
+<tbody id="rows"></tbody></table></div>
+<div id="empty" class="empty" hidden>No predictions saved yet. Run a prediction in any section and it will appear here.</div></section>
+</div>
+
+<script>
+(()=>{'use strict';
+const H=window.cmHistory,TG=H.TARGETS,$=id=>document.getElementById(id);
+let schema={},ids=[],open=new Set();
+const h=(tag,props,...kids)=>{const n=document.createElement(tag);for(const k in props||{}){if(k==='class')n.className=props[k];else if(k==='text')n.textContent=props[k];else n.setAttribute(k,props[k])}kids.flat().forEach(c=>c!=null&&n.append(c.nodeType?c:document.createTextNode(c)));return n};
+const pct=x=>(x*100).toFixed(1)+'%',RL_LABEL={seed:'Seed',repeats:'CV repeats',boot:'Bootstrap resamples'},HF_LABEL={narrow_LAD:'LAD narrowing',narrow_LCX:'LCX narrowing',narrow_RCA:'RCA narrowing',exercise:'Activity',cohort_LAD:'Cohort check',cohort_LCX:'Cohort check',cohort_RCA:'Cohort check'},
+  hfVal=(k,v)=>k==='exercise'?(v?'Exercise':'Rest'):/^cohort_/.test(k)?k.slice(7)+' viewed (descriptive)':v+'%';
+const when=t=>new Date(t).toLocaleString([],{dateStyle:'medium',timeStyle:'short'});
+const val=(id,v)=>{const s=schema[id]||{};return s.kind==='bin'?(v?'Yes':'No'):(Number.isInteger(v)?v:+v.toFixed(2))+(s.unit?' '+s.unit:'')};
+const items=()=>{const f=$('fSec').value;return H.list().filter(e=>!f||e.section===f)};
+
+function probCell(e,t){
+  const r=e.res&&e.res[t];if(!r)return h('td',{class:'pr na','data-t':t},'–');
+  const A=e.metric==='roc_auc'||e.metric==='brier',f=x=>A?x.toFixed(2):pct(x);
+  const td=h('td',{class:'pr','data-t':t},h('b',{text:(A?(e.metric==='brier'?'Brier ':'AUC '):'')+f(r.p)}));
+  if(typeof r.lo==='number')td.append(h('small',{text:f(r.lo)+' – '+f(r.hi)}));
+  td.append(h('div',{class:'mb'},h('i',{class:r.p>=.5&&!A?'hi':'',style:'width:'+Math.round(r.p*100)+'%'})));return td}
+
+function row(e){
+  const n=Object.keys(e.inputs).length,isOpen=open.has(e.id);
+  const sub=[H.KIND_LABEL[e.kind]||e.kind,e.target&&'target '+e.target,e.label].filter(Boolean).join(' · ');
+  const tg=h('button',{class:'btn',type:'button','aria-expanded':isOpen,text:n?(isOpen?'Hide ':'Show ')+n+' input'+(n===1?'':'s'):'No inputs'});
+  tg.onclick=()=>{open.has(e.id)?open.delete(e.id):open.add(e.id);render()};
+  const RL=e.kind==='research',HF=e.kind==='heartfn',go=h('button',{class:'btn',type:'button',text:RL?'Open Research Lab':HF?'Open Heart Function Lab':'Open in dashboard',title:RL?'Open the Cardiac Research Lab':HF?'Open the Heart Function Lab':'Load these inputs into the dashboard'});
+  go.onclick=RL?()=>{location.href='/research-lab'}:HF?()=>{location.href='/heart-function'}:()=>{try{sessionStorage.setItem('cm-inputs-v1',JSON.stringify({v:e.inputs,nm:ids.filter(i=>!(i in e.inputs)),sel:'CAD'}))}catch(_){}location.href='/app/'};
+  const del=h('button',{class:'btn',type:'button',text:'Delete','aria-label':'Delete this entry'});
+  del.onclick=()=>{H.remove(e.id);open.delete(e.id);render()};
+  const tr=h('tr',null,h('td',{class:'when',text:when(e.t)}),h('td',{class:'sec'},e.section,h('small',{text:sub})),h('td',{class:'in'},tg),
+    TG.map(t=>probCell(e,t)),h('td',{class:'ac'},h('div',{class:'acts'},n?go:null,del)));
+  if(!isOpen)return [tr];
+  const keys=Object.keys(e.inputs).sort((a,b)=>ids.indexOf(a)-ids.indexOf(b));
+  const ul=h('ul',{class:'ins'},keys.map(k=>h('li',null,h('span',{text:(e.kind==='research'&&RL_LABEL[k])||(HF&&HF_LABEL[k])||(schema[k]&&schema[k].label)||k}),h('span',{text:HF?hfVal(k,e.inputs[k]):val(k,e.inputs[k])}))));
+  return [tr,h('tr',{class:'det'},h('td',{colspan:8},n?ul:h('span',{class:'na',text:'No inputs were supplied for this run; the model used its training medians.'})))]}
+
+function render(){
+  const all=H.list(),list=items(),secs=[...new Set(all.map(e=>e.section))].sort(),sel=$('fSec'),cur=sel.value;
+  sel.replaceChildren(h('option',{value:'',text:'All sections'}),...secs.map(s=>h('option',{value:s,text:s})));sel.value=secs.includes(cur)?cur:'';
+  $('kTotal').textContent=all.length;$('kSec').textContent=secs.length;$('kLast').textContent=all.length?when(all[0].t):'–';
+  $('count').textContent=all.length?'Showing '+list.length+' of '+all.length:'';
+  $('rows').replaceChildren(...list.flatMap(row));$('empty').hidden=list.length>0;
+  ['csv','json','clear'].forEach(i=>$(i).disabled=!all.length)}
+
+function download(name,type,text){const a=h('a',{href:URL.createObjectURL(new Blob([text],{type})),download:name});document.body.append(a);a.click();a.remove()}
+const stamp=()=>new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+$('json').onclick=()=>download('cardiomap-history-'+stamp()+'.json','application/json',JSON.stringify(items(),null,2));
+$('csv').onclick=()=>{
+  const list=items(),cols=[...new Set([...ids,...list.flatMap(e=>Object.keys(e.inputs))])];
+  const q=v=>{v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+  const head=['time','section','type','label','target','metric',...TG.map(t=>t+'_probability'),...TG.map(t=>t+'_low'),...TG.map(t=>t+'_high'),...cols];
+  const lines=list.map(e=>[new Date(e.t).toISOString(),e.section,H.KIND_LABEL[e.kind]||e.kind,e.label,e.target,e.metric||'probability',
+    ...TG.map(t=>e.res[t]&&e.res[t].p),...TG.map(t=>e.res[t]&&e.res[t].lo),...TG.map(t=>e.res[t]&&e.res[t].hi),...cols.map(c=>e.inputs[c])].map(q).join(','));
+  download('cardiomap-history-'+stamp()+'.csv','text/csv',[head.join(','),...lines].join('\n'))};
+$('clear').onclick=()=>{if(confirm('Delete all saved predictions from this browser? This cannot be undone.')){H.clear();open.clear();render()}};
+$('fSec').onchange=render;
+addEventListener('storage',e=>{if(e.key===H.KEY)render()});
+
+render();
+fetch('/schema').then(r=>r.ok?r.json():[]).then(s=>{s.forEach(u=>schema[u.id]=u);ids=s.map(u=>u.id);render()}).catch(()=>{});
+})();
+</script>
+<script src="/static/shell.js?v=20261006a"></script>
+</body></html>

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><script>try{document.documentElement.dataset.theme=localStorage.getItem("cm-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script><meta name="viewport" content="width=device-width,initial-scale=1"><title>Architecture Map · CardioMap 3D</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/static/cardiomap.css?v=20261004a">
+<style>
+body.cm-lab main.arch{max-width:1240px;margin:0 auto;padding:26px 20px 56px}
+.arch h1{font:700 clamp(2rem,4.2vw,3.1rem)/1.08 Sora,Inter,sans-serif;letter-spacing:-.03em;margin:4px 0 10px;color:var(--cm-ink)}
+.arch .lead{max-width:64ch;color:var(--cm-muted);margin:0 0 6px;font-size:1.02rem}
+.arch button{font:500 13.5px Inter,system-ui,sans-serif;color:var(--cm-ink);cursor:pointer}
+.arch :focus-visible{outline:2px solid var(--cm-accent);outline-offset:2px}
+.status{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:14px 0 0;padding:9px 14px;border:1px solid var(--cm-line);border-radius:14px;background:var(--cm-card2);font-size:13px;color:var(--cm-muted)}
+.status i{width:9px;height:9px;border-radius:50%;background:#9aa7b0;display:inline-block;margin-right:6px}.status.live i{background:#22b573}.status b{color:var(--cm-ink);font-weight:600}
+.tasks{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 12px}.tasks>span{font-size:13px;color:var(--cm-muted);margin-right:4px}
+.task,.btn{height:36px;padding:0 14px;border-radius:12px;border:1px solid var(--cm-line);background:var(--cm-card)}
+.task[aria-pressed=true]{background:var(--cm-soft);border-color:var(--cm-accent);color:var(--cm-accent);font-weight:600}
+.task:hover,.btn:hover:not(:disabled){border-color:var(--cm-accent)}.btn:disabled{opacity:.4;cursor:default}
+.key{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 16px;padding:10px 14px;border:1px dashed var(--cm-line);border-radius:14px;font-size:12.5px;color:var(--cm-muted)}
+.key span{display:inline-flex;align-items:center;gap:7px}.key i{font:600 12px Inter,sans-serif;font-style:normal;min-width:22px;height:22px;padding:0 6px;display:inline-grid;place-items:center;border-radius:99px;background:var(--cm-soft);color:var(--cm-accent);border:1px solid var(--cm-accent)}
+.key i.sw{width:22px;padding:0;border-radius:6px;background:var(--cm-card);border-color:var(--c)}
+.tbar{display:none;position:sticky;top:78px;z-index:50;margin:0 0 16px;padding:14px 16px;border:1px solid var(--cm-accent);border-radius:16px;background:var(--cm-card);box-shadow:var(--cm-shadow)}.tbar.show{display:block}
+html[data-theme=dark] .tbar{background:#0b1a30}html[data-theme=light] .tbar{background:#f6fcfe}
+.tbar .row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between}.tbar .cnt{font:600 13.5px Inter,sans-serif;color:var(--cm-accent)}.grp{display:flex;gap:6px}
+.dots{display:flex;gap:6px;margin:10px 0 2px}.dot{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--cm-line);background:var(--cm-card2);font-weight:600!important}
+.dot.done{border-color:var(--cm-accent);color:var(--cm-accent)}.dot[aria-current=step]{background:var(--cm-accent);border-color:var(--cm-accent);color:#fff}
+.tbar p{margin:8px 0 0;max-width:78ch}.hops{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.hops:empty{display:none}
+.hop{display:inline-flex;align-items:center;gap:10px;padding:7px 12px;border:1px solid var(--cm-line);border-radius:12px;background:var(--cm-card2);font-size:13px}
+.hop .ar{font:600 11.5px Inter,sans-serif;font-style:normal;color:var(--cm-accent);display:inline-flex;flex-direction:column;align-items:center}.hop .ar:after{content:"──▶";font-size:15px;letter-spacing:-1px;line-height:1}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:18px;align-items:start}
+.lane{--lc:#0a8fa6;padding:14px 16px 16px;border:1px solid var(--cm-line);border-top:4px solid var(--lc);border-radius:18px;background:var(--cm-card);min-width:0}
+.lane h2{font:650 16.5px/1.25 Sora,Inter,sans-serif;margin:0;color:var(--cm-ink)}.lane .lh p{margin:3px 0 12px;font-size:13px;color:var(--cm-muted);max-width:70ch}
+.nodes{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:10px}
+.split .nodes{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 78px minmax(0,.42fr);align-items:stretch}
+.hlink{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11.5px;color:var(--cm-muted);text-align:center;padding:0 4px}
+.hl{width:100%;height:8px;background:linear-gradient(var(--cm-accent),var(--cm-accent)) 0 50%/calc(100% - 7px) 2px no-repeat;position:relative}.hl:after{content:"";position:absolute;right:0;top:0;border:4px solid transparent;border-left:7px solid var(--cm-accent);border-right:0}
+.band{position:relative;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;min-height:54px;padding:8px 0 8px 52px;font-size:12.5px}
+.band:before{content:"";position:absolute;left:25px;top:0;bottom:0;border-left:2px dashed var(--cm-accent);opacity:.55}
+.bp{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 5px;border:1px solid var(--cm-line);border-radius:99px;background:var(--cm-card2);color:var(--cm-ink);font-weight:500}
+.bp i{font:700 13px Inter,sans-serif;font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--cm-accent);color:#fff}
+.node{position:relative;text-align:left;padding:10px 12px;border-radius:13px;border:1px solid var(--cm-line);border-left:4px solid var(--lc);background:var(--cm-card2);min-height:62px;display:flex;flex-direction:column;gap:2px;transition:border-color .15s,box-shadow .15s,opacity .2s}
+body.cm-lab .arch .node,body.cm-lab .arch .node:hover:not(:disabled){background:var(--cm-card2);color:var(--cm-ink);font-weight:400}
+.node b{font:600 13.5px/1.3 Inter,sans-serif}.node small{font:12px/1.3 Inter,sans-serif;color:var(--cm-muted);word-break:break-word}
+.node:hover{border-color:var(--lc)}.node[aria-pressed=true]{border-color:var(--lc);box-shadow:0 0 0 2px var(--lc)}
+.node.out{border-color:var(--lc);box-shadow:0 0 0 2px var(--lc)}.node.in{border-style:dashed;border-left-style:solid;border-color:var(--lc);box-shadow:0 0 0 2px var(--lc)}
+body.cm-lab .arch .node.act{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc),0 8px 22px rgba(10,131,152,.28)}.node.seen{border-color:var(--lc)}.node.dim{opacity:.38}
+.bd{position:absolute;top:-9px;right:10px;padding:1px 8px;border-radius:99px;background:var(--lc);color:#fff;font:600 11px/17px Inter,sans-serif}.bd:empty{display:none}
+.bd.num{padding:0;min-width:19px;text-align:center}
+.dp{position:sticky;top:84px;padding:16px 18px;border:1px solid var(--cm-line);border-radius:18px;background:var(--cm-card);max-height:calc(100vh - 104px);overflow:auto}
+.dp h2{font:650 18px/1.25 Sora,Inter,sans-serif;margin:0 0 4px;color:var(--cm-ink)}.dp .tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:99px;border:1px solid var(--cm-line);color:var(--cm-muted);margin-bottom:10px}
+.dp p{margin:0 0 10px;color:var(--cm-ink)}.dp dl{margin:0}.dp dt{font:600 12.5px Inter,sans-serif;color:var(--cm-muted);margin-top:10px}.dp dd{margin:2px 0 0;font-size:13.5px;color:var(--cm-ink)}
+.dp code{font:12.5px ui-monospace,Menlo,Consolas,monospace;background:var(--cm-soft);padding:1px 6px;border-radius:6px;word-break:break-word}.dp ul{margin:2px 0 0;padding-left:18px}
+.dp .go{display:inline-flex;margin-top:12px;height:36px;align-items:center;padding:0 14px;border-radius:11px;background:var(--cm-g);color:#fff!important;text-decoration:none;font:600 13.5px Inter,sans-serif}
+.dp .links{display:flex;flex-direction:column;align-items:stretch;gap:5px;margin-top:4px}.dp .links button{display:flex;justify-content:space-between;gap:8px;min-height:32px;padding:5px 10px;border-radius:9px;border:1px solid var(--cm-line);background:var(--cm-card2);font-size:12.5px;text-align:left}
+.dp .links small{color:var(--cm-accent);font-size:11.5px}.dp .links button:hover{border-color:var(--cm-accent)}.hint{color:var(--cm-muted);font-size:13.5px}
+.note{margin-top:18px;font-size:12.5px;color:var(--cm-muted);max-width:90ch}
+@media(max-width:960px){.cols{grid-template-columns:1fr}.dp{position:static;max-height:none}.split{grid-template-columns:1fr}.hlink{flex-direction:row;padding:8px 0}.hl{width:40px;transform:rotate(90deg)}}
+@media(prefers-reduced-motion:reduce){.lane,.node{transition:none}}
+</style></head>
+<body class="cm-lab" data-no-foot>
+<main class="arch" id="main-content">
+  <h1>How CardioMap works</h1>
+  <p class="lead">Follow one task from the form to the model and back, see how the model files were built, or select any box to read what it does. This page describes the system; it does not run predictions.</p>
+  <div class="status" id="status" role="status"><span><i></i><b>Static view</b></span><span>Start the server to add live model details.</span></div>
+  <div class="tasks" id="tasks" role="group" aria-label="Follow a task"><span>Follow a task</span></div>
+  <div class="tbar" id="tbar" aria-live="polite">
+    <div class="row"><span class="cnt" id="tcnt"></span>
+      <span class="grp"><button type="button" class="btn" id="tPrev">Back</button><button type="button" class="btn" id="tPlay">Play</button><button type="button" class="btn" id="tNext">Next</button><button type="button" class="btn" id="tStop">Stop</button></span></div>
+    <div class="dots" id="dots"></div><p id="ttext"></p><div class="hops" id="hops"></div>
+  </div>
+  <div class="key" id="key" aria-label="How to read this map"></div>
+  <div class="cols">
+    <div id="layers"></div>
+    <aside class="dp" id="dp" aria-live="polite" aria-label="Details"></aside>
+  </div>
+  <noscript><p class="hint">This page needs JavaScript to draw the map.</p></noscript>
+  <p class="note">Every box is taken from the project's own code (app.py, core.py, the router files, the page files and the build scripts). Live details such as the selected model per target come from the running server and are never typed in here. Model explanations (SHAP and sensitivity) describe the fitted model; they are not causal effects. Educational research prototype, not a diagnostic device.</p>
+</main>
+<script>
+(function(){
+"use strict";
+var LAYERS=[
+ {id:"pages",t:"Pages you open",d:"Each page is one HTML file that FastAPI serves. Pages talk to the server with fetch calls.",c:"#0a8fa6"},
+ {id:"browser",t:"Saved in your browser",d:"Shared notes between pages live in localStorage on your device. The server never stores them.",c:"#7c6cff"},
+ {id:"server",t:"Server (FastAPI)",d:"app.py validates requests and calls core.py and the routers. This is the only place predictions are made.",c:"#3b82f6"},
+ {id:"files",t:"Model and data files",d:"The files the server reads at run time.",c:"#d99a2b"},
+ {id:"build",t:"Offline build (run once)",d:"Scripts you run from the command line to create or extend the files above.",c:"#64748b"},
+ {id:"ext",t:"External AI providers",d:"Used for written answers only. They never produce a prediction.",c:"#d6537a"}
+];
+var N=[
+ /* pages */
+ {id:"dash",l:"pages",n:"Dashboard",f:"index.html",r:"/app/",e:["POST /predict","POST /report"],rd:["Profile you enter"],out:["CAD, LAD, LCX, RCA estimates with ranges","3D heart, SHAP panel, research PDF"],d:"The main workspace. Enter a profile and see the four estimates on a 3D heart, with a bootstrap range and SHAP explanation. After each prediction it saves a snapshot for the other pages."},
+ {id:"whatif",l:"pages",n:"What-If Simulator",f:"whatif.html",r:"/whatif",e:["POST /predict","GET /trust","POST /whatif/search","POST /report"],rd:["Baseline and two scenarios"],out:["Side-by-side model estimates"],d:"Compares a baseline with two hypothetical profiles. With the server running all three go through /predict. Opened as a standalone file with no API address, all three use a Logistic Regression fallback. The two sources are never mixed in one comparison."},
+ {id:"replay",l:"pages",n:"Case Replay",f:"replay.html",r:"/case-replay",e:["GET /api/case-replay/schema","POST /api/case-replay/run"],rd:["Saved run manifest"],out:["Replay comparison"],d:"Creates a manifest of a run (inputs, outputs, file fingerprints, versions), saves or exports it, and later replays the same inputs on the current model. Hash, environment and output differences are reported separately."},
+ {id:"twin",l:"pages",n:"Digital Twin Lab",f:"digital_twin.html",r:"/digital-twin",e:["GET /schema","POST /predict"],d:"A lab view of the coronary twin, including the myocardial territory map and anatomy options. Predictions come from /predict."},
+ {id:"valid",l:"pages",n:"Validation Report",f:"validation.html",r:"/validation",e:["GET /trust"],d:"Shows the recorded cross-validation results and methodology for each target."},
+ {id:"stress",l:"pages",n:"AI Trust Stress Test",f:"trust_stress.html",r:"/stress-test",e:["GET /api/stress-test/schema","POST /api/stress-test/run"],d:"Nudges one input at a time and shows how much the model's output moves. It measures model sensitivity only."},
+ {id:"detect",l:"pages",n:"AI Detective",f:"detective.html",r:"/detective",e:["GET /schema","POST /predict","GET /trust"],d:"A schema-driven workspace that explains one prediction: probabilities, estimator names, sensitivity records and input coverage. The result can be exported as JSON."},
+ {id:"trustc",l:"pages",n:"Trust Center",f:"trust_center.html",r:"/trust-center",e:["GET /trust","GET /audit"],d:"Metrics, confusion matrices, ROC, subgroup audit and decision curves, all read from the stored files."},
+ {id:"evid",l:"pages",n:"Research Evidence Library",f:"evidence.html",r:"/evidence",e:["GET /evidence/sources","POST /evidence/answer","GET /provenance","GET /trust"],d:"An evidence-linked research assistant over the project's own files, plus a SHA-256 manifest of key artifacts. It does not search outside literature."},
+ {id:"signal",l:"pages",n:"Cardiac Signal Trace",f:"signal_trace.html",r:"/signal-trace",e:[],d:"A front-end explanation that follows the selected vessel from its top SHAP contributors to the probability and its typical myocardial territory. It makes no API calls of its own. It is a model-linked explanation, not lesion localization."},
+ {id:"next",l:"pages",n:"What to check next",f:"what_next.html",r:"/what-next",e:["POST /nexttest/rank"],d:"Picks up the current case from the dashboard and ranks which missing input would most change or sharpen the estimate. This is a model-sensitivity view, not a test recommendation."},
+ {id:"history",l:"pages",n:"Prediction History",f:"history.html",r:"/history",e:["GET /schema"],rd:["Saved predictions (cm-history-v1)"],out:["CSV / JSON export"],d:"Lists every prediction made in any section, with the inputs that produced it. Pages record each result in your browser as they call /predict and the other prediction endpoints; the server never stores them."},
+ {id:"rlab",l:"pages",n:"Cardiac Research Lab",f:"research_lab.html",r:"/research-lab",e:["GET /api/research-lab/meta","POST /api/research-lab/run","GET /api/research-lab/status/{id}"],rd:["Saved runs (cm-research-lab-v1)"],out:["AUC with 95% CI charts","Learning curve, reliability curve, triage bands","Triage takeaways","Manifest, JSON / CSV export"],d:"Five experiments for pre-angiography triage using only non-invasive inputs: feature-group ablation, model comparison, weak-vessel analysis (LCX and RCA: class balance, per-fold variance, learning curve, plain-language reasons), a descriptive subgroup check by sex and age band with small-group warnings, and calibration (reliability curve, Brier score, patients per probability band who truly had CAD). Shows 95% bootstrap intervals, flags differences within noise and attaches a manifest to every result. Each run is saved in this browser and logged in Prediction History. Educational decision support, not a substitute for formal diagnostic imaging."},
+ {id:"hfn",l:"pages",n:"Heart Function Lab",f:"heart_function.html",r:"/heart-function",e:["GET /api/heart-function/manifest","GET /heart-function/mesh/{name}","GET /api/heart-function/cohort?vessel=LAD|LCX|RCA"],rd:["Mesh manifest (title, author, source, licence)","HRA reference heart mesh","static/coronary-flow.js (lumped flow model, runs in the browser)","static/coronary-flow2.js (two-narrowing series extension)","static/heart-anatomy.js (dominance, branch schematic and collateral teaching controls)","static/heart-effects.js (wall territory, illustrative ECG, estimate parsing)","static/heart-physio.js and heart-uncertainty.js (id-keyed dashboard snapshot, teaching range examples)","static/heart-wiggers.js and heart-compare.js (cached traces and A/B differences, page-local only)","Your latest estimate (cm-case-v1), read only","Cohort aggregates from the Z-Alizadeh Sani dataset (server-side only)"],out:["Beating 3D reference heart with dashboard-rate/EF teaching response","LAD, LCX, RCA tubes with a plain-language panel","First and second example narrowings per artery: series resistance, flow share, reserve and illustrative effects","Flow-versus-narrowing curve in the Physics vs data section","Flow-versus-narrowing curve with first/second example markers; the underlying single-lesion curves stay unchanged","80% uncertainty sweep as three example flow states using the existing suggestion rule and the shared effective-flow context","Wiggers-style pressure, volume, ECG and coronary-inflow traces synchronized to the active beat","Compare card: captured A versus live B plus presets and selected-artery curve overlay, with optional anatomy fields","Anatomy options: right/left dominance, schematic diagonal/obtuse-marginal/PDA branches, and a collateral-share teaching slider","17-segment bullseye, RWMA teaching overlay and typical-territory text","Cohort check with counts, rates and Wilson 95% intervals in the Physics vs data section","From 50% narrowing: darker, weaker-squeezing wall region and an illustrative ST-lowering ECG","Your estimate (LAD, LCX, RCA, top SHAP drivers) that only preselects a vessel and suggests a narrowing","Settled Heart Function runs keep the existing heartfn History shape; Compare actions and new anatomy options are not logged under Gate H ELSE"],d:"A teaching page with distinct physics, data, anatomy and comparison questions. The browser-side lumped CoronaryFlow model supplies the flow curve and the two-narrowing extension adds a second series lesion without changing single-lesion defaults. HeartAnatomy changes only the optional teaching context: right-dominant is the current default, left-dominant changes the LCX/RCA demand split and the PDA/segment territory text, and collateral can fill only a configured shortfall. The Wiggers-style card reuses the active HeartPhysio rate/EF and dashboard-shaped BP input; the cohort panel reports descriptive rates recorded among 303 referred patients, without changing the simulation, feeding the model, or exposing rows. The dashboard snapshot is read-only and its vals/nm are mapped through the snapshot's id-to-column ui table. Reference anatomy, not your heart: the dataset has no imaging. Simplified physics model, not patient-specific or clinical. Educational decision support, not a substitute for formal diagnostic imaging."},
+ {id:"assist",l:"pages",n:"AI Assistant",f:"assistant.html",r:"/assistant",e:["GET /chat/providers","POST /chat","POST /report"],rd:["Snapshot (cm-ctx-v1)"],out:["Streamed answers","Saved chats"],d:"A chat that can use the latest shared snapshot as context. Chats are saved in your browser."},
+ /* browser */
+ {id:"ctx",l:"browser",n:"Shared snapshot",f:"localStorage cm-ctx-v1",rd:["Written by Dashboard and What-If","Read by Assistant and What-If"],d:"The latest analysis (outputs, selected target, scenarios when present). Treated as untrusted and size-limited by the pages that read it. Avoid entering identifiable patient information."},
+ {id:"state",l:"browser",n:"Dashboard state",f:"cm-inputs-v1, cm-xai-v1, cm-case-v1",d:"Remembers your entered inputs, the explanation view and the current case so the Dashboard and linked pages can pick up where you left off."},
+ {id:"chats",l:"browser",n:"Assistant chats",f:"cm-chats-v2",d:"Saved conversations with per-chat links. Local to this browser profile."},
+ {id:"prefs",l:"browser",n:"Preferences",f:"cm-theme, cm-confidence-halo, cm-why-beams",d:"Theme and display toggles such as the confidence halo."},
+ /* server */
+ {id:"app",l:"server",n:"API and page server",f:"app.py",e:["GET /health","GET /schema","GET /metrics","GET /trust","GET /audit","POST /predict","POST /explain"],rd:["24 inputs, each with a range"],out:["JSON estimates, ranges, sensitivity, SHAP"],d:"The FastAPI app. It rejects unknown fields and out-of-range values, calls core.py, serves each page route and a short allow-list of static files, and mounts the routers. CORS origins come from CARDIOMAP_ORIGINS."},
+ {id:"core",l:"server",n:"Prediction engine",f:"core.py",rd:["model.joblib"],out:["Probability per target","80% bootstrap range","One-feature sensitivity","Real SHAP values"],d:"One shared schema for the UI, API and models. predict() returns the fitted model's probability; the range comes from bootstrap copies and never replaces it. SHAP uses LinearExplainer for Logistic Regression and TreeExplainer for tree models."},
+ {id:"chat",l:"server",n:"Chat router",f:"chat.py",e:["GET /chat/providers","POST /chat"],rd:["Question and snapshot context","API keys from .env"],out:["Streamed answer"],d:"Builds the prompt, applies a rate limit and streams the answer from the first available provider in the configured order."},
+ {id:"report",l:"server",n:"Report router",f:"report.py",e:["POST /report"],rd:["Supplied analysis context","metrics"],out:["Research case PDF"],d:"Builds the PDF with reportlab from the outputs it is given. Uses a provider for the written narrative when one is configured; otherwise uses a conservative fixed explanation, so the PDF still works."},
+ {id:"evidence",l:"server",n:"Evidence router",f:"evidence.py",e:["GET /evidence/sources","POST /evidence/answer"],rd:["metrics.json, export.json, README"],out:["Answer with source IDs"],d:"Builds a source bundle from local files and answers questions that cite those sources. No external literature search."},
+ {id:"prov",l:"server",n:"Provenance router",f:"provenance.py",e:["GET /provenance"],out:["SHA-256 and size for key files","Bootstrap metadata"],d:"Hashes the model, data, metrics, export and key code files. A matching hash shows a file is unchanged; it does not prove the model is clinically valid. It never returns user inputs or file paths."},
+ {id:"stressApi",l:"server",n:"Stress-test router",f:"trust_stress.py",e:["GET /api/stress-test/schema","POST /api/stress-test/run"],out:["Probability change per perturbed input"],d:"Perturbs one input at a time within its allowed range (binary inputs are flipped) and reports the change in percentage points. Submitted inputs are not stored."},
+ {id:"replayApi",l:"server",n:"Case-replay router",f:"case_replay.py",e:["GET /api/case-replay/schema","POST /api/case-replay/run"],out:["Outputs, SHA-256 fingerprints, versions"],d:"Runs the current model on a submitted input snapshot and fingerprints the model and relevant code and config files, plus a schema fingerprint and Python and dependency versions."},
+ {id:"whatifApi",l:"server",n:"What-If search router",f:"whatif_search.py",e:["POST /whatif/search"],d:"Searches candidate input changes around a baseline profile using the loaded model."},
+ {id:"nextApi",l:"server",n:"Next-test router",f:"nexttest.py",e:["POST /nexttest/rank"],rd:["Profile with some inputs unmeasured","data.xlsx for similar cases"],d:"Ranks which unmeasured input would most change or sharpen the estimate for a profile."},
+ {id:"hfnApi",l:"server",n:"Heart Function router",f:"heart_function.py",e:["GET /api/heart-function/manifest","GET /heart-function/mesh/{name}"],rd:["static/models/heart_function_mesh.json","One allow-listed .glb"],out:["Manifest with credit and licence","The mesh file"],d:"Serves the reference mesh only through a dedicated route: the file name must match the manifest, the extension must be on an allow-list, path parts are refused and the licence must be CC0, CC-BY, CC-BY-SA or public domain. It touches no model, no dataset and no prediction."},
+ {id:"hcApi",l:"server",n:"Heart cohort router",f:"heart_cohort.py",e:["GET /api/heart-function/cohort?vessel=LAD|LCX|RCA"],rd:["data.xlsx via research_lab/core leakage exclusion","Existing Research Lab Wilson helper"],out:["Aggregated counts, rates and Wilson 95% intervals","Group-size and sparse-finding warnings","Caveats and data hash; no patient rows"],d:"Reads the server-side leakage-free feature frame plus angiography labels only to form vessel groups. It returns descriptive aggregates for whitelisted findings and never feeds the physics or prediction model."},
+ {id:"rlabApi",l:"server",n:"Research Lab router",f:"research_lab.py",e:["GET /api/research-lab/meta","POST /api/research-lab/run","GET /api/research-lab/status/{id}","GET /api/research-lab/result"],rd:["data.xlsx","core.py leakage rule"],out:["Nested-CV results with bootstrap CIs","Learning curves, subgroup tables, calibration bands","Manifest with SHA-256 of data and code"],d:"Runs stratified nested cross-validation in a background thread with fixed seeds and caches each result on disk by experiment, parameters, data hash and code hash. Serves five experiments (ablation, models, weakvessel, subgroups, calibration); the last three share one set of out-of-fold predictions per target. Cath, LAD, LCX and RCA are asserted out of the inputs on every run. Never refits or reads model.joblib."},
+ /* external */
+ {id:"llm",l:"ext",n:"Groq / NVIDIA models",f:"keys set in .env",d:"Language models reached over the internet for the assistant, report narrative and evidence answers. Which one is used follows the provider order in .env. They explain results; they never create predictions."},
+ /* files */
+ {id:"data",l:"files",n:"Dataset",f:"data.xlsx",d:"The 303-record source table. core.load() reads it for training; the next-test ranking also reads it."},
+ {id:"model",l:"files",n:"Fitted models",f:"model.joblib",rd:["Written by train.py","Extended by build_uncertainty.py"],d:"Per target: the selected fitted pipeline. Shared: feature list, training medians and a 100-row SHAP background. build_uncertainty.py later adds bootstrap copies and range cutoffs."},
+ {id:"metrics",l:"files",n:"Evaluation metrics",f:"metrics.json",d:"Cross-validation scores for each candidate model per target, the selected model, out-of-fold confusion matrices and Brier scores."},
+ {id:"exp",l:"files",n:"Export",f:"export.json",d:"Metrics, methodology notes and the Logistic Regression statistics used for the What-If fallback."},
+ {id:"audit",l:"files",n:"Audit results",f:"audit.json",d:"Out-of-fold subgroup performance and decision-curve data. Descriptive, not a clinical validation."},
+ /* build */
+ {id:"load",l:"build",n:"Check and encode data",f:"core.load() in core.py",rd:["data.xlsx"],out:["Inputs X and labels y"],d:"Checks columns and target values, encodes yes/no and other fields, and drops Weight, Length and Exertional CP. Cath, LAD, LCX and RCA are labels only, never inputs; code asserts this."},
+ {id:"train",l:"build",n:"Train and compare",f:"train.py",e:["python train.py data.xlsx"],out:["model.joblib","metrics.json","export.json"],d:"For each of CAD, LAD, LCX and RCA, compares Logistic Regression, Random Forest and Gradient Boosting with 5-fold stratified cross-validation repeated 3 times (imputation and scaling fitted inside each fold). Picks the highest mean ROC AUC and refits it on all data."},
+ {id:"unc",l:"build",n:"Add uncertainty ranges",f:"build_uncertainty.py",out:["model.joblib (extended)"],d:"Loads model.joblib, refits 30 bootstrap copies per target without touching the primary models, adds range-width cutoffs and calibration diagnostics, then saves the file again."},
+ {id:"auditb",l:"build",n:"Run subgroup audit",f:"build_audit.py",out:["audit.json"],d:"Uses out-of-fold predictions from copies of the selected pipelines (the deployed models are never refit) to build subgroup tables and decision curves."}
+];
+var E=[
+ ["dash","app","POST /predict"],["dash","report","POST /report"],
+ ["whatif","app","/predict, /trust"],["whatif","whatifApi","POST /whatif/search"],["whatif","report","POST /report"],
+ ["replay","replayApi","/api/case-replay"],["twin","app","/schema, /predict"],["valid","app","GET /trust"],
+ ["stress","stressApi","/api/stress-test"],["detect","app","/predict, /schema, /trust"],["trustc","app","/trust, /audit"],
+ ["evid","evidence","/evidence/answer"],["evid","prov","GET /provenance"],["next","nextApi","POST /nexttest/rank"],
+ ["assist","chat","POST /chat"],["assist","report","POST /report"],
+ ["dash","ctx","saves snapshot"],["whatif","ctx","saves and reads snapshot"],["ctx","assist","reads"],
+ ["dash","state","saves inputs and case"],["assist","chats","saves chats"],
+ ["app","core",""],["core","model","loads"],["app","metrics","/metrics, /trust"],["app","exp","/trust methodology"],["app","audit","GET /audit"],
+ ["prov","model","SHA-256"],["prov","data",""],["prov","metrics",""],["prov","exp",""],
+ ["replayApi","model","runs and fingerprints"],["stressApi","model",""],["whatifApi","model",""],["nextApi","model",""],["nextApi","data","similar cases"],["rlab","rlabApi","/api/research-lab"],["rlabApi","data","reads, SHA-256"],["rlab","history","logs each run"],["hfn","hfnApi","/api/heart-function, mesh route"],["hfn","hcApi","/api/heart-function/cohort"],["hcApi","data","server-side aggregates"],["state","hfn","your latest estimate"],["hfn","history","logs runs and compatible cohort views"],
+ ["evidence","metrics","source bundle"],["evidence","exp",""],
+ ["chat","llm","provider call"],["report","llm","optional narrative"],["evidence","llm","cited answer"],
+ ["data","load","reads"],["load","train","X, y"],["train","model","writes"],["train","metrics","writes"],["train","exp","writes"],
+ ["model","unc","reads"],["unc","model","re-saves with bootstrap copies"],["model","auditb","clones pipelines"],["auditb","audit","writes"]
+].map(function(x){return {a:x[0],b:x[1],t:x[2],k:x[0]+">"+x[1]}});
+
+var TR=[
+ {id:"predict",t:"Predict one case",s:[
+  {n:["dash"],e:[],x:"You fill in a profile on the Dashboard. The fields and their allowed ranges come from the single 24-input schema defined in core.py."},
+  {n:["dash","app"],e:["dash>app"],x:"The page sends POST /predict. The server rejects unknown fields and any value outside its input's range."},
+  {n:["app","core","model"],e:["app>core","core>model"],x:"The server loads model.joblib. core.predict() returns the probability for CAD, LAD, LCX and RCA from the fitted model."},
+  {n:["core"],e:[],x:"core.py also adds an 80% range (10th to 90th percentile of 30 bootstrap copies), a one-feature sensitivity view and real SHAP values. The range never replaces the model's probability."},
+  {n:["app","dash"],e:["^dash>app"],x:"One JSON response returns. The page colours the heart, shows range chips and fills the SHAP panel."},
+  {n:["dash","ctx"],e:["dash>ctx"],x:"The Dashboard saves a snapshot to cm-ctx-v1 in your browser so the Assistant, What-If and Research pages can use it. Nothing is stored on the server."}]},
+ {id:"build",t:"Build the model files",s:[
+  {n:["data","load"],e:["data>load"],x:"core.load() reads data.xlsx (303 records), checks labels, encodes fields and drops unused columns. Cath, LAD, LCX and RCA can never become inputs."},
+  {n:["load","train"],e:["load>train"],x:"train.py compares Logistic Regression, Random Forest and Gradient Boosting for each target using 5-fold stratified cross-validation repeated 3 times, and picks the highest mean ROC AUC."},
+  {n:["train","model","metrics","exp"],e:["train>model","train>metrics","train>exp"],x:"It refits the selected model on all data and writes model.joblib, metrics.json and export.json."},
+  {n:["model","unc"],e:["model>unc","unc>model"],x:"build_uncertainty.py loads model.joblib, refits 30 bootstrap copies per target without changing the primary models, and saves the file again with range cutoffs."},
+  {n:["model","auditb","audit"],e:["model>auditb","auditb>audit"],x:"build_audit.py clones the selected pipelines to produce out-of-fold subgroup tables and decision curves in audit.json."}]},
+ {id:"chat",t:"Ask the assistant",s:[
+  {n:["ctx","assist"],e:["ctx>assist"],x:"The Assistant reads the latest snapshot from cm-ctx-v1. Pages treat it as untrusted and size-limited."},
+  {n:["assist","chat"],e:["assist>chat"],x:"Your question and the context go to POST /chat, which applies a rate limit."},
+  {n:["chat","llm"],e:["chat>llm"],x:"chat.py tries the providers in the order set in .env (Groq, NVIDIA) and streams the answer. The model explains; it never creates a prediction."},
+  {n:["chat","assist","chats"],e:["^assist>chat","assist>chats"],x:"The answer streams back to the page and the conversation is saved in your browser (cm-chats-v2)."}]},
+ {id:"report",t:"Make a research PDF",s:[
+  {n:["assist","report"],e:["assist>report"],x:"A page (the Dashboard or the Assistant) sends the analysis it already has to POST /report."},
+  {n:["report"],e:[],x:"report.py lays out the case reference, supplied outputs, input profile, available metrics, scenarios and limitations as a PDF with reportlab."},
+  {n:["report","llm"],e:["report>llm"],x:"If a provider is configured it writes the narrative. If not, a fixed conservative explanation is used, so the PDF still downloads."}]},
+ {id:"replay",t:"Replay a saved case",s:[
+  {n:["replay","replayApi"],e:["replay>replayApi"],x:"Case Replay sends an input snapshot to POST /api/case-replay/run."},
+  {n:["replayApi","model"],e:["replayApi>model"],x:"The server runs the current model on it and fingerprints the model and relevant code and config files with SHA-256, plus Python and dependency versions."},
+  {n:["replay"],e:[],x:"You save the manifest in browser storage or export it as JSON. Replaying later reports artifact-hash, environment and output changes separately. Matching results are a technical traceability signal, not clinical validation."}]},
+ {id:"whatif",t:"What-If with or without the server",s:[
+  {n:["whatif","app","core"],e:["whatif>app","app>core"],x:"With the server running, the baseline and both scenarios all go through POST /predict."},
+  {n:["whatif","exp","train"],e:["train>exp"],x:"Without an API address, all three use a Logistic Regression fallback built from the statistics train.py exports to export.json. The two sources are never mixed inside one comparison."}]}
+];
+
+var ekey={};E.forEach(function(e){ekey[e.k]=e});
+var st={sel:null,tr:null,i:0,timer:0};
+var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var $=function(i){return document.getElementById(i)};
+function h(tag,a,kids){var e=document.createElement(tag);if(a)for(var k in a){if(k==="text")e.textContent=a[k];else if(k==="cls")e.className=a[k];else e.setAttribute(k,a[k])}(kids||[]).forEach(function(c){e.appendChild(typeof c==="string"?document.createTextNode(c):c)});return e}
+var byId={},layerOf={},nodeEl={};N.forEach(function(n){byId[n.id]=n});LAYERS.forEach(function(l){layerOf[l.id]=l});
+var ORDER=[["browser"],["pages"],["server","ext"],["files"],["build"]];
+var BANDS=[[["⇅","Pages save and read shared notes in localStorage"]],[["↓","A page sends a request with fetch()"],["↑","The server answers with JSON, streamed text or a PDF"]],[["↓","The server reads the model and data files"]],[["↑","Build scripts write these files"]]];
+function lane(id){var l=layerOf[id],sec=h("section",{cls:"lane","aria-label":l.t});sec.style.setProperty("--lc",l.c);
+  sec.appendChild(h("div",{cls:"lh"},[h("h2",{text:l.t}),h("p",{text:l.d})]));
+  var g=h("div",{cls:"nodes"});
+  N.filter(function(n){return n.l===id}).forEach(function(n){
+    var b=h("button",{type:"button",cls:"node","data-id":n.id,"aria-pressed":"false"},[h("b",{text:n.n}),h("small",{text:n.f}),h("span",{cls:"bd"})]);
+    b.addEventListener("click",function(){select(st.sel===n.id?null:n.id)});
+    b.addEventListener("keydown",function(ev){var all=[].slice.call(g.querySelectorAll(".node")),k=all.indexOf(b),t=null;
+      if(ev.key==="ArrowRight")t=all[(k+1)%all.length];else if(ev.key==="ArrowLeft")t=all[(k-1+all.length)%all.length];
+      if(t){ev.preventDefault();t.focus()}});
+    nodeEl[n.id]=b;g.appendChild(b)});
+  sec.appendChild(g);return sec}
+function band(list){return h("div",{cls:"band"},list.map(function(p){return h("span",{cls:"bp"},[h("i",{text:p[0]}),p[1]])}))}
+var host=$("layers");
+ORDER.forEach(function(r,k){if(k)host.appendChild(band(BANDS[k-1]));
+  if(r.length===1)host.appendChild(lane(r[0]));
+  else host.appendChild(h("div",{cls:"split"},[lane(r[0]),h("div",{cls:"hlink"},[h("span",{text:"Provider call"}),h("i",{cls:"hl"}),h("span",{text:"Text only"})]),lane(r[1])]))});
+var KEY=[["↓","Request"],["↑","Response or write"],["⇅","Saved and read"],["1","Walk-through step"],["▸","Sends to the selected box"],["◂","Receives from the selected box"]];
+KEY.forEach(function(k){$("key").appendChild(h("span",{},[h("i",{text:k[0]}),k[1]]))});
+LAYERS.forEach(function(l){var i=h("i",{cls:"sw"});i.style.setProperty("--c",l.c);i.style.borderTop="4px solid "+l.c;$("key").appendChild(h("span",{},[i,l.t]))});
+var taskEls=[];
+function addTask(id,label){var b=h("button",{type:"button",cls:"task","aria-pressed":String(id===""),text:label});b.addEventListener("click",function(){setTrace(id||null)});$("tasks").appendChild(b);taskEls.push([id,b])}
+addTask("","Explore freely");TR.forEach(function(t){addTask(t.id,t.t)});
+$("tNext").addEventListener("click",function(){step(1)});$("tPrev").addEventListener("click",function(){step(-1)});
+$("tStop").addEventListener("click",function(){setTrace(null)});
+$("tPlay").addEventListener("click",function(){if(st.timer)stopPlay();else startPlay()});
+document.addEventListener("keydown",function(ev){if(ev.key==="Escape"){if(st.tr)setTrace(null);else select(null)}});
+function focusActive(){if(!st.tr)return;var el=nodeEl[st.tr.s[st.i].n[0]];if(el&&el.scrollIntoView)el.scrollIntoView({behavior:RM?"auto":"smooth",block:"center"})}
+function setTrace(id){stopPlay();st.tr=id?TR.filter(function(t){return t.id===id})[0]:null;st.i=0;if(st.tr)st.sel=null;update();focusActive()}
+function step(d){if(!st.tr)return;st.i=Math.max(0,Math.min(st.tr.s.length-1,st.i+d));update();focusActive()}
+function startPlay(){if(!st.tr)return;if(st.i>=st.tr.s.length-1)st.i=0;$("tPlay").textContent="Pause";update();st.timer=setInterval(function(){if(st.i>=st.tr.s.length-1){stopPlay();return}st.i++;update();focusActive()},4200)}
+function stopPlay(){if(st.timer){clearInterval(st.timer);st.timer=0}$("tPlay").textContent="Play"}
+function select(id){if(st.tr)setTrace(null);st.sel=id;update();if(id&&matchMedia("(max-width:960px)").matches)$("dp").scrollIntoView({behavior:RM?"auto":"smooth",block:"nearest"})}
+function dl(dp,title,items,code){if(!items||!items.length)return;dp.appendChild(h("dt",{text:title}));var dd=h("dd");if(items.length===1&&!code){dd.textContent=items[0]}else{var ul=h("ul");items.forEach(function(x){var li=h("li");if(code)li.appendChild(h("code",{text:x}));else li.textContent=x;ul.appendChild(li)});dd.appendChild(ul)}dp.appendChild(dd)}
+function renderDetail(){
+  var dp=$("dp");dp.textContent="";var n=st.sel&&byId[st.sel];
+  if(!n){dp.appendChild(h("h2",{text:"Select a box"}));dp.appendChild(h("p",{cls:"hint",text:"Choose any box to see what it does, which file it lives in, and what it sends to or receives from. Or follow a task above to see one job step by step."}));return}
+  dp.appendChild(h("h2",{text:n.n}));dp.appendChild(h("span",{cls:"tag",text:layerOf[n.l].t}));dp.appendChild(h("p",{text:n.d}));
+  var d=h("dl");dl(d,"File",[n.f],true);dl(d,"Endpoints and commands",n.e,true);dl(d,"Reads",n.rd);dl(d,"Produces",n.out);
+  var snd=[],rcv=[];E.forEach(function(e){if(e.a===n.id)snd.push([e.b,e.t]);else if(e.b===n.id)rcv.push([e.a,e.t])});
+  [["Sends to ▸",snd],["◂ Receives from",rcv]].forEach(function(g){if(!g[1].length)return;d.appendChild(h("dt",{text:g[0]}));var box=h("div",{cls:"links"});
+    g[1].forEach(function(c){var b=h("button",{type:"button"},[h("span",{text:byId[c[0]].n}),c[1]?h("small",{text:c[1]}):""]);b.addEventListener("click",function(){select(c[0])});box.appendChild(b)});
+    d.appendChild(h("dd",{},[box]))});
+  dp.appendChild(d);
+  if(n.r)dp.appendChild(h("a",{cls:"go",href:n.r,text:"Open "+n.n}));
+  if(n.id==="model"&&live.models)dp.appendChild(h("p",{cls:"hint",text:"Live from this server: "+live.models}));
+}
+function update(){
+  var tr=st.tr,sp=tr?tr.s[st.i]:null,sn=st.sel,out={},inn={},steps={};
+  if(sn)E.forEach(function(e){if(e.a===sn)out[e.b]=1;if(e.b===sn)inn[e.a]=1});
+  if(tr)tr.s.forEach(function(s,k){s.n.forEach(function(id){(steps[id]=steps[id]||[]).push(k+1)})});
+  taskEls.forEach(function(t){t[1].setAttribute("aria-pressed",String((tr?tr.id:"")===t[0]))});
+  for(var id in nodeEl){var b=nodeEl[id],bd=b.lastChild,cl=b.classList,on=!!sp&&sp.n.indexOf(id)>-1,sd=!!steps[id]&&steps[id][0]<=st.i+1;
+    cl.toggle("act",on);cl.toggle("seen",sd&&!on);cl.toggle("out",!!out[id]);cl.toggle("in",!!inn[id]&&!out[id]);
+    cl.toggle("dim",tr?!sd:(!!sn&&sn!==id&&!out[id]&&!inn[id]));
+    bd.className="bd";bd.textContent="";
+    if(tr&&sd){bd.textContent=steps[id].join(" · ");bd.classList.add("num")}
+    else if(out[id])bd.textContent="▸ receives";else if(inn[id])bd.textContent="◂ sends";
+    b.setAttribute("aria-pressed",String(sn===id))}
+  $("tbar").classList.toggle("show",!!tr);
+  if(tr){$("tcnt").textContent=tr.t+" · step "+(st.i+1)+" of "+tr.s.length;$("ttext").textContent=sp.x;
+    $("tPrev").disabled=st.i===0;$("tNext").disabled=st.i===tr.s.length-1;
+    var dd=$("dots");dd.textContent="";tr.s.forEach(function(s,k){var b=h("button",{type:"button",cls:"dot",text:String(k+1),"aria-label":"Go to step "+(k+1)});
+      if(k===st.i)b.setAttribute("aria-current","step");if(k<st.i)b.classList.add("done");b.addEventListener("click",function(){stopPlay();st.i=k;update();focusActive()});dd.appendChild(b)});
+    var hp=$("hops");hp.textContent="";sp.e.forEach(function(k){var rv=k.charAt(0)==="^",e=ekey[rv?k.slice(1):k];if(!e)return;
+      var A=byId[rv?e.b:e.a],B=byId[rv?e.a:e.b];hp.appendChild(h("span",{cls:"hop"},[h("b",{text:A.n}),h("em",{cls:"ar",text:rv?"response":(e.t||"calls")}),h("b",{text:B.n})]))})}
+  renderDetail();
+}
+var NAMES={logreg:"Logistic Regression",rf:"Random Forest",gb:"Gradient Boosting"};
+var live={models:""};
+function jget(u){var c=new AbortController(),t=setTimeout(function(){c.abort()},2500);return fetch(u,{signal:c.signal}).then(function(r){clearTimeout(t);if(!r.ok)throw new Error(r.status);return r.json()}).catch(function(e){clearTimeout(t);throw e})}
+Promise.all([jget("/health").catch(function(){return null}),jget("/provenance").catch(function(){return null}),jget("/trust").catch(function(){return null})]).then(function(r){
+  var hl=r[0],pv=r[1],tt=r[2];if(!hl)return;
+  var box=$("status");box.textContent="";box.classList.add("live");
+  box.appendChild(h("span",{},[h("i"),h("b",{text:"Live"}),document.createTextNode(hl.model_loaded?" · model loaded":" · model not trained yet")]));
+  if(pv&&pv.artifacts){/* shape varies; look defensively */}
+  var items=pv&&(pv.artifacts||pv.items||pv.files);
+  if(items&&items.length){var m=items.filter(function(x){return x.artifact==="model.joblib"&&x.sha256})[0];if(m)box.appendChild(h("span",{text:"model.joblib SHA-256 "+m.sha256.slice(0,12)+"…"}))}
+  if(tt&&tt.metrics){var parts=[];["CAD","LAD","LCX","RCA"].forEach(function(k){var x=tt.metrics[k];if(x&&x.selected)parts.push(k+": "+(NAMES[x.selected]||x.selected))});
+    if(parts.length){live.models=parts.join(", ");box.appendChild(h("span",{text:"Selected models: "+live.models}))}}
+  update();
+});
+update();
+})();
+</script>
+<script src="/static/shell.js?v=20261004d"></script>
+</body></html>

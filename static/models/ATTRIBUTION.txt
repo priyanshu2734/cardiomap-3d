@@ -1,0 +1,8 @@
+CardioMap anatomy attribution
+
+Reference anatomy source: HuBMAP Consortium / Human Reference Atlas (HRA) 3D Reference Object Library
+Release: CCF/HRA v1.2 reference models
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Source repository: https://github.com/hubmapconsortium/ccf-releases/tree/main/v1.2/models
+
+CardioMap uses these models as generic research/reference anatomy. They are not patient-specific imaging and are not clinical diagnostic data.
