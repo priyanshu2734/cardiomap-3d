@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 /* Embedded mode: live-refresh when the host page publishes a new case, and report height to the host. */
 (function(){
- var tm=0;window.addEventListener("storage",function(e){if(e.key!==CM_KEY||location.pathname==="/heart-function")return;clearTimeout(tm);tm=setTimeout(function(){location.reload()},250)});
+ var tm=0;window.addEventListener("storage",function(e){if(e.key!==CM_KEY)return;clearTimeout(tm);tm=setTimeout(function(){location.reload()},250)});
  if(!CM_EMBED)return;
  if(CM_KEY==="cm-case-twin")document.addEventListener("DOMContentLoaded",function(){var n=document.getElementById("noCase");if(!n)return;var p=n.querySelector("p"),a=n.querySelector("a");if(p)p.textContent="Enter some baseline inputs above (or switch on the Confidence halo). This panel then updates automatically.";if(a)a.hidden=true});
  document.addEventListener("DOMContentLoaded",function(){[].slice.call(document.querySelectorAll("a[href]")).forEach(function(a){a.target="_top"})});

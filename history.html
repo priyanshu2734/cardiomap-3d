@@ -59,7 +59,7 @@ tr.det td{background:var(--h-bar);padding:12px 14px}
  tr.det,tr.det td{display:block}
 }
 </style>
-</head>
+<link rel="stylesheet" href="/static/cm-interaction.css?v=20261012d"></head>
 <body class="cm-lab"><div class="wrap">
 <section class="card hero">
   <div class="eyebrow">Every run · Saved in this browser</div>
@@ -90,8 +90,7 @@ tr.det td{background:var(--h-bar);padding:12px 14px}
 const H=window.cmHistory,TG=H.TARGETS,$=id=>document.getElementById(id);
 let schema={},ids=[],open=new Set();
 const h=(tag,props,...kids)=>{const n=document.createElement(tag);for(const k in props||{}){if(k==='class')n.className=props[k];else if(k==='text')n.textContent=props[k];else n.setAttribute(k,props[k])}kids.flat().forEach(c=>c!=null&&n.append(c.nodeType?c:document.createTextNode(c)));return n};
-const pct=x=>(x*100).toFixed(1)+'%',RL_LABEL={seed:'Seed',repeats:'CV repeats',boot:'Bootstrap resamples'},HF_LABEL={narrow_LAD:'LAD narrowing',narrow_LCX:'LCX narrowing',narrow_RCA:'RCA narrowing',exercise:'Activity',cohort_LAD:'Cohort check',cohort_LCX:'Cohort check',cohort_RCA:'Cohort check'},
-  hfVal=(k,v)=>k==='exercise'?(v?'Exercise':'Rest'):/^cohort_/.test(k)?k.slice(7)+' viewed (descriptive)':v+'%';
+const pct=x=>(x*100).toFixed(1)+'%',RL_LABEL={seed:'Seed',repeats:'CV repeats',boot:'Bootstrap resamples'};
 const when=t=>new Date(t).toLocaleString([],{dateStyle:'medium',timeStyle:'short'});
 const val=(id,v)=>{const s=schema[id]||{};return s.kind==='bin'?(v?'Yes':'No'):(Number.isInteger(v)?v:+v.toFixed(2))+(s.unit?' '+s.unit:'')};
 const items=()=>{const f=$('fSec').value;return H.list().filter(e=>!f||e.section===f)};
@@ -108,15 +107,15 @@ function row(e){
   const sub=[H.KIND_LABEL[e.kind]||e.kind,e.target&&'target '+e.target,e.label].filter(Boolean).join(' · ');
   const tg=h('button',{class:'btn',type:'button','aria-expanded':isOpen,text:n?(isOpen?'Hide ':'Show ')+n+' input'+(n===1?'':'s'):'No inputs'});
   tg.onclick=()=>{open.has(e.id)?open.delete(e.id):open.add(e.id);render()};
-  const RL=e.kind==='research',HF=e.kind==='heartfn',go=h('button',{class:'btn',type:'button',text:RL?'Open Research Lab':HF?'Open Heart Function Lab':'Open in dashboard',title:RL?'Open the Cardiac Research Lab':HF?'Open the Heart Function Lab':'Load these inputs into the dashboard'});
-  go.onclick=RL?()=>{location.href='/research-lab'}:HF?()=>{location.href='/heart-function'}:()=>{try{sessionStorage.setItem('cm-inputs-v1',JSON.stringify({v:e.inputs,nm:ids.filter(i=>!(i in e.inputs)),sel:'CAD'}))}catch(_){}location.href='/app/'};
+  const RL=e.kind==='research',go=h('button',{class:'btn',type:'button',text:RL?'Open Research Lab':'Open in dashboard',title:RL?'Open the Cardiac Research Lab':'Load these inputs into the dashboard'});
+  go.onclick=RL?()=>{location.href='/research-lab'}:()=>{try{sessionStorage.setItem('cm-inputs-v1',JSON.stringify({v:e.inputs,nm:ids.filter(i=>!(i in e.inputs)),sel:'CAD'}))}catch(_){}location.href='/app/'};
   const del=h('button',{class:'btn',type:'button',text:'Delete','aria-label':'Delete this entry'});
   del.onclick=()=>{H.remove(e.id);open.delete(e.id);render()};
   const tr=h('tr',null,h('td',{class:'when',text:when(e.t)}),h('td',{class:'sec'},e.section,h('small',{text:sub})),h('td',{class:'in'},tg),
     TG.map(t=>probCell(e,t)),h('td',{class:'ac'},h('div',{class:'acts'},n?go:null,del)));
   if(!isOpen)return [tr];
   const keys=Object.keys(e.inputs).sort((a,b)=>ids.indexOf(a)-ids.indexOf(b));
-  const ul=h('ul',{class:'ins'},keys.map(k=>h('li',null,h('span',{text:(e.kind==='research'&&RL_LABEL[k])||(HF&&HF_LABEL[k])||(schema[k]&&schema[k].label)||k}),h('span',{text:HF?hfVal(k,e.inputs[k]):val(k,e.inputs[k])}))));
+  const ul=h('ul',{class:'ins'},keys.map(k=>h('li',null,h('span',{text:(e.kind==='research'&&RL_LABEL[k])||(schema[k]&&schema[k].label)||k}),h('span',{text:val(k,e.inputs[k])}))));
   return [tr,h('tr',{class:'det'},h('td',{colspan:8},n?ul:h('span',{class:'na',text:'No inputs were supplied for this run; the model used its training medians.'})))]}
 
 function render(){

@@ -475,7 +475,7 @@ body>.wrap>header .cm-burger svg{width:18px;height:18px;fill:none;stroke:current
 .cm-explain-links a[href^="#"]{cursor:pointer}
 </style>
 <link rel="stylesheet" href="/static/global-drivers.css?v=20261007b">
-</head><body>
+<link rel="stylesheet" href="/static/cm-interaction.css?v=20261012d"></head><body>
 <div class="bg" aria-hidden="true"><i class="orb" data-sp="0.12" data-b="100" style="left:1.5%;width:60px;height:60px"></i><i class="orb" data-sp="0.28" data-b="420" style="left:4.5%;width:28px;height:28px"></i><i class="orb" data-sp="0.2" data-b="760" style="left:.5%;width:90px;height:90px"></i><i class="orb" data-sp="0.35" data-b="640" style="left:3%;width:38px;height:38px"></i><i class="orb" data-sp="-0.15" data-b="200" style="right:2%;width:44px;height:44px"></i><i class="orb" data-sp="-0.24" data-b="560" style="right:1%;width:76px;height:76px"></i><i class="orb" data-sp="-0.3" data-b="820" style="right:5%;width:24px;height:24px"></i><i class="orb" data-sp="-0.1" data-b="40" style="right:4%;width:52px;height:52px"></i><svg viewBox="0 0 2368 220" preserveAspectRatio="none"><path id="ecgBase"></path><path id="ecgLive" pathLength="1"></path></svg></div>
 <div class="scroll-progress" id="scrollProgress"><i></i></div>
 <div class="wrap">
@@ -625,65 +625,6 @@ window.cmGlobalPaint=c.paint;
 <button type="button" id="xmShap" aria-pressed="true"></button><button type="button" id="xmSens" aria-pressed="false"></button>
 <div id="xgrid"><div id="xsum"></div><div><div id="xBanner" hidden></div><div id="realShap"></div><div id="shap" hidden></div><p id="realShapNote"></p><p id="shapn" hidden></p></div></div>
 </div>
-
-<style id="cm-prov-css">
-#provenanceCard{margin-top:14px;padding:0;overflow:hidden}
-#provenanceCard summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;cursor:pointer;list-style:none;min-height:44px}
-#provenanceCard summary::-webkit-details-marker{display:none}
-#provenanceCard summary:focus-visible{outline:2px solid var(--accent,#3bd5d7);outline-offset:-2px}
-#provenanceCard h3{margin:0;font:700 14px Sora,Inter,sans-serif;color:var(--ink)}
-#provenanceCard .prov-sub{display:block;margin-top:2px;font-size:11.5px;font-weight:500;color:var(--muted)}
-#provenanceCard .prov-chev{flex:none;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
-#provenanceCard details[open] .prov-chev{transform:rotate(-135deg)}
-#provenanceCard .prov-body{padding:2px 18px 18px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.55;color:var(--ink)}
-#provenanceCard ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:10px}
-#provenanceCard li{padding-left:12px;border-left:3px solid var(--line);overflow-wrap:anywhere}
-#provenanceCard li b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-#provenanceCard a{color:#7ee8ec;text-decoration:underline;text-underline-offset:2px}
-html[data-theme="light"] #provenanceCard a,:root:not([data-theme="dark"]) #provenanceCard a{color:#066a80}
-#provenanceCard .prov-status{margin:14px 0 6px;font-size:12px;font-weight:600}
-#provenanceCard .prov-wrap{overflow-x:auto;max-width:100%}
-#provenanceCard table{width:100%;min-width:0;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}#provenanceCard th{position:static}
-#provenanceCard th,#provenanceCard td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}#provenanceCard td:nth-child(2){white-space:nowrap}
-#provenanceCard th{font-size:11px;color:var(--muted);font-weight:700}
-#provenanceCard td.h{font-family:ui-monospace,Consolas,monospace;font-size:11px;word-break:break-all}
-#provenanceCard .prov-note{margin:10px 0 0;font-size:11px;color:var(--muted)}
-</style>
-<section class="panel" id="provenanceCard" data-reveal>
-<details id="provDetails">
-<summary><div><h3 id="provTitle">Data Provenance &amp; References</h3><span class="prov-sub">Where the data, model, anatomy and segment map come from.</span></div><i class="prov-chev" aria-hidden="true"></i></summary>
-<div class="prov-body">
-<ul role="group" aria-label="References: dataset, model outputs, explanations, segment map and anatomy">
-<li><b>Dataset</b>Z-Alizadeh Sani extension, 303 records. Target fields are excluded from the model inputs.</li>
-<li><b>Model outputs</b>Produced by the fitted models in model.joblib, scored in metrics.json. Bootstrap ranges are not clinical confidence intervals. See the <a href="/validation" aria-label="Open the Validation view for model metrics">Validation view</a>.</li>
-<li><b>Explanations</b>SHAP is an explanation of the model, not causation.</li>
-<li><b>Segment map</b>17-segment model: Cerqueira et al., Circulation 2002;105:539-542.</li>
-<li><b>Anatomy</b>HuBMAP / HRA CCF v1.2, <a href="https://humanatlas.io/" target="_blank" rel="noopener noreferrer" aria-label="Human Reference Atlas website (opens in a new tab)">Human Reference Atlas</a>, CC BY 4.0. BodyParts3D, <a href="https://lifesciencedb.jp/bp3d/" target="_blank" rel="noopener noreferrer" aria-label="BodyParts3D website (opens in a new tab)">BodyParts3D</a>, CC BY 4.0.</li>
-</ul>
-<p class="prov-status" id="provStatus" role="status" aria-live="polite">Manifest loads when this section is opened.</p>
-<div class="prov-wrap"><table id="provTable" hidden><caption class="sr-only" style="position:absolute;left:-9999px">Build manifest: file name, size and first 16 characters of its SHA-256 hash</caption><thead><tr><th scope="col">File</th><th scope="col">Size</th><th scope="col">SHA-256 (first 16)</th></tr></thead><tbody id="provRows"></tbody></table></div>
-<p class="prov-note">Hashes identify the files inspected, not clinical validity. No patient inputs are sent or shown here.</p>
-</div>
-</details>
-</section>
-<script id="cm-prov-js">/* ===== Data provenance panel ===== */
-(function(){var d=document.getElementById("provDetails");if(!d)return;var done=false;
-function mb(n){return typeof n==="number"?(n>=1048576?(n/1048576).toFixed(1)+" MB":Math.max(1,Math.round(n/1024))+" KB"):"-"}
-function cell(tr,t,c){var td=document.createElement("td");if(c)td.className=c;td.textContent=t;tr.appendChild(td)}
-function fail(){document.getElementById("provStatus").textContent="Manifest not loaded (backend offline). The references above still apply."}
-d.addEventListener("toggle",function(){if(!d.open||done)return;done=true;
- var base="";try{base=typeof API==="string"&&API?API:location.origin}catch(e){base=location.origin}
- var c=new AbortController(),t=setTimeout(function(){c.abort()},4000);
- fetch(base+"/provenance",{signal:c.signal,cache:"no-store"}).then(function(r){clearTimeout(t);if(!r.ok)throw 0;return r.json()}).then(function(m){
-  var b=m&&m.bootstrap_meta,s="Build manifest: app "+(m.app_version||"?")+", schema "+(m.schema_version||"?");
-  if(b&&b.B)s+=", bootstrap "+b.B+" resamples"+(typeof b.level==="number"?" at "+Math.round(b.level*100)+"% level":"");
-  document.getElementById("provStatus").textContent=s;
-  var body=document.getElementById("provRows");body.textContent="";
-  (Array.isArray(m.artifacts)?m.artifacts:[]).forEach(function(a){var tr=document.createElement("tr");cell(tr,String(a.artifact||"?"));
-   if(a.sha256){cell(tr,mb(a.bytes));cell(tr,String(a.sha256).slice(0,16),"h")}else{cell(tr,"not available");cell(tr,"-")}body.appendChild(tr)});
-  document.getElementById("provTable").hidden=false;
- }).catch(function(){clearTimeout(t);done=false;fail()})});
-})();</script>
 
 <div class="panel warn" style="margin-top:14px" data-reveal>
 <svg fill="none" height="23" stroke="#ffbd67" stroke-width="2" style="flex:none" viewbox="0 0 24 24" width="23"><path d="M12 3 2 21h20L12 3zM12 10v5M12 18v.5"></path></svg>
@@ -2172,5 +2113,5 @@ rb.onclick=async()=>{if(!res){say("Run a prediction first.",1);return}if(!base()
   const a=document.createElement("a");a.href=URL.createObjectURL(await r.blob());a.download="CardioMap-AI-Report-"+new Date().toISOString().slice(0,10)+".pdf";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);say("Report downloaded.")}
  catch(e){say(e instanceof TypeError?"Could not reach the server.":e.message,1)}finally{rb.disabled=false;rb.textContent=h}};
 })();
-</script><script src="/static/heart-dashboard.js?v=20261005b"></script><script src="/static/shell.js?v=20261004d"></script><script src="/static/pro.js?v=20261007a"></script><script src="/static/bg.js?v=20261004a"></script><script src="/static/yesno.js?v=20261004a"></script><script>(function(){var h=document.getElementById("whyHeader"),st=document.getElementById("stage");if(h&&st){h.classList.add("wh-flow");st.appendChild(h)}})();</script>
+</script><script src="/static/heart-dashboard.js?v=20261005b"></script><script src="/static/shell.js?v=20261004d"></script><script src="/static/pro.js?v=20261012b"></script><script src="/static/bg.js?v=20261004a"></script><script src="/static/yesno.js?v=20261004a"></script><script>(function(){var h=document.getElementById("whyHeader"),st=document.getElementById("stage");if(h&&st){h.classList.add("wh-flow");st.appendChild(h)}})();</script>
 </body></html>

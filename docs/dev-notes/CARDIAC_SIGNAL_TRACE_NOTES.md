@@ -53,3 +53,19 @@ Both the dashboard (`/signal-trace?embed=1`) and the Digital Lab Twin (`/signal-
 - Existing hooks kept: `#stTCount` text (e.g. "7 typical myocardial segments"), `#stSegLine`/`#stSegNums` (now screen-reader text), `#stDot`, `#stTNote`, `#stView`. New nodes: `#stTBody`, `#stBull`, `#stRings`, `#stKeyAlt`.
 - Class `st-sg` is used for the chips to avoid the existing `.st-chip` header badge.
 - Note: `tests/visual_qa/signal_trace.py` still expects the pre-iframe inline card and fails before reaching this block; it was not changed.
+
+## Plain-language redesign (v18)
+Only `signal_trace.html` changed (dashboard iframe, Twin Lab iframe and the standalone `/signal-trace` page all use it). No change to the model, `core.py`, the API response shape or any other page. The old stacked CSS overrides were replaced by one block scoped to `#signalTraceCard`.
+
+**Wording / data description**
+- A one-paragraph reading sits on top (`#stRead`): estimate and level, the strongest input and its direction, then the other two grouped as "also raising / also lowering". Built with DOM nodes, no `innerHTML` for data.
+- Each driver shows name + value chip, direction in words ("Raises / Lowers the estimate"), its `share_pct` ("21% of the model's total push"), the raw SHAP value with its real unit (`log-odds`, or `percentage points` when `output_space` is `probability`; tooltip explains it), and a one-line plain definition from a small label-keyed glossary in the script (definitions only, no clinical thresholds). Not-entered inputs say "not entered, typical value used". `RWMA regions (count 0–4)` is shown as "RWMA regions · 1 of 4".
+- Footnote reports how much of the total push the three inputs cover and how many inputs the model has (`n_features`).
+- Estimate stage: 0–100% strip with the existing `lvl()` zones (under 40 / 40–64 / 65+), the bootstrap model range as a band (`interval.lo/hi`, described as "80% of N models re-trained on resampled data"), and the SHAP starting point (`base_probability`) as a hollow dot, with "what the model predicts before it sees this patient". The range is now shown for CAD too when the API returns it.
+- Territory: "Typically supplies N of 17 heart-wall segments". With CAD selected the bullseye is coloured by vessel (categorical colours, not risk colours) and works as a vessel picker (legend buttons or click a segment); no new data.
+
+**Fields read (all already in `res`)**: `res[T].p`, `res[T].interval.{lo,hi,level,n_models,range_label}`, `res.shap.targets[T].{output_space,base_probability,n_features,records[].{rank,label,feature,display_value,is_default,value,direction,share_pct}}`. Older cached cases without `share_pct` / `base_probability` / `n_models` simply omit those lines.
+
+**Hooks kept**: `cmSignalTracePaint`, `#stTCount #stSegLine #stSegNums #stDot #stTNote #stView #stTBody #stBull #stRings #stKeyAlt`, `data-st-vessel`, `data-st-trace`, `data-st-go`, `data-st-view`. New: `#stRead #stAxis #stMeter #stBand #stBase #stMk #stRangeV #stVRange #stBaseRow #stBaseV #stBaseSub #stCadLeg [data-st-pick]`.
+
+**Verified** (Playwright + Chromium, mock case in `localStorage`, no network): CAD/LAD/LCX/RCA, dark and light, 700 px embed and 390 px, standalone 1360 px dark; log-odds and probability output spaces; not-entered input; Trace on/off; vessel pick from the CAD legend and from a bullseye segment; iframe auto-height via `embed-host.js`; no console errors, no horizontal overflow. **Not verified**: the real FastAPI app with a real model (FastAPI was not installed in the test environment), the Google Fonts load, real mobile devices.

@@ -1,0 +1,64 @@
+/* CardioMap interaction layer: ONE hover colour + clear on/off primary buttons.
+   Loaded last on every page. Replaces the bright teal->mint gradient (white text on mint)
+   and the near-black slab hover with a soft tint that keeps text readable in light and dark. */
+:root{
+  --hv-bg:rgba(10,143,166,.12);--hv-bd:rgba(10,143,166,.55);--hv-ink:#06404f;--hv-glow:0 6px 18px rgba(10,143,166,.18);
+  --pb-bg:linear-gradient(135deg,#0b8aa3,#086478);--pb-ink:#fff;--pb-bd:rgba(255,255,255,.28);
+  --pb-hov:linear-gradient(135deg,#0e9db8,#0a7289);--pb-glow:0 10px 26px rgba(8,100,120,.36);
+  --pb-off-bg:rgba(76,118,134,.14);--pb-off-ink:#4c7686;--pb-off-bd:rgba(76,118,134,.28);
+  --pb-dot:#9ff5ea;--pb-busy-bg:#d3eef4;--pb-busy-ink:#0a6a7e;--pb-busy-bd:rgba(10,106,126,.35);
+}
+html[data-theme="dark"]{
+  --hv-bg:rgba(79,216,238,.16);--hv-bd:rgba(79,216,238,.6);--hv-ink:#d4f8ff;--hv-glow:0 6px 20px rgba(79,216,238,.16);
+  --pb-bg:linear-gradient(135deg,#4fd8ee,#27c9bb);--pb-ink:#03212a;--pb-bd:rgba(255,255,255,.35);
+  --pb-hov:linear-gradient(135deg,#7ae6f6,#4bdccd);--pb-glow:0 10px 28px rgba(79,216,238,.34);
+  --pb-off-bg:rgba(155,184,203,.12);--pb-off-ink:#8fb0c3;--pb-off-bd:rgba(155,184,203,.24);
+  --pb-dot:#0a5a4a;--pb-busy-bg:rgba(79,216,238,.14);--pb-busy-ink:#8fe6f4;--pb-busy-bd:rgba(79,216,238,.4);
+}
+
+/* ---- 1. Soft hover for every ordinary button, tab, nav link and tile ---- */
+html body:not(#cmx):not(#cmy) :is(button,.btn,a.btn,.chip,.tabs button,.section-rail a,.tools label.b,.cm-nav>a,.cm-grp>button,.cm-menu a,.cm-tools button,.hd-qv button,.gd-seg button,.gd-retry,.cm-explain-links a,.cm-next-card a):not(:disabled):not([disabled]):not(.pri):not(.primary):not(.cm-ai):not(.ai-fab):not(.hd-ai):not([aria-pressed="true"]):not(.on):not(.active):not(.open):not(#chips .chip):not(.gd-chip):not(.cm-burger):hover,
+html body:not(#cmx):not(#cmy) :is(.cm-nav>a,.cm-grp>button,.cm-menu a):not(.on):focus-visible{
+  background:var(--hv-bg)!important;color:var(--hv-ink)!important;border-color:var(--hv-bd)!important;box-shadow:var(--hv-glow)!important;background-image:none!important}
+html body:not(#cmx):not(#cmy) :is(button,.btn,a.btn,.chip,.tabs button,.section-rail a,.tools label.b,.cm-nav>a,.cm-grp>button,.cm-menu a,.cm-tools button,.hd-qv button,.gd-seg button,.gd-retry,.cm-explain-links a,.cm-next-card a):not(:disabled):not([disabled]):not(.pri):not(.primary):not(.cm-ai):not(.ai-fab):not(.hd-ai):not([aria-pressed="true"]):not(.on):not(.active):not(.open):not(#chips .chip):not(.gd-chip):not(.cm-burger):hover *{
+  color:inherit!important;stroke:currentColor}
+/* open menu group keeps the same tint instead of a dark slab */
+html body:not(#cmx):not(#cmy) .cm-grp.open>button{background:var(--hv-bg)!important;color:var(--hv-ink)!important;border-color:var(--hv-bd)!important}
+html body:not(#cmx):not(#cmy) .cm-menu a:hover small{color:inherit!important;opacity:.8}
+/* vessel/global-driver tiles: tint with their own colour, text stays the normal ink */
+html body:not(#cmx):not(#cmy) .gd-chip:not([aria-pressed="true"]):hover{
+  background:color-mix(in srgb,var(--gc,#0a8fa6) 14%,var(--gd-tile,transparent))!important;color:var(--gd-ink,var(--hv-ink))!important;
+  border-color:color-mix(in srgb,var(--gc,#0a8fa6) 60%,transparent)!important;box-shadow:0 8px 20px color-mix(in srgb,var(--gc,#0a8fa6) 20%,transparent)!important;background-image:none!important}
+html body:not(#cmx):not(#cmy) .gd-chip:hover *{color:inherit!important}
+html body:not(#cmx):not(#cmy) .gd-chip:hover .gd-chip-n,html body:not(#cmx):not(#cmy) .gd-chip:hover .gd-chip-t{color:var(--gd-ink,inherit)!important}
+
+/* ---- 2. Pointer cursor on everything clickable, normal cursor when off ---- */
+button,.btn,a.btn,[role="button"],summary,.chip,.gd-chip,.gd-seg button,.tabs button,.tools label.b,.section-rail a,.why-tag,.cm-nav>a,.cm-grp>button,.cm-menu a,.cm-explain-links a,.cm-next-card a,.ai-fab,input[type=checkbox],input[type=range],select{cursor:pointer}
+button:disabled,button[disabled],.btn[disabled],[aria-disabled="true"]{cursor:not-allowed}
+
+/* ---- 3. Primary buttons: Run prediction + Research case PDF (and other .pri buttons) ---- */
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn){
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;
+  background:var(--pb-bg)!important;color:var(--pb-ink)!important;border:1px solid var(--pb-bd)!important;border-width:1px!important;
+  font-weight:700;letter-spacing:.01em;box-shadow:var(--pb-glow),inset 0 1px 0 rgba(255,255,255,.28)!important;
+  transition:background .18s,box-shadow .18s,transform .12s,filter .18s,color .18s}
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn)::before{
+  content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--pb-dot);box-shadow:0 0 0 3px rgba(255,255,255,.22),0 0 10px var(--pb-dot);transition:background .18s,box-shadow .18s}
+/* hover: brighter fill + lift, never dark slab or white-on-mint */
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn):not(:disabled):hover{
+  background:var(--pb-hov)!important;color:var(--pb-ink)!important;border-color:var(--pb-bd)!important;
+  box-shadow:var(--pb-glow),0 0 0 3px var(--hv-bg),inset 0 1px 0 rgba(255,255,255,.35)!important;transform:translateY(-1px)}
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn):not(:disabled):hover *{color:inherit!important}
+/* pressed */
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn):not(:disabled):active{
+  transform:translateY(1px);filter:brightness(.94);box-shadow:inset 0 3px 8px rgba(0,0,0,.28)!important}
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn):focus-visible{outline:3px solid var(--hv-bd);outline-offset:3px}
+/* off / busy ("Running…", "Writing report…"): calm solid tint, no stripes; the dot is hidden while busy */
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn):disabled{
+  background:var(--pb-busy-bg)!important;background-image:none!important;color:var(--pb-busy-ink)!important;border:1px solid var(--pb-busy-bd)!important;box-shadow:none!important;transform:none;filter:none;opacity:1;animation:none}
+html body:not(#cmx):not(#cmy) :is(button.pri,button.primary,#run,#repBtn):disabled::before{display:none}
+@keyframes cmPbSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){html body :is(button.pri,button.primary,#run,#repBtn):disabled::before{animation:none!important}html body :is(button.pri,button.primary,#run,#repBtn):hover{transform:none!important}}
+
+/* AI buttons: same family, brighten instead of turning dark */
+html body:not(#cmx):not(#cmy) :is(.cm-ai,.ai-fab,.hd-ai):hover{filter:brightness(1.1) saturate(1.05);transform:translateY(-1px)}

@@ -18,3 +18,11 @@ Shifts are measured against the current estimate, which fills missing inputs wit
 ## Files
 `nexttest.py` (logic + lazy router), `app.py` (router include), `index.html` (card, CSS, JS, Not-measured control, payload helper), `tests/test_nexttest.py`, `tests/mock_server.py` (route added).
 Run: `python tests/test_nexttest.py`.
+
+## UI redesign (what_next.html, embedded in the dashboard and Digital Twin)
+Only `what_next.html` changed; `/nexttest/rank`, its response shape and `cmNextTestSnapshot()` are untouched.
+- Summary row: current estimate with Low/Moderate/High pill and a 0-100% range gauge (80% refit band, estimate tick, 50% line); "Not entered" card (n of total inputs) with the widest-range vessel and its switch button.
+- Plain-language "Reading" box: names the most influential unknown input, its typical shift in points, where the estimate would land, and how often it crosses 50%. If the top shift is under 1 pt it says the estimate is stable against what is unknown.
+- Each ranked card: effect size (typical shift in pts + label), impact bar, "now vs if known" mini gauge, and three facts in words (Crosses 50%, Certainty narrower/wider, Similar records).
+- Effect labels (minimal <1 pt, small 1-3, moderate 3-6, large 6+) are descriptive groupings for scanning, not clinical thresholds; a "How to read these numbers" disclosure defines every figure.
+- Removed ~220 lines of unused Signal Trace CSS from this page. Light/dark, reduced motion, 390 px (no horizontal overflow) checked.

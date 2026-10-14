@@ -77,326 +77,190 @@ html[data-theme="light"] #peerCard,html[data-theme="light"] #ntCard,:root:not([d
 .nt-legend span:last-child{display:none}
 }
 .nt-note{font-size:11px;color:var(--muted);border-top:1px solid var(--cl-edge);margin:14px 0 0;padding:10px 0 0;line-height:1.55}
-.signal-trace{scroll-margin-top:var(--cm-hdr-clear,96px);scroll-margin-bottom:96px;overflow:visible;padding:22px 24px 20px;margin-top:16px}
-.signal-trace *{box-sizing:border-box}
-.st-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px 14px;flex-wrap:wrap;margin-bottom:8px}
-.st-head h3{margin:0;font-size:16px}
-.st-chip{font-size:10px;line-height:1.2;padding:5px 9px;border-radius:999px;border:1px solid var(--line,rgba(130,200,255,.2));background:rgba(127,150,190,.07);color:var(--muted);font-weight:700}
-.st-sub{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.55;max-width:62ch}
-.st-vsel{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
-.st-vsel button,.st-view,#stSens,.st-trace-btn{font:inherit;font-size:12px;font-weight:700;color:var(--ink);background:var(--glass,rgba(127,150,190,.08));border:1px solid var(--line,rgba(130,200,255,.2));border-radius:9px;padding:7px 12px;cursor:pointer;min-height:34px}
-.st-vsel button:hover,.st-view:hover,#stSens:hover,.st-trace-btn:hover{border-color:var(--accent,#64e3dc)}
-.signal-trace .st-vsel button,.signal-trace .st-view,.signal-trace #stSens,.signal-trace .st-trace-btn{color:var(--ink)!important;background:var(--glass,rgba(127,150,190,.08))!important;text-shadow:none}
-.signal-trace .st-vsel button[aria-pressed="true"],.signal-trace .st-trace-btn[aria-pressed="true"]{border-color:var(--accent,#64e3dc);box-shadow:inset 0 0 0 1px var(--accent,#64e3dc);background:rgba(100,227,220,.14)!important;color:var(--ink)!important}
-.signal-trace button:focus-visible{outline:2px solid var(--accent,#64e3dc);outline-offset:2px}
-.st-empty{margin:0 0 12px;padding:10px 12px;border:1px dashed var(--line,rgba(130,200,255,.3));border-radius:10px;color:var(--muted);font-size:12.5px}
-.st-empty[hidden]{display:none}
-.st-body{container-type:inline-size;min-width:0}
-.st-chain{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;align-items:stretch}
-.st-stage{position:relative;min-width:0;border:1px solid var(--line,rgba(130,200,255,.2));border-radius:12px;background:var(--glass,rgba(127,150,190,.05));padding:12px;transition:border-color .2s,box-shadow .2s}
-.st-stage+.st-stage::before{content:"↓";position:absolute;left:50%;top:-23px;transform:translateX(-50%);color:var(--muted);font-weight:800;font-size:16px;line-height:1}
-.st-left{padding:12px 12px 10px}
-.st-heads,.st-row{display:grid;grid-template-columns:minmax(0,1fr);gap:8px 22px}
-.st-heads{display:none}
-.st-heads span,.st-eyebrow{font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.st-drivers{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.st-row{padding:8px 8px;border:1px solid transparent;border-radius:10px;position:relative;transition:border-color .2s,background .2s}
-.st-row[hidden],.st-nosh[hidden],.st-drivers[hidden]{display:none}
-.st-row.st-on{border-color:var(--accent,#64e3dc);background:rgba(100,227,220,.07)}
-.st-in{display:flex;gap:9px;align-items:flex-start;min-width:0}
-.st-rk{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;border:1px solid var(--line,rgba(130,200,255,.3));color:var(--muted)}
-.st-txt{display:grid;min-width:0;gap:1px}
-.st-feat,.st-feat-plain{font:inherit;font-size:12.5px;font-weight:700;color:var(--ink);text-align:left;overflow-wrap:anywhere}
-.signal-trace .st-feat{background:none!important;box-shadow:none!important;border:0!important;padding:0!important;margin:0;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;min-height:0;color:var(--ink)!important;width:auto;display:inline;text-align:left;border-radius:0}
-.st-feat::after{content:" ↗";color:var(--muted);font-size:11px}
-.st-feat[hidden],.st-feat-plain[hidden],.st-trace-btn[hidden],.st-view[hidden],#stSens[hidden]{display:none}
-.st-val{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
-.st-at{display:grid;gap:6px;min-width:0;position:relative}
-.st-shap{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
-.st-num{font-size:14px;font-variant-numeric:tabular-nums}
-.st-dir{font-size:11.5px;color:var(--muted)}
-.st-bar{display:block;height:6px;border-radius:99px;background:rgba(127,150,190,.18);overflow:hidden}
-.st-bar i{display:block;height:100%;width:0;background:var(--accent,#64e3dc);border-radius:99px}
-.st-row[data-dir="down"] .st-bar i{background:repeating-linear-gradient(135deg,var(--muted) 0 4px,transparent 4px 7px)}
-.st-trace-btn{justify-self:start;padding:5px 11px;min-height:30px}
-.st-barnote,.st-tnote,.st-vrange,.st-nosh-sub{font-size:11px;color:var(--muted);line-height:1.5;margin:8px 0 0}
-.st-nosh{padding:10px 4px}
-.st-nosh-main{margin:0;font-size:13px;font-weight:700}
-.st-nosh .st-nosh-sub{margin:4px 0 10px}
-.st-vessel,.st-terr{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.st-vname{font-size:17px}
-.st-vp{font-size:30px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
-.st-vlvl{font-size:12.5px;font-weight:700}
-.st-vrange{margin:0}
-.st-tcount{font-size:14px;line-height:1.3}
-.st-seglist{margin:0;display:block;font-size:13px;font-weight:700;line-height:1.6;font-variant-numeric:tabular-nums}
-.st-seglist[hidden]{display:none}
-.st-dot{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px;border-radius:3px;background:var(--muted);border:1px solid var(--line,rgba(130,200,255,.3))}
-.st-tnote{margin:0}
-.st-view{margin-top:auto}
-.st-stage.st-on{border-color:var(--accent,#64e3dc);box-shadow:0 0 0 1px var(--accent,#64e3dc)}
-.st-chain.st-tracing .st-stage+.st-stage::before{color:var(--accent,#64e3dc)}
-.st-msg{margin:14px 0 0;padding:10px 12px;border-left:3px solid var(--accent,#64e3dc);background:rgba(100,227,220,.07);border-radius:0 10px 10px 0;font-size:12.5px;line-height:1.55}
-.st-msg[hidden]{display:none}
-.st-foot{margin-top:16px;padding-top:12px;border-top:1px solid var(--line,rgba(130,200,255,.2));display:grid;gap:5px}
-.st-note{margin:0;font-size:11px;line-height:1.55;color:var(--muted)}
-.st-note-key{font-weight:800;color:var(--ink)}
-.st-input-hl{outline:2px solid var(--accent,#64e3dc)!important;outline-offset:3px;border-radius:8px;background:rgba(100,227,220,.1)}
-@media(prefers-reduced-motion:reduce){.st-stage,.st-row{transition:none}
-}
-.signal-trace{padding:26px 28px 22px}
-.st-head{padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid color-mix(in srgb,var(--line,#254257) 65%,transparent)}
-.st-sub{margin-bottom:18px;font-size:12.5px}
-.st-chip{padding:6px 12px;background:rgba(100,227,220,.08);border-color:rgba(100,227,220,.28);color:var(--accent,#64e3dc)}
-.st-vsel{gap:8px;margin-bottom:18px;padding:5px;border-radius:14px;background:rgba(127,150,190,.07);border:1px solid color-mix(in srgb,var(--line,#254257) 70%,transparent);width:max-content;max-width:100%}
-.signal-trace .st-vsel button{border-color:transparent;background:transparent!important;border-radius:10px;padding:7px 16px;color:var(--muted)!important;transition:background .15s,color .15s}
-.signal-trace .st-vsel button:hover{color:var(--ink)!important;background:rgba(127,150,190,.14)!important}
-.signal-trace .st-vsel button[aria-pressed="true"]{background:linear-gradient(135deg,rgba(100,227,220,.22),rgba(114,185,255,.2))!important;color:var(--ink)!important;box-shadow:inset 0 0 0 1px rgba(100,227,220,.55)}
-.st-chain{gap:30px}
-.st-stage{padding:18px;border-radius:16px;background:linear-gradient(180deg,rgba(127,150,190,.075),rgba(127,150,190,.03));border-color:color-mix(in srgb,var(--line,#254257) 80%,transparent)}
-.st-left{padding:18px 16px 14px}
-.st-stage+.st-stage::before{width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--panel,#0e1d2c);border:1px solid var(--line,#254257);font-size:13px;color:var(--accent,#64e3dc);box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.st-eyebrow,.st-heads span{letter-spacing:.1em;opacity:.85}
-.st-heads{padding:0 12px 10px;border-bottom:1px solid color-mix(in srgb,var(--line,#254257) 55%,transparent);margin-bottom:10px}
-.st-drivers{gap:10px}
-.st-row{padding:12px 12px;background:rgba(127,150,190,.05);border:1px solid color-mix(in srgb,var(--line,#254257) 50%,transparent);border-radius:12px;align-items:center}
-.st-row:hover{background:rgba(127,150,190,.09)}
-.st-row.st-on{background:rgba(100,227,220,.09);box-shadow:0 0 0 1px rgba(100,227,220,.35)}
-.st-rk{background:rgba(127,150,190,.12);border-color:transparent;color:var(--ink)}
-.st-feat,.st-feat-plain{font-size:13px}
-.st-val{font-size:12px;opacity:.9}
-.st-num{font-size:15px;font-weight:800}
-.st-row[data-dir="up"] .st-num{color:#ff8792}
-.st-row[data-dir="down"] .st-num{color:#6fc8ff}
-.st-bar{height:7px;background:rgba(127,150,190,.16)}
-.st-bar i{background:linear-gradient(90deg,#3fb8c9,#64e3dc);box-shadow:0 0 8px rgba(100,227,220,.35)}
-.st-row[data-dir="up"] .st-bar i{background:linear-gradient(90deg,#e56b7b,#ff8792);box-shadow:0 0 8px rgba(255,135,146,.3)}
-.st-row[data-dir="down"] .st-bar i{background:repeating-linear-gradient(135deg,rgba(111,200,255,.75) 0 4px,rgba(111,200,255,.25) 4px 7px);box-shadow:none}
-.signal-trace .st-trace-btn{border-radius:999px;padding:5px 14px;font-size:11.5px;color:var(--accent,#64e3dc)!important;border-color:rgba(100,227,220,.35);background:rgba(100,227,220,.07)!important}
-.signal-trace .st-trace-btn:hover{background:rgba(100,227,220,.16)!important}
-.st-vname{font-size:18px;font-weight:800}
-.st-vp{font-size:34px;letter-spacing:-.01em}
-.st-vessel,.st-terr{gap:8px}
-.st-msg{padding:12px 16px;border-radius:0 12px 12px 0}
-.st-foot{margin-top:20px;padding-top:14px}
-.st-note-key{color:var(--ink)}
-@media(max-width:600px){.signal-trace{padding:20px 16px 18px}
-.st-vsel{width:100%;justify-content:space-between}
-.signal-trace .st-vsel button{flex:1;padding:7px 8px}
-}
-.signal-trace{position:relative;background:radial-gradient(120% 70% at 0% 0%,rgba(100,227,220,.07),transparent 55%),radial-gradient(90% 60% at 100% 0%,rgba(114,140,255,.08),transparent 60%),var(--panel,#0e1d2c)}
-.st-stage{overflow:hidden}
-.st-eyebrow,.st-heads span{display:inline-flex;align-items:center;gap:7px}
-.st-stage>.st-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent,#64e3dc);box-shadow:0 0 8px rgba(100,227,220,.7)}
-.st-heads{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);padding:0 14px 10px}
-.st-drivers{gap:12px}
-.st-row{position:relative;grid-template-columns:minmax(0,1fr);gap:12px 18px;padding:14px 16px 14px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(127,150,190,.09),rgba(127,150,190,.03));border:1px solid color-mix(in srgb,var(--line,#254257) 55%,transparent);overflow:hidden}
-.st-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--muted);opacity:.6}
-.st-row[data-dir="up"]::before{background:linear-gradient(180deg,#ff9aa6,#e5566b);opacity:1}
-.st-row[data-dir="down"]::before{background:linear-gradient(180deg,#8fd6ff,#3b9be8);opacity:1}
-.st-rk{width:28px;height:28px;flex:0 0 28px;font-size:12px;font-weight:800;color:#06202c;background:linear-gradient(135deg,#64e3dc,#72b9ff);border:0;box-shadow:0 3px 10px rgba(100,227,220,.28)}
-.st-in{align-items:center;gap:12px}
-.st-feat,.st-feat-plain{font-size:13.5px;font-weight:750;line-height:1.3}
-.signal-trace .st-feat{text-decoration-color:rgba(155,180,196,.5)}
-.st-val{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
-.st-val:not(:empty)::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--muted);opacity:.7}
-.st-at{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"shap btn" "bar btn";column-gap:14px;row-gap:9px;align-items:center}
-.st-at::before{display:none!important}
-.st-shap{grid-area:shap;gap:10px;align-items:center;flex-wrap:wrap}
-.st-bar{grid-area:bar}
-.signal-trace .st-trace-btn{grid-area:btn;align-self:center;min-height:32px;padding:0 14px}
-.st-num{font-size:17px;font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
-.st-dir{font-size:10.5px;font-weight:700;letter-spacing:.01em;padding:3px 9px;border-radius:999px;background:rgba(127,150,190,.14);color:var(--muted);white-space:nowrap}
-.st-row[data-dir="up"] .st-dir{background:rgba(255,135,146,.13);color:#ff9aa6}
-.st-row[data-dir="down"] .st-dir{background:rgba(111,200,255,.13);color:#8fd6ff}
-.st-bar{height:6px;border-radius:99px;background:rgba(127,150,190,.14)}
-.st-barnote{margin:14px 6px 2px;font-size:10.5px;opacity:.85}
-.st-vessel{justify-content:flex-start;gap:10px;background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--vc,#64e3dc) 18%,transparent),transparent 65%),linear-gradient(180deg,rgba(127,150,190,.09),rgba(127,150,190,.03))}
-.st-vname{font-size:15px;font-weight:700;color:var(--muted);letter-spacing:.01em}
-.st-vp{font-size:44px;line-height:1;font-weight:800;letter-spacing:-.02em;background:linear-gradient(180deg,#fff,#b9d4e6);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.st-vp::after{content:"";display:block;margin-top:14px;height:6px;width:100%;min-width:90px;border-radius:99px;-webkit-text-fill-color:initial;background:linear-gradient(90deg,var(--vc,#64e3dc) var(--vp,0%),rgba(127,150,190,.18) var(--vp,0%));box-shadow:0 0 10px color-mix(in srgb,var(--vc,#64e3dc) 35%,transparent)}
-.st-vlvl{display:inline-flex;align-items:center;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:800;background:color-mix(in srgb,currentColor 13%,transparent);border:1px solid color-mix(in srgb,currentColor 35%,transparent)}
-.st-vrange{font-size:11.5px;line-height:1.55;margin-top:2px}
-.st-terr{gap:10px}
-.st-tcount{font-size:15px;font-weight:800;line-height:1.35}
-.st-seglist{padding:10px 12px;border-radius:12px;background:rgba(127,150,190,.08);border:1px solid color-mix(in srgb,var(--line,#254257) 55%,transparent)}
-.st-tnote{font-size:11px;line-height:1.55}
-.signal-trace .st-view{width:100%;justify-content:center;text-align:center;border-radius:12px;color:var(--accent,#64e3dc)!important;border-color:rgba(100,227,220,.35);background:rgba(100,227,220,.08)!important}
-.signal-trace .st-view:hover{background:rgba(100,227,220,.17)!important}
-.st-stage+.st-stage::before{box-shadow:0 0 0 4px var(--panel,#0e1d2c),0 2px 8px rgba(0,0,0,.3)}
-.signal-trace .st-stage{overflow:visible}
-.signal-trace .st-at::before{content:none!important;display:none!important}
-html body #signalTraceCard .st-row button.st-feat,html body #signalTraceCard .st-row button.st-feat:hover,html body #signalTraceCard .st-row button.st-feat:focus,html body #signalTraceCard .st-row button.st-feat:active{background:none!important;box-shadow:none!important;border:0!important;transform:none!important;padding:0!important;border-radius:0!important;filter:none!important}
-html body #signalTraceCard .st-row button.st-feat:hover:not(:disabled),html body #signalTraceCard .st-row button.st-feat:focus-visible{color:#64e3dc!important;text-decoration:underline solid!important;text-underline-offset:4px;text-decoration-color:currentColor!important}
-html[data-theme="light"] body #signalTraceCard .st-row button.st-feat:hover:not(:disabled),html[data-theme="light"] body #signalTraceCard .st-row button.st-feat:focus-visible,:root:not([data-theme="dark"]) body #signalTraceCard .st-row button.st-feat:hover:not(:disabled){color:#0a7f94!important}
-html body #signalTraceCard .st-row button.st-feat:focus-visible{outline:2px solid rgba(100,227,220,.6);outline-offset:3px;border-radius:4px!important}
-html body #signalTraceCard .st-row button.st-trace-btn:hover:not(:disabled),html body #signalTraceCard .st-row button.st-trace-btn:focus-visible:not(:disabled){background:rgba(100,227,220,.20)!important;color:#e9fffd!important;border-color:#64e3dc!important;box-shadow:none!important;transform:none!important}
-html[data-theme="light"] body #signalTraceCard .st-row button.st-trace-btn:hover:not(:disabled),html[data-theme="light"] body #signalTraceCard .st-row button.st-trace-btn:focus-visible:not(:disabled),:root:not([data-theme="dark"]) body #signalTraceCard .st-row button.st-trace-btn:hover:not(:disabled),:root:not([data-theme="dark"]) body #signalTraceCard .st-row button.st-trace-btn:focus-visible:not(:disabled){background:rgba(10,127,148,.14)!important;color:#064f5e!important;border-color:#0a7f94!important;box-shadow:none!important}
-html body #signalTraceCard .st-vsel button:hover:not(:disabled):not([aria-pressed="true"]){background:rgba(127,150,190,.18)!important;color:var(--ink)!important;box-shadow:none!important;transform:none!important}
-html body #signalTraceCard .st-vsel button[aria-pressed="true"]:hover:not(:disabled){background:linear-gradient(135deg,rgba(100,227,220,.26),rgba(114,185,255,.24))!important;color:var(--ink)!important;box-shadow:inset 0 0 0 1px rgba(100,227,220,.6)!important;transform:none!important}
-.st-chain{--st-gx:28px;--st-gy:34px}
-.signal-trace .st-stage+.st-stage::before{width:26px;height:26px;z-index:2}
-.st-chain .st-stage.st-vessel,.st-chain .st-stage.st-terr{padding:22px}
-.st-vname{white-space:normal}
-.st-vp{white-space:nowrap}
-html[data-theme="light"] .st-vp,:root:not([data-theme="dark"]) .st-vp{background:none;-webkit-text-fill-color:var(--ink);color:var(--ink)}
-html[data-theme="light"] .st-row[data-dir="down"] .st-num,:root:not([data-theme="dark"]) .st-row[data-dir="down"] .st-num{color:#1d6db5}
-html[data-theme="light"] .st-row[data-dir="up"] .st-num,:root:not([data-theme="dark"]) .st-row[data-dir="up"] .st-num{color:#c2364c}
-html[data-theme="light"] .st-row[data-dir="down"] .st-dir,:root:not([data-theme="dark"]) .st-row[data-dir="down"] .st-dir{background:rgba(29,109,181,.12);color:#1d5f9e}
-html[data-theme="light"] .st-row[data-dir="up"] .st-dir,:root:not([data-theme="dark"]) .st-row[data-dir="up"] .st-dir{background:rgba(194,54,76,.12);color:#a82c40}
-html[data-theme="light"] .st-row[data-dir="down"] .st-bar i,:root:not([data-theme="dark"]) .st-row[data-dir="down"] .st-bar i{background:repeating-linear-gradient(135deg,rgba(29,109,181,.75) 0 4px,rgba(29,109,181,.28) 4px 7px)}
-html[data-theme="light"] .st-chip,:root:not([data-theme="dark"]) .st-chip{color:#0a6f83;background:rgba(10,127,148,.1);border-color:rgba(10,127,148,.3)}
-html[data-theme="light"] .signal-trace .st-trace-btn,html[data-theme="light"] .signal-trace .st-view,:root:not([data-theme="dark"]) .signal-trace .st-trace-btn,:root:not([data-theme="dark"]) .signal-trace .st-view{color:#0a6f83!important;border-color:rgba(10,127,148,.35);background:rgba(10,127,148,.08)!important}
-html[data-theme="light"] .st-stage+.st-stage::before,:root:not([data-theme="dark"]) .st-stage+.st-stage::before{background:#fff;border-color:#c5dde3;color:#0a7f94}
-html[data-theme="light"] .st-stage>.st-eyebrow::before,:root:not([data-theme="dark"]) .st-stage>.st-eyebrow::before{box-shadow:none;background:#0a7f94}
-html[data-theme="light"] .st-row,:root:not([data-theme="dark"]) .st-row{background:rgba(255,255,255,.7)}
-.signal-trace{--st-arr-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M6 13l6 6 6-6'/%3E%3C/svg%3E");--st-arr-r:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")}
-html body .signal-trace .st-chain{--st-gx:44px;--st-gy:44px;gap:44px}
-html body .signal-trace .st-chain .st-stage+.st-stage::before{content:"";display:block;width:34px;height:34px;padding:0;border:0;border-radius:50%;font-size:0;line-height:0;color:transparent;z-index:3;
- background:var(--st-arr-d) center/16px 16px no-repeat,linear-gradient(135deg,#17b9c9,#3d7bf0);
- box-shadow:0 0 0 5px rgba(23,185,201,.15),0 8px 18px rgba(40,120,210,.28);
- left:50%;top:-39px;transform:translateX(-50%);transition:box-shadow .25s,transform .25s}
-html body .signal-trace .st-chain.st-tracing .st-stage+.st-stage::before{box-shadow:0 0 0 6px rgba(23,185,201,.30),0 8px 20px rgba(40,120,210,.4)}
-
 html.cm-embed body,html.cm-embed body.cm-lab{background:transparent!important;padding:0!important;margin:0!important;min-height:0!important}html.cm-embed main.cm-explain{max-width:none!important;margin:0!important;padding:0!important}html.cm-embed .cm-explain h1,html.cm-embed .cm-explain .lead,html.cm-embed .cm-casebar>a{display:none!important}html.cm-embed .cm-explain .panel{margin:0 0 8px}html.cm-embed .cm-casebar{margin:0 0 10px}html.cm-embed .cm-nav,html.cm-embed .cm-prog,html.cm-embed .cm-fx,html.cm-embed .cm-foot,html.cm-embed .cm-chips,html.cm-embed .cm-explore,html.cm-embed .cm-skip,html.cm-embed .cm-notice{display:none!important}html.cm-embed #stView{display:none!important}html.cm-embed .cm-explain .panel{border:0!important;box-shadow:none!important;background:transparent!important;padding:0!important;backdrop-filter:none!important}html.cm-embed .cm-casebar{border:0;background:none;padding:0;margin:0 0 8px}html.cm-embed .cm-casebar>span:first-child{display:none}
 html.cm-embed,html.cm-embed body{overflow:hidden!important}html.cm-embed{background:transparent!important}html.cm-embed .cm-casebar{display:none}html.cm-embed .st-head,html.cm-embed .st-sub{display:none}html.cm-embed #bg,html.cm-embed canvas#bg{display:none!important}
 
-/* ===== Signal Trace: calm redesign =====
-   Problem: every stage was a bordered gradient card holding bordered gradient row-cards, with glowing badges, left accent bars,
-   pills, hatch bars, a glowing arrow disc between stages and a 3-line legal footer. Four levels of boxes for three numbers.
-   Fix: one surface, one hierarchy. Flow is shown by a hairline timeline (dot per step) instead of boxes + arrows; each driver is a
-   single compact line; direction is a coloured arrow + sign (not a pill); the long disclaimer is folded away. JS hooks untouched. */
-html body #signalTraceCard{--st-line:color-mix(in srgb,var(--line,#254257) 75%,transparent);--st-up:#ff8792;--st-dn:#6fc8ff;--st-ac:var(--accent,#64e3dc);background:none}
-html[data-theme="light"] body #signalTraceCard,:root:not([data-theme="dark"]) body #signalTraceCard{--st-up:#c2364c;--st-dn:#1d6db5;--st-ac:#0a7f94}
-html body #signalTraceCard.signal-trace{padding:22px 24px 16px}
 
-/* vessel selector: quiet segmented control */
-html body #signalTraceCard .st-vsel{gap:2px;padding:3px;margin-bottom:20px;border-radius:12px;background:rgba(127,150,190,.08);border:0}
-html body #signalTraceCard .st-vsel button{padding:6px 16px;min-height:32px;border-radius:9px;font-size:12.5px;font-weight:650;color:var(--muted)!important;background:transparent!important;border:0!important;box-shadow:none!important}
-html body #signalTraceCard .st-vsel button[aria-pressed="true"]{color:var(--ink)!important;background:color-mix(in srgb,var(--st-ac) 20%,transparent)!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--st-ac) 55%,transparent)!important}
+/* ===== Cardiac Signal Trace v18: plain-language redesign =====
+   One surface, one hairline timeline (inputs -> estimate -> territory). Structure is information:
+   - a sentence-level reading of the result sits on top, so the numbers below are checked against it, not decoded
+   - drivers use a diverging bar (left of centre lowers, right raises) with direction in words, share of the model's push, and the raw SHAP unit
+   - the estimate is drawn on a 0-100% strip with the Low/Moderate/High zones, the bootstrap model range and the SHAP starting point
+   - the territory map doubles as a vessel picker when CAD is selected
+   JS hooks kept: #stTCount #stSegLine #stSegNums #stDot #stTNote #stView #stTBody #stBull #stRings #stKeyAlt, cmSignalTracePaint. */
+#signalTraceCard{--st-up:#ff8792;--st-dn:#6fc8ff;--st-ac:var(--accent,#64e3dc);--st-hair:color-mix(in srgb,var(--ink,#e8f1f8) 13%,transparent);--st-soft:color-mix(in srgb,var(--ink,#e8f1f8) 7%,transparent);--st-lad:#6ea8fe;--st-lcx:#c4a5ff;--st-rca:#e3c48a;--st-lo:#3ddc97;--st-mid:#ffb84d;--st-hi:#ff5a6e;position:relative;scroll-margin-top:var(--cm-hdr-clear,96px);scroll-margin-bottom:96px;overflow:visible;margin-top:16px;padding:24px 26px 20px;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+html[data-theme="light"] #signalTraceCard,:root:not([data-theme="dark"]) #signalTraceCard{--st-up:#c2364c;--st-dn:#1d6db5;--st-ac:#0a7f94;--st-lad:#2f6fd8;--st-lcx:#7a56d6;--st-rca:#b88a2e}
+#signalTraceCard *{box-sizing:border-box}
+#signalTraceCard [hidden]{display:none!important}
 
-/* timeline: one hairline, one dot per step */
-html body #signalTraceCard .st-chain{display:grid;gap:0;position:relative;padding-left:28px;--st-gx:0;--st-gy:0}
-html body #signalTraceCard .st-chain::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--st-line);transition:background .25s}
-html body #signalTraceCard .st-chain.st-tracing::before{background:color-mix(in srgb,var(--st-ac) 55%,transparent)}
-html body .signal-trace .st-chain .st-stage,html body #signalTraceCard .st-stage{border:0!important;background:none!important;box-shadow:none!important;border-radius:0;padding:0 0 26px!important;overflow:visible}
-html body #signalTraceCard .st-stage:last-child{padding-bottom:2px!important}
-html body .signal-trace .st-chain .st-stage::before,html body .signal-trace .st-chain .st-stage+.st-stage::before,html body .signal-trace .st-chain.st-tracing .st-stage+.st-stage::before{content:"";display:block;position:absolute;left:-28px;top:2px;width:12px;height:12px;padding:0;margin:0;border-radius:50%;transform:none;font-size:0;line-height:0;z-index:2;
- background:color-mix(in srgb,var(--muted) 55%,transparent)!important;border:0;box-shadow:none!important;transition:background .25s,transform .25s}
-html body .signal-trace .st-chain .st-stage.st-on::before,html body .signal-trace .st-chain .st-stage+.st-stage.st-on::before,html body .signal-trace .st-chain.st-tracing .st-stage::before,html body .signal-trace .st-chain.st-tracing .st-stage+.st-stage::before{background:var(--st-ac)!important;box-shadow:0 0 0 4px color-mix(in srgb,var(--st-ac) 22%,transparent)!important}
-html body #signalTraceCard .st-stage.st-on{box-shadow:none!important}
+/* header (standalone page only; the dashboard host supplies its own title) */
+#signalTraceCard .st-head{display:flex;align-items:center;justify-content:space-between;gap:10px 14px;flex-wrap:wrap;margin:0 0 6px}
+#signalTraceCard .st-head h3{margin:0;font:700 17px/1.25 Sora,Inter,system-ui,sans-serif}
+#signalTraceCard .st-chip{font-size:11px;line-height:1.2;padding:5px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--st-ac) 35%,transparent);background:color-mix(in srgb,var(--st-ac) 9%,transparent);color:var(--st-ac);font-weight:650}
+#signalTraceCard .st-sub{margin:0 0 16px;max-width:62ch;color:var(--muted);font-size:13px;line-height:1.55}
+html.cm-embed #signalTraceCard .st-head,html.cm-embed #signalTraceCard .st-sub{display:none}
 
-/* section labels */
-html body #signalTraceCard .st-eyebrow,html body #signalTraceCard .st-heads span{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);opacity:1}
-html body #signalTraceCard .st-stage>.st-eyebrow::before{display:none}
-html body #signalTraceCard .st-heads{display:block;padding:0;margin:0 0 6px;border:0;line-height:1.2}
+/* vessel selector */
+#signalTraceCard .st-vsel{display:inline-flex;gap:2px;padding:3px;margin:0 0 18px;max-width:100%;border-radius:12px;background:var(--st-soft);border:0}
+#signalTraceCard .st-vsel button{font:inherit;font-size:12.5px;font-weight:650;min-height:32px;padding:6px 16px;border-radius:9px;border:0;background:transparent;box-shadow:none;color:var(--muted);transform:none}
+#signalTraceCard .st-vsel button[aria-pressed="true"]{color:var(--ink);background:color-mix(in srgb,var(--st-ac) 20%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--st-ac) 55%,transparent)}
+#signalTraceCard button:focus-visible{outline:2px solid var(--st-ac);outline-offset:2px}
+#signalTraceCard .st-empty{margin:0 0 14px;padding:12px 14px;border:1px dashed var(--st-hair);border-radius:12px;color:var(--muted);font-size:13px}
 
-/* drivers: one compact line each (rank · name value · arrow+number), thin bar underneath, ghost Trace */
-html body #signalTraceCard .st-left{padding:0 0 26px!important}
-html body #signalTraceCard .st-drivers{gap:0}
-html body #signalTraceCard .st-row{display:grid;grid-template-columns:18px minmax(0,1fr) 88px;grid-template-areas:"rk txt num" ". bar btn";column-gap:10px;row-gap:7px;align-items:center;
- padding:11px 8px 11px 0;margin:0;border:0;border-bottom:1px solid var(--st-line);border-radius:0;background:none!important;box-shadow:none;transition:background .2s}
-html body #signalTraceCard .st-row:last-child{border-bottom:0}
-html body #signalTraceCard .st-row::before{display:none}
-html body #signalTraceCard .st-row:hover{background:none}
-html body #signalTraceCard .st-row.st-on{background:color-mix(in srgb,var(--st-ac) 8%,transparent)!important;border-radius:10px;border-bottom-color:transparent;padding-left:8px;margin-left:-8px;box-shadow:none}
-html body #signalTraceCard .st-in,html body #signalTraceCard .st-at{display:contents}
-html body #signalTraceCard .st-rk{grid-area:rk;width:auto;height:auto;flex:none;display:block;border:0;background:none!important;box-shadow:none;color:var(--muted)!important;font-size:12px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
-html body #signalTraceCard .st-txt{grid-area:txt;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;min-width:0}
-html body #signalTraceCard .st-feat,html body #signalTraceCard .st-feat-plain{font-size:13.5px;font-weight:650;line-height:1.35}
-html body #signalTraceCard .st-row button.st-feat{text-decoration:none!important}
-html body #signalTraceCard .st-feat::after{content:"\2197";color:var(--muted);font-size:10.5px;margin-left:3px;opacity:.7}
-html body #signalTraceCard .st-val{font-size:12px;color:var(--muted);display:inline}
-html body #signalTraceCard .st-val:not(:empty)::before{display:none}
-html body #signalTraceCard .st-shap{grid-area:num;justify-self:end;display:flex;flex-direction:row-reverse;align-items:center;gap:6px;flex-wrap:nowrap}
-html body #signalTraceCard .st-num{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0}
-html body #signalTraceCard .st-dir{font-size:0;padding:0;background:none!important;line-height:1}
-html body #signalTraceCard .st-dir::before{font-size:9px;line-height:1}
-html body #signalTraceCard .st-row[data-dir="up"] .st-dir::before{content:"\25B2"}
-html body #signalTraceCard .st-row[data-dir="down"] .st-dir::before{content:"\25BC"}
-html body #signalTraceCard .st-row[data-dir="up"] .st-num,html body #signalTraceCard .st-row[data-dir="up"] .st-dir{color:var(--st-up)}
-html body #signalTraceCard .st-row[data-dir="down"] .st-num,html body #signalTraceCard .st-row[data-dir="down"] .st-dir{color:var(--st-dn)}
-html body #signalTraceCard .st-bar{grid-area:bar;height:4px;border-radius:99px;background:rgba(127,150,190,.16);max-width:none}
-html body #signalTraceCard .st-bar i{box-shadow:none!important;background:var(--muted)}
-html body #signalTraceCard .st-row[data-dir="up"] .st-bar i{background:var(--st-up)}
-html body #signalTraceCard .st-row[data-dir="down"] .st-bar i{background:var(--st-dn)}
-html body #signalTraceCard .st-row .st-trace-btn{grid-area:btn;justify-self:end;min-height:26px;padding:0 10px;font-size:11.5px;font-weight:650;border-radius:8px;color:var(--muted)!important;background:transparent!important;border:1px solid var(--st-line)!important;box-shadow:none!important}
-html body #signalTraceCard .st-row .st-trace-btn:hover:not(:disabled){color:var(--st-ac)!important;border-color:var(--st-ac)!important;background:transparent!important;box-shadow:none!important}
-html body #signalTraceCard .st-row .st-trace-btn[aria-pressed="true"]{color:var(--st-ac)!important;border-color:var(--st-ac)!important;background:color-mix(in srgb,var(--st-ac) 12%,transparent)!important}
-html body #signalTraceCard .st-barnote{margin:8px 0 0;font-size:11px;opacity:.9}
+/* the reading */
+#signalTraceCard .st-read{margin:0 0 26px;max-width:64ch;font-size:14.5px;line-height:1.65;color:var(--ink)}
+#signalTraceCard .st-read b{font-weight:700}
+#signalTraceCard .st-read .up{color:var(--st-up);font-weight:650}
+#signalTraceCard .st-read .dn{color:var(--st-dn);font-weight:650}
+#signalTraceCard .st-read .st-read-sub{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
 
-/* estimate: big number + its context side by side */
-html body #signalTraceCard .st-vessel{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"eb eb" "vp nm" "vp lv" "vp rg";column-gap:18px;row-gap:3px;align-items:center;background:none!important}
-html body #signalTraceCard .st-vessel>.st-eyebrow{grid-area:eb;margin-bottom:6px}
-html body #signalTraceCard .st-vp{grid-area:vp;font-size:40px;font-weight:800;line-height:1;letter-spacing:-.02em;background:none!important;-webkit-text-fill-color:var(--ink);color:var(--ink)}
-html body #signalTraceCard .st-vp::after{height:4px;margin-top:10px;min-width:96px;box-shadow:none!important}
-html body #signalTraceCard .st-vname{grid-area:nm;font-size:14px;font-weight:700;color:var(--ink);letter-spacing:0}
-html body #signalTraceCard .st-vlvl{grid-area:lv;justify-self:start;padding:0;border:0;background:none!important;font-size:12.5px;font-weight:700}
-html body #signalTraceCard .st-vrange{grid-area:rg;margin:0;font-size:11.5px;line-height:1.45}
+/* timeline */
+#signalTraceCard .st-body{container-type:inline-size;min-width:0}
+#signalTraceCard .st-chain{--st-pad:12px;position:relative;display:grid;gap:0;padding-left:32px;padding-right:var(--st-pad)}
+#signalTraceCard .st-chain::before{content:"";position:absolute;left:5px;top:9px;bottom:9px;width:2px;border-radius:2px;background:var(--st-hair);transition:background .3s}
+#signalTraceCard .st-chain.st-tracing::before{background:color-mix(in srgb,var(--st-ac) 60%,transparent)}
+#signalTraceCard .st-stage{position:relative;min-width:0;padding:0 0 30px;border:0;background:none;box-shadow:none}
+#signalTraceCard .st-stage:last-child{padding-bottom:2px}
+#signalTraceCard .st-stage::before{content:"";position:absolute;left:-32px;top:3px;width:12px;height:12px;border-radius:50%;background:color-mix(in srgb,var(--muted) 70%,transparent);transition:background .25s,box-shadow .25s}
+#signalTraceCard .st-chain.st-tracing .st-stage::before,#signalTraceCard .st-stage.st-on::before{background:var(--st-ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--st-ac) 22%,transparent)}
+#signalTraceCard .st-title{margin:0 0 14px;font:650 14px/1.3 Sora,Inter,system-ui,sans-serif;letter-spacing:-.005em;color:var(--ink)}
+#signalTraceCard .st-title small{font:500 12px/1.3 Inter,system-ui,sans-serif;color:var(--muted);margin-left:8px;letter-spacing:0}
+
+/* drivers */
+#signalTraceCard .st-axis{display:flex;justify-content:space-between;gap:12px;margin:0;padding:0 0 0 30px;font-size:11.5px;font-weight:600}
+#signalTraceCard .st-axis span:first-child{color:var(--st-dn)}
+#signalTraceCard .st-axis span:last-child{color:var(--st-up)}
+#signalTraceCard .st-drivers{list-style:none;margin:6px 0 0;padding:0;display:grid}
+#signalTraceCard .st-row{position:relative;display:grid;grid-template-columns:20px minmax(0,1fr) auto;grid-template-areas:"rk txt btn" ". bar bar" ". eff eff" ". hint hint";column-gap:10px;row-gap:7px;align-items:center;margin:0 calc(var(--st-pad) * -1);padding:13px var(--st-pad);border-radius:12px;transition:background .2s}
+#signalTraceCard .st-row::before{content:"";position:absolute;left:var(--st-pad);right:var(--st-pad);top:0;height:1px;background:var(--st-hair)}
+#signalTraceCard .st-row:first-child::before,#signalTraceCard .st-row.st-on::before{display:none}
+#signalTraceCard .st-row.st-on{background:color-mix(in srgb,var(--st-ac) 8%,transparent)}
+#signalTraceCard .st-rk{grid-area:rk;font-size:12.5px;font-weight:700;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+#signalTraceCard .st-in,#signalTraceCard .st-at{display:contents}
+#signalTraceCard .st-txt{grid-area:txt;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;min-width:0}
+#signalTraceCard .st-feat,#signalTraceCard .st-feat-plain{font:inherit;font-size:14.5px;font-weight:650;line-height:1.35;color:var(--ink);text-align:left;overflow-wrap:anywhere}
+#signalTraceCard button.st-feat{padding:0;min-height:0;border:0;background:none;box-shadow:none;cursor:pointer;text-decoration:underline dotted;text-underline-offset:4px}
+#signalTraceCard .st-feat::after{content:" \2197";color:var(--muted);font-size:11px}
+#signalTraceCard .st-val{display:inline-block;max-width:100%;padding:2px 9px;border-radius:999px;background:var(--st-soft);font-size:12px;font-weight:600;line-height:1.5;color:var(--ink);font-variant-numeric:tabular-nums}
+#signalTraceCard .st-val:empty{display:none}
+#signalTraceCard .st-bar{grid-area:bar;position:relative;display:block;height:8px;border-radius:99px;background:var(--st-soft)}
+#signalTraceCard .st-bar::before{content:"";position:absolute;left:calc(50% - 1px);top:-4px;width:2px;height:16px;border-radius:2px;background:var(--st-hair);z-index:1}
+#signalTraceCard .st-bar i{position:absolute;top:0;bottom:0;width:0;border-radius:99px;background:var(--muted);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+#signalTraceCard .st-row[data-dir="up"] .st-bar i{left:50%;border-radius:0 99px 99px 0;background:linear-gradient(90deg,color-mix(in srgb,var(--st-up) 45%,transparent),var(--st-up))}
+#signalTraceCard .st-row[data-dir="down"] .st-bar i{right:50%;border-radius:99px 0 0 99px;background:linear-gradient(270deg,color-mix(in srgb,var(--st-dn) 45%,transparent),var(--st-dn))}
+#signalTraceCard .st-shap{grid-area:eff;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;font-size:12.5px;color:var(--muted)}
+#signalTraceCard .st-dir{font-size:12.5px;font-weight:700;white-space:nowrap}
+#signalTraceCard .st-row[data-dir="up"] .st-dir{color:var(--st-up)}
+#signalTraceCard .st-row[data-dir="down"] .st-dir{color:var(--st-dn)}
+#signalTraceCard .st-share{color:var(--ink)}
+#signalTraceCard .st-num{font-weight:500;font-variant-numeric:tabular-nums;color:var(--muted);cursor:help}
+#signalTraceCard .st-hint{grid-area:hint;margin:0;font-size:12px;line-height:1.5;color:var(--muted)}
+#signalTraceCard .st-hint:empty{display:none}
+#signalTraceCard .st-trace-btn{grid-area:btn;justify-self:end;font:inherit;font-size:12px;font-weight:650;min-height:28px;padding:3px 13px;border-radius:999px;border:1px solid var(--st-hair);background:transparent;color:var(--muted);box-shadow:none;transform:none}
+#signalTraceCard .st-trace-btn[aria-pressed="true"]{color:var(--ink);border-color:var(--st-ac);background:color-mix(in srgb,var(--st-ac) 16%,transparent)}
+#signalTraceCard .st-nosh{padding:4px 0}
+#signalTraceCard .st-nosh-main{margin:0;font-size:14px;font-weight:650}
+#signalTraceCard .st-nosh-sub{margin:4px 0 10px;font-size:12.5px;color:var(--muted)}
+#signalTraceCard #stSens{font:inherit;font-size:12.5px;font-weight:650;min-height:32px;padding:5px 14px;border-radius:10px;border:1px solid var(--st-hair);background:transparent;color:var(--ink)}
+#signalTraceCard .st-barnote{margin:12px 0 0;max-width:62ch;font-size:12px;line-height:1.55;color:var(--muted)}
+
+/* estimate */
+#signalTraceCard .st-est{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:0 0 20px}
+#signalTraceCard .st-vp{font:700 46px/1 Sora,Inter,system-ui,sans-serif;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+#signalTraceCard .st-estmeta{display:grid;gap:4px;min-width:0}
+#signalTraceCard .st-vname{font-size:15px;font-weight:700;color:var(--ink)}
+#signalTraceCard .st-vlvl{justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:2px 11px;border-radius:999px;font-size:12.5px;font-weight:750;background:color-mix(in srgb,currentColor 13%,transparent);border:1px solid color-mix(in srgb,currentColor 38%,transparent)}
+html[data-theme="light"] #signalTraceCard .st-vlvl,:root:not([data-theme="dark"]) #signalTraceCard .st-vlvl{filter:brightness(.62) saturate(1.25)}
+#signalTraceCard .st-meter{position:relative;height:22px;margin:0 6px}
+#signalTraceCard .st-zones{position:absolute;inset:0;display:flex;border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--st-hair)}
+#signalTraceCard .st-zones i{display:block;height:100%}
+#signalTraceCard .st-zones .lo{width:40%;background:color-mix(in srgb,var(--st-lo) 20%,transparent)}
+#signalTraceCard .st-zones .mid{width:25%;background:color-mix(in srgb,var(--st-mid) 20%,transparent);border-left:1px solid var(--st-hair)}
+#signalTraceCard .st-zones .hi{width:35%;background:color-mix(in srgb,var(--st-hi) 20%,transparent);border-left:1px solid var(--st-hair)}
+#signalTraceCard .st-band{position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:5px;background:color-mix(in srgb,var(--ink) 16%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--ink) 60%,transparent);transition:left .6s cubic-bezier(.2,.7,.2,1),width .6s cubic-bezier(.2,.7,.2,1)}
+#signalTraceCard .st-base{position:absolute;top:50%;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:transparent;box-shadow:0 0 0 2px var(--ink);transition:left .6s cubic-bezier(.2,.7,.2,1)}
+#signalTraceCard .st-mk{position:absolute;top:-6px;bottom:-6px;left:0;width:4px;margin-left:-2px;border-radius:3px;background:var(--ink);box-shadow:0 0 0 2px color-mix(in srgb,var(--panel,#0e1d2c) 80%,transparent);transition:left .6s cubic-bezier(.2,.7,.2,1)}
+#signalTraceCard .st-ticks{position:relative;display:flex;margin:8px 6px 0;font-size:11.5px;line-height:1.35;color:var(--muted)}
+#signalTraceCard .st-ticks span{display:block;text-align:center}
+#signalTraceCard .st-ticks .lo{width:40%}
+#signalTraceCard .st-ticks .mid{width:25%}
+#signalTraceCard .st-ticks .hi{width:35%}
+#signalTraceCard .st-ticks b{display:block;font-weight:650;color:var(--ink)}
+#signalTraceCard .st-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:20px 0 0;padding:0}
+#signalTraceCard .st-facts>div{min-width:0}
+#signalTraceCard .st-facts dt{display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:12.5px;font-weight:600;color:var(--muted)}
+#signalTraceCard .st-facts dd{margin:0}
+#signalTraceCard .st-fv{font:650 17px/1.3 Sora,Inter,system-ui,sans-serif;color:var(--ink);font-variant-numeric:tabular-nums}
+#signalTraceCard .st-vrange,#signalTraceCard .st-fsub{display:block;margin:3px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+#signalTraceCard .st-g{display:inline-block;flex:none}
+#signalTraceCard .st-g-band{width:16px;height:10px;border-radius:4px;background:color-mix(in srgb,var(--ink) 16%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--ink) 60%,transparent)}
+#signalTraceCard .st-g-base{width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 2px var(--ink)}
 
 /* territory */
-html body #signalTraceCard .st-terr{gap:6px;background:none!important}
-html body #signalTraceCard .st-tcount{font-size:14px;font-weight:700}
-html body #signalTraceCard .st-seglist{padding:0;border:0;background:none;font-size:13px;font-weight:650;color:var(--ink)}
-html body #signalTraceCard .st-tnote{font-size:11px;line-height:1.5}
-html body #signalTraceCard .st-view{width:auto;justify-self:start;margin-top:4px;min-height:30px;padding:0 12px;font-size:12px;border-radius:8px;background:transparent!important;color:var(--st-ac)!important;border:1px solid color-mix(in srgb,var(--st-ac) 45%,transparent)!important}
-html body #signalTraceCard .st-view:hover{background:color-mix(in srgb,var(--st-ac) 10%,transparent)!important}
+#signalTraceCard .st-tcount{margin:0 0 4px;font-size:14.5px;font-weight:700;color:var(--ink)}
+#signalTraceCard .st-tnote{margin:0;max-width:62ch;font-size:12px;line-height:1.55;color:var(--muted)}
+#signalTraceCard .st-tbody{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px 28px;align-items:center;margin:16px 0 12px;padding:0}
+#signalTraceCard .st-bull{margin:0;width:184px;height:184px;flex:none}
+#signalTraceCard .st-bull svg{display:block;width:100%;height:100%;overflow:visible}
+#signalTraceCard .st-bull .sg{fill:color-mix(in srgb,var(--muted,#7f96be) 16%,transparent);stroke:none;transition:fill .25s,opacity .2s,stroke-width .15s}
+#signalTraceCard .st-bull .sg.on{fill:var(--st-fill,var(--muted));fill-opacity:.92}
+#signalTraceCard .st-bull .sg.alt{fill:color-mix(in srgb,var(--st-fill,var(--muted)) 14%,transparent);stroke:var(--st-fill,var(--muted));stroke-width:1.2;stroke-dasharray:3 2.4}
+#signalTraceCard .st-bull .sg.hl{stroke:var(--ink);stroke-width:1.8;stroke-dasharray:none}
+#signalTraceCard .st-bull.pick g[data-n]{cursor:pointer}
+#signalTraceCard .st-bull .sn{font:700 8.5px/1 system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;fill:var(--muted);opacity:.75;pointer-events:none;font-variant-numeric:tabular-nums}
+#signalTraceCard .st-bull .sn.on{fill:#07151f;opacity:1}
+#signalTraceCard .st-bull .ol{font:700 7.5px/1 system-ui,sans-serif;letter-spacing:.06em;fill:var(--muted);opacity:.85;text-anchor:middle;dominant-baseline:central}
+#signalTraceCard .st-tside{display:grid;gap:12px;min-width:0}
+#signalTraceCard .st-rings{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+#signalTraceCard .st-ring{display:grid;grid-template-columns:54px minmax(0,1fr);gap:8px;align-items:start}
+#signalTraceCard .st-ring-l{padding-top:4px;font-size:12px;font-weight:650;color:var(--muted)}
+#signalTraceCard .st-chips{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+#signalTraceCard .st-sg{display:inline-flex;align-items:center;gap:7px;min-height:26px;padding:2px 10px 2px 3px;border-radius:999px;border:1px solid color-mix(in srgb,var(--st-fill,var(--muted)) 55%,transparent);background:color-mix(in srgb,var(--st-fill,var(--muted)) 13%,transparent);font-size:12px;font-weight:650;color:var(--ink);line-height:1.2;cursor:default;transition:background .15s,border-color .15s}
+#signalTraceCard .st-sg b{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 4px;border-radius:999px;background:var(--st-fill,var(--muted));color:#07151f;font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}
+#signalTraceCard .st-sg.hl,#signalTraceCard .st-sg:hover{background:color-mix(in srgb,var(--st-fill,var(--muted)) 26%,transparent);border-color:var(--st-fill,var(--muted))}
+#signalTraceCard .st-sg:focus-visible{outline:2px solid var(--st-ac);outline-offset:2px}
+#signalTraceCard .st-none{padding-top:4px;font-size:12px;color:var(--muted)}
+#signalTraceCard .st-tkey{margin:0;display:flex;flex-wrap:wrap;gap:4px 16px;padding-top:10px;border-top:1px solid var(--st-hair);font-size:12px;line-height:1.4;color:var(--muted)}
+#signalTraceCard .st-key{display:inline-flex;align-items:center;gap:6px}
+#signalTraceCard .st-dot{display:inline-block;width:12px;height:12px;border-radius:4px;background:var(--st-fill,var(--muted));flex:none}
+#signalTraceCard .st-dot-alt{background:color-mix(in srgb,var(--st-fill,var(--muted)) 14%,transparent);border:1.5px dashed var(--st-fill,var(--muted))}
+#signalTraceCard .st-cadleg{display:grid;gap:8px}
+#signalTraceCard .st-cadleg button{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--st-hair);background:var(--st-soft);color:var(--ink);font:inherit;font-size:13.5px;text-align:left;box-shadow:none;transform:none}
+#signalTraceCard .st-cadleg .sw{width:14px;height:14px;border-radius:5px;background:var(--c);flex:none}
+#signalTraceCard .st-cadleg b{font-weight:700}
+#signalTraceCard .st-cadleg span:last-child{margin-left:auto;font-size:12px;color:var(--muted)}
+#signalTraceCard .st-view{margin-top:10px;font:inherit;font-size:12.5px;font-weight:650;min-height:32px;padding:5px 14px;border-radius:10px;border:1px solid color-mix(in srgb,var(--st-ac) 45%,transparent);background:transparent;color:var(--st-ac);box-shadow:none}
 
-/* footer: one honest line always visible, the rest one click away */
-html body #signalTraceCard .st-foot{margin-top:14px;padding-top:12px;gap:4px}
-html body #signalTraceCard .st-note-key{font-size:11.5px;font-weight:700}
-html body #signalTraceCard .st-more summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:650;color:var(--muted);padding:2px 0}
-html body #signalTraceCard .st-more summary::-webkit-details-marker{display:none}
-html body #signalTraceCard .st-more summary::before{content:"\25B8";font-size:10px;transition:transform .15s}
-html body #signalTraceCard .st-more[open] summary::before{transform:rotate(90deg)}
-html body #signalTraceCard .st-more summary:hover{color:var(--ink)}
-html body #signalTraceCard .st-more summary:focus-visible{outline:2px solid var(--st-ac);outline-offset:3px;border-radius:4px}
-html body #signalTraceCard .st-more p{margin:6px 0 0}
-/* amber/green level colours are set by script for dark surfaces; darken them on light so they stay readable */
-html[data-theme="light"] body #signalTraceCard .st-vlvl,:root:not([data-theme="dark"]) body #signalTraceCard .st-vlvl{filter:brightness(.6) saturate(1.25)}
-@media(max-width:480px){html body #signalTraceCard .st-vessel{grid-template-columns:1fr;grid-template-areas:"eb" "vp" "nm" "lv" "rg";row-gap:4px}html body #signalTraceCard .st-vp{margin-bottom:6px}}
-@media(prefers-reduced-motion:reduce){html body #signalTraceCard *,html body #signalTraceCard *::before{transition:none!important}}
+/* trace message + footer */
+#signalTraceCard .st-msg{margin:6px 0 0 32px;padding:12px 16px;border-left:3px solid var(--st-ac);border-radius:0 12px 12px 0;background:color-mix(in srgb,var(--st-ac) 8%,transparent);font-size:13px;line-height:1.6;color:var(--ink)}
+#signalTraceCard .st-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--st-hair);display:grid;gap:5px}
+#signalTraceCard .st-note{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
+#signalTraceCard .st-note-key{font-weight:700;color:var(--ink)}
+#signalTraceCard .st-more summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:6px;padding:2px 0;font-size:12px;font-weight:650;color:var(--muted)}
+#signalTraceCard .st-more summary::-webkit-details-marker{display:none}
+#signalTraceCard .st-more summary::before{content:"\25B8";font-size:10px;transition:transform .15s}
+#signalTraceCard .st-more[open] summary::before{transform:rotate(90deg)}
+#signalTraceCard .st-more p{margin:6px 0 0}
+.st-input-hl{outline:2px solid var(--accent,#64e3dc)!important;outline-offset:3px;border-radius:8px;background:rgba(100,227,220,.1)}
 
-/* ===== Typical territory v2: AHA bullseye + grouped segment rows ===== */
-html body #signalTraceCard .st-terr{display:grid;gap:12px;align-content:start}
-html body #signalTraceCard .st-thead{display:flex;flex-direction:column;gap:4px}
-html body #signalTraceCard .st-thead .st-eyebrow{margin:0}
-html body #signalTraceCard .st-tcount{font-size:15px;font-weight:750;line-height:1.3;color:var(--ink)}
-html body #signalTraceCard .st-tbody{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 22px;align-items:center;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--muted,#7f96be) 7%,transparent);border:1px solid color-mix(in srgb,var(--st-line) 80%,transparent)}
-html body #signalTraceCard .st-tbody[hidden]{display:none}
-html body #signalTraceCard .st-bull{margin:0;width:184px;height:184px;flex:none}
-html body #signalTraceCard .st-bull svg{display:block;width:100%;height:100%;overflow:visible}
-html body #signalTraceCard .st-bull .sg{fill:color-mix(in srgb,var(--muted,#7f96be) 16%,transparent);stroke:none;transition:fill .2s,opacity .2s,stroke-width .15s}
-html body #signalTraceCard .st-bull .sg.on{fill:var(--st-fill,var(--muted));fill-opacity:.92}
-html body #signalTraceCard .st-bull .sg.alt{fill:color-mix(in srgb,var(--st-fill,var(--muted)) 14%,transparent);stroke:var(--st-fill,var(--muted));stroke-width:1.2;stroke-dasharray:3 2.4}
-html body #signalTraceCard .st-bull .sg.hl{stroke:var(--ink);stroke-width:1.8;stroke-dasharray:none}
-html body #signalTraceCard .st-bull .sn{font:700 8.5px/1 system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;fill:var(--muted);opacity:.75;pointer-events:none;font-variant-numeric:tabular-nums}
-html body #signalTraceCard .st-bull .sn.on{fill:#07151f;opacity:1}
-html body #signalTraceCard .st-bull .ol{font:700 7.5px/1 system-ui,sans-serif;letter-spacing:.08em;fill:var(--muted);opacity:.85;text-anchor:middle;dominant-baseline:central}
-html body #signalTraceCard .st-tside{display:grid;gap:12px;min-width:0}
-html body #signalTraceCard .st-rings{list-style:none;margin:0;padding:0;display:grid;gap:9px}
-html body #signalTraceCard .st-ring{display:grid;grid-template-columns:54px minmax(0,1fr);gap:8px;align-items:start}
-html body #signalTraceCard .st-ring-l{padding-top:5px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-html body #signalTraceCard .st-chips{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
-html body #signalTraceCard .st-sg{display:inline-flex;align-items:center;gap:7px;min-height:26px;padding:2px 10px 2px 3px;border-radius:999px;border:1px solid color-mix(in srgb,var(--st-fill,var(--muted)) 55%,transparent);background:color-mix(in srgb,var(--st-fill,var(--muted)) 13%,transparent);font-size:12px;font-weight:650;color:var(--ink);line-height:1.2;cursor:default;transition:background .15s,border-color .15s}
-html body #signalTraceCard .st-sg b{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 4px;border-radius:999px;background:var(--st-fill,var(--muted));color:#07151f;font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}
-html body #signalTraceCard .st-sg.hl,html body #signalTraceCard .st-sg:hover{background:color-mix(in srgb,var(--st-fill,var(--muted)) 26%,transparent);border-color:var(--st-fill,var(--muted))}
-html body #signalTraceCard .st-sg:focus-visible{outline:2px solid var(--st-ac);outline-offset:2px}
-html body #signalTraceCard .st-none{padding-top:5px;font-size:12px;color:var(--muted)}
-html body #signalTraceCard .st-tkey{margin:0;display:flex;flex-wrap:wrap;gap:4px 16px;padding-top:10px;border-top:1px solid color-mix(in srgb,var(--st-line) 70%,transparent);font-size:11px;line-height:1.4;color:var(--muted)}
-html body #signalTraceCard .st-key{display:inline-flex;align-items:center;gap:6px}
-html body #signalTraceCard .st-key[hidden]{display:none}
-html body #signalTraceCard .st-tkey .st-dot{margin:0;width:12px;height:12px;border-radius:4px;background:var(--st-fill,var(--muted));border:0;vertical-align:baseline}
-html body #signalTraceCard .st-tkey .st-dot-alt{background:color-mix(in srgb,var(--st-fill,var(--muted)) 14%,transparent);border:1.5px dashed var(--st-fill,var(--muted))}
-html body #signalTraceCard .st-tnote{margin:0}
-@media(max-width:560px){
-  html body #signalTraceCard .st-tbody{grid-template-columns:1fr;justify-items:center;padding:14px 12px}
-  html body #signalTraceCard .st-tside{width:100%}
-  html body #signalTraceCard .st-bull{width:172px;height:172px}
-  html body #signalTraceCard .st-ring{grid-template-columns:48px minmax(0,1fr)}
+@container (max-width:520px){
+  #signalTraceCard .st-tbody{grid-template-columns:1fr;justify-items:center}
+  #signalTraceCard .st-tside{width:100%}
+  #signalTraceCard .st-facts{grid-template-columns:1fr}
+  #signalTraceCard .st-vp{font-size:40px}
 }
-@media(prefers-reduced-motion:reduce){html body #signalTraceCard .st-bull .sg,html body #signalTraceCard .st-sg{transition:none}}
-</style></head><body class="cm-lab" data-no-foot>
+@media(max-width:600px){
+  #signalTraceCard{padding:20px 16px 18px}
+  #signalTraceCard .st-vsel{display:flex;width:100%}
+  #signalTraceCard .st-vsel button{flex:1;padding:6px 4px}
+  #signalTraceCard .st-chain{--st-pad:8px;padding-left:26px}
+  #signalTraceCard .st-stage::before{left:-26px}
+  #signalTraceCard .st-msg{margin-left:26px}
+  #signalTraceCard .st-row{grid-template-columns:16px minmax(0,1fr) auto;column-gap:8px}
+  #signalTraceCard .st-axis{padding-left:24px}
+}
+@media(prefers-reduced-motion:reduce){#signalTraceCard *,#signalTraceCard *::before{transition:none!important}}
+</style><link rel="stylesheet" href="/static/cm-interaction.css?v=20261012d"></head><body class="cm-lab" data-no-foot>
 <main class="cm-explain" id="main-content">
 <h1>Cardiac Signal Trace</h1>
 <p class="lead">Follow how each patient input pushed the model’s estimate for the selected vessel, and which heart territory that vessel typically supplies. This explains why the model said what it said.</p>
@@ -411,53 +275,69 @@ html body #signalTraceCard .st-tnote{margin:0}
 <section class="panel signal-trace" id="signalTraceCard"  aria-labelledby="signalTraceTitle" aria-describedby="signalTraceDesc">
   <div class="st-head">
     <h3 id="signalTraceTitle">Cardiac Signal Trace</h3>
-    <span class="st-chip">Model-linked · not lesion localization</span>
+    <span class="st-chip">Model-linked, not lesion localization</span>
   </div>
-  <p class="st-sub">Follow how a patient input contributes to the selected vessel's model estimate and links to its typical myocardial territory.</p>
+  <p class="st-sub">See which patient inputs pushed the model's estimate up or down for the selected vessel, and which part of the heart wall that vessel typically supplies.</p>
   <div class="st-vsel" role="group" aria-label="Vessel shown in the signal trace">
-    <button type="button" data-st-vessel="CAD" aria-pressed="false">CAD</button>
-    <button type="button" data-st-vessel="LAD" aria-pressed="false">LAD</button>
-    <button type="button" data-st-vessel="LCX" aria-pressed="false">LCX</button>
-    <button type="button" data-st-vessel="RCA" aria-pressed="false">RCA</button>
+    <button type="button" data-st-vessel="CAD" aria-pressed="false" title="Overall coronary artery disease">CAD</button>
+    <button type="button" data-st-vessel="LAD" aria-pressed="false" title="Left anterior descending artery">LAD</button>
+    <button type="button" data-st-vessel="LCX" aria-pressed="false" title="Left circumflex artery">LCX</button>
+    <button type="button" data-st-vessel="RCA" aria-pressed="false" title="Right coronary artery">RCA</button>
   </div>
   <p class="st-empty" id="stEmpty">Run a prediction to build the cardiac signal trace.</p>
+  <p class="st-read" id="stRead" aria-live="off" hidden></p>
   <div class="st-body">
     <div class="st-chain" id="stChain">
       <div class="st-stage st-left">
-        <div class="st-heads"><span>What moved the estimate</span></div>
-        <ol class="st-drivers" id="stDrivers" aria-label="Top three SHAP contributions for the selected vessel">
-          <li class="st-row" data-i="0"><div class="st-in"><span class="st-rk">1</span><div class="st-txt"><button type="button" class="st-feat" data-st-go hidden></button><span class="st-feat-plain">—</span><span class="st-val"></span></div></div><div class="st-at"><div class="st-shap"><b class="st-num">—</b><span class="st-dir"></span></div><span class="st-bar" aria-hidden="true"><i></i></span><button type="button" class="st-trace-btn" data-st-trace aria-pressed="false" hidden>Trace</button></div></li>
-          <li class="st-row" data-i="1"><div class="st-in"><span class="st-rk">2</span><div class="st-txt"><button type="button" class="st-feat" data-st-go hidden></button><span class="st-feat-plain">—</span><span class="st-val"></span></div></div><div class="st-at"><div class="st-shap"><b class="st-num">—</b><span class="st-dir"></span></div><span class="st-bar" aria-hidden="true"><i></i></span><button type="button" class="st-trace-btn" data-st-trace aria-pressed="false" hidden>Trace</button></div></li>
-          <li class="st-row" data-i="2"><div class="st-in"><span class="st-rk">3</span><div class="st-txt"><button type="button" class="st-feat" data-st-go hidden></button><span class="st-feat-plain">—</span><span class="st-val"></span></div></div><div class="st-at"><div class="st-shap"><b class="st-num">—</b><span class="st-dir"></span></div><span class="st-bar" aria-hidden="true"><i></i></span><button type="button" class="st-trace-btn" data-st-trace aria-pressed="false" hidden>Trace</button></div></li>
+        <h4 class="st-title">What moved the estimate</h4>
+        <div class="st-axis" id="stAxis" aria-hidden="true"><span>&#9664; Lowers the estimate</span><span>Raises the estimate &#9654;</span></div>
+        <ol class="st-drivers" id="stDrivers" aria-label="The three inputs that moved the model estimate most, strongest first">
+          <li class="st-row" data-i="0"><div class="st-in"><span class="st-rk">1</span><div class="st-txt"><button type="button" class="st-feat" data-st-go hidden></button><span class="st-feat-plain">—</span><span class="st-val"></span></div></div><div class="st-at"><span class="st-bar" aria-hidden="true"><i></i></span><div class="st-shap"><span class="st-dir"></span><span class="st-share"></span><span class="st-num">—</span></div><p class="st-hint"></p><button type="button" class="st-trace-btn" data-st-trace aria-pressed="false" hidden>Trace</button></div></li>
+          <li class="st-row" data-i="1"><div class="st-in"><span class="st-rk">2</span><div class="st-txt"><button type="button" class="st-feat" data-st-go hidden></button><span class="st-feat-plain">—</span><span class="st-val"></span></div></div><div class="st-at"><span class="st-bar" aria-hidden="true"><i></i></span><div class="st-shap"><span class="st-dir"></span><span class="st-share"></span><span class="st-num">—</span></div><p class="st-hint"></p><button type="button" class="st-trace-btn" data-st-trace aria-pressed="false" hidden>Trace</button></div></li>
+          <li class="st-row" data-i="2"><div class="st-in"><span class="st-rk">3</span><div class="st-txt"><button type="button" class="st-feat" data-st-go hidden></button><span class="st-feat-plain">—</span><span class="st-val"></span></div></div><div class="st-at"><span class="st-bar" aria-hidden="true"><i></i></span><div class="st-shap"><span class="st-dir"></span><span class="st-share"></span><span class="st-num">—</span></div><p class="st-hint"></p><button type="button" class="st-trace-btn" data-st-trace aria-pressed="false" hidden>Trace</button></div></li>
         </ol>
         <div class="st-nosh" id="stNoShap" hidden>
           <p class="st-nosh-main" id="stNoShapMain"></p>
           <p class="st-nosh-sub" id="stNoShapSub"></p>
           <button type="button" id="stSens" hidden>View sensitivity instead</button>
         </div>
-        <p class="st-barnote" id="stBarNote">SHAP contribution; bar length is relative to the top contributor.</p>
+        <p class="st-barnote" id="stBarNote"></p>
       </div>
       <div class="st-stage st-vessel" id="stVessel">
-        <span class="st-eyebrow">Model estimate</span>
-        <strong class="st-vname" id="stVName">—</strong>
-        <span class="st-vp" id="stVP">—</span>
-        <span class="st-vlvl" id="stVLvl">● Neutral state</span>
-        <span class="st-vrange" id="stVRange">Run a prediction to see the estimate.</span>
+        <h4 class="st-title">What the model estimates</h4>
+        <div class="st-est">
+          <span class="st-vp" id="stVP">—</span>
+          <div class="st-estmeta"><strong class="st-vname" id="stVName">—</strong><span class="st-vlvl" id="stVLvl">● Neutral state</span></div>
+        </div>
+        <div class="st-meter" id="stMeter" role="img" aria-label="Estimate not available yet">
+          <div class="st-zones" aria-hidden="true"><i class="lo"></i><i class="mid"></i><i class="hi"></i></div>
+          <i class="st-band" id="stBand" hidden></i>
+          <i class="st-base" id="stBase" hidden></i>
+          <i class="st-mk" id="stMk"></i>
+        </div>
+        <div class="st-ticks" aria-hidden="true"><span class="lo"><b>Low</b>under 40%</span><span class="mid"><b>Moderate</b>40 to 64%</span><span class="hi"><b>High</b>65% and up</span></div>
+        <dl class="st-facts">
+          <div id="stRangeRow"><dt><i class="st-g st-g-band" aria-hidden="true"></i>Model range</dt><dd><span class="st-fv" id="stRangeV">—</span><span class="st-vrange" id="stVRange">Run a prediction to see the estimate.</span></dd></div>
+          <div id="stBaseRow" hidden><dt><i class="st-g st-g-base" aria-hidden="true"></i>Starting point</dt><dd><span class="st-fv" id="stBaseV">—</span><span class="st-fsub" id="stBaseSub"></span></dd></div>
+        </dl>
       </div>
       <div class="st-stage st-terr" id="stTerr">
-        <div class="st-thead">
-          <span class="st-eyebrow">Typical territory</span>
-          <strong class="st-tcount" id="stTCount">—</strong>
-        </div>
+        <h4 class="st-title">Where it typically supplies the heart</h4>
+        <p class="st-tcount" id="stTCount">—</p>
+        <p class="st-tnote" id="stTNote">Typical territory from the standard 17-segment heart model.</p>
         <div class="st-tbody" id="stTBody" hidden>
           <figure class="st-bull" id="stBull" aria-hidden="true"></figure>
           <div class="st-tside">
             <ul class="st-rings" id="stRings"></ul>
-            <p class="st-tkey" id="stTKey"><span class="st-key"><span class="st-dot" id="stDot" aria-hidden="true"></span>Typical supply, coloured by the vessel estimate</span><span class="st-key st-key-alt" id="stKeyAlt" hidden><span class="st-dot st-dot-alt" aria-hidden="true"></span><span id="stKeyAltTxt"></span></span></p>
+            <div class="st-cadleg" id="stCadLeg" role="group" aria-label="Pick a vessel to follow its territory" hidden>
+              <button type="button" data-st-pick="LAD"><i class="sw" style="--c:var(--st-lad)"></i><b>LAD</b><span id="stPickLAD"></span></button>
+              <button type="button" data-st-pick="LCX"><i class="sw" style="--c:var(--st-lcx)"></i><b>LCX</b><span id="stPickLCX"></span></button>
+              <button type="button" data-st-pick="RCA"><i class="sw" style="--c:var(--st-rca)"></i><b>RCA</b><span id="stPickRCA"></span></button>
+            </div>
+            <p class="st-tkey" id="stTKey"><span class="st-key"><span class="st-dot" id="stDot" aria-hidden="true"></span>Usually supplied, coloured by the vessel estimate</span><span class="st-key st-key-alt" id="stKeyAlt" hidden><span class="st-dot st-dot-alt" aria-hidden="true"></span><span id="stKeyAltTxt"></span></span></p>
           </div>
         </div>
         <p class="st-seglist sr-only" id="stSegLine" hidden>Segments <span id="stSegNums"></span></p>
-        <p class="st-tnote" id="stTNote">Typical population territory (AHA 17-segment model). Colour follows the vessel estimate.</p>
         <button type="button" class="st-view" id="stView" data-st-view hidden>View LAD territory</button>
       </div>
     </div>
@@ -467,8 +347,9 @@ html body #signalTraceCard .st-tnote{margin:0}
   <p id="signalTraceLive" class="sr-only" role="status" aria-live="polite"></p>
   <div class="st-foot">
     <p class="st-note st-note-key">Model-linked explanation, not lesion localization.</p>
-    <details class="st-more"><summary>About this trace</summary>
-    <p class="st-note">This trace connects patient inputs to model attribution and typical coronary territory. It does not identify a lesion, infarct size, or myocardium at risk.</p>
+    <details class="st-more"><summary>How to read this</summary>
+    <p class="st-note">Each bar is a SHAP value: how far one input moved the model's output away from its starting point. SHAP describes the fitted model, not cause and effect.</p>
+    <p class="st-note">This trace links patient inputs to model attribution and a typical coronary territory. It does not identify a lesion, infarct size or myocardium at risk.</p>
     <p class="st-note">Decision support and educational use only; not a substitute for formal diagnostic imaging.</p></details>
   </div>
 </section>
@@ -484,9 +365,26 @@ var card=document.getElementById('signalTraceCard');
 if(!card)return;
 function $(id){return document.getElementById(id)}
 var VESS=['CAD','LAD','LCX','RCA'],NUMW={5:'Five',7:'Seven'};
+var VFULL={CAD:'Overall coronary artery disease',LAD:'Left anterior descending artery',LCX:'Left circumflex artery',RCA:'Right coronary artery'};
+var VVAR={LAD:'var(--st-lad)',LCX:'var(--st-lcx)',RCA:'var(--st-rca)'};
+/* One plain-language line per model input (definitions only, no thresholds, no new numbers). Keyed by the schema label. */
+var GLOSS={
+  'age':'Age in years.','male sex':'Whether the patient is male.','bmi':'Body mass index, a weight-for-height measure.',
+  'diabetes':'History of diabetes.','hypertension':'History of high blood pressure.','current smoker':'Whether the patient smokes now.',
+  'family history':'Close relatives with heart disease.','dyslipidemia':'Abnormal cholesterol or blood fat levels.',
+  'systolic bp':'The upper blood pressure number, in mmHg.','pulse rate':'Heart rate in beats per minute.',
+  'typical chest pain':'Chest pain with the classic angina pattern.','dyspnea':'Shortness of breath.',
+  'st elevation':'ECG finding: the ST segment sits above baseline.','st depression':'ECG finding: the ST segment dips below baseline.',
+  't inversion':'ECG finding: T waves point downward.','lvh':'Left ventricular hypertrophy: a thickened heart wall, seen on ECG.',
+  'q wave':'ECG finding: a Q wave, which can reflect past heart-muscle damage.',
+  'fasting glucose':'Blood sugar after fasting, in mg/dL.','ldl':'LDL ("bad") cholesterol, in mg/dL.','hdl':'HDL ("good") cholesterol, in mg/dL.',
+  'triglycerides':'Blood fat level, in mg/dL.','creatinine':'A kidney function marker, in mg/dL.',
+  'ejection fraction':'Share of blood the left ventricle pumps out each beat. Lower means weaker pumping.',
+  'rwma regions':'Regional wall-motion abnormality: heart-wall regions that move abnormally on echo, counted 0 to 4.'
+};
 var rows=[].slice.call(card.querySelectorAll('.st-row'));
-var R=rows.map(function(li){return{li:li,rk:li.querySelector('.st-rk'),go:li.querySelector('.st-feat'),plain:li.querySelector('.st-feat-plain'),val:li.querySelector('.st-val'),num:li.querySelector('.st-num'),dir:li.querySelector('.st-dir'),bar:li.querySelector('.st-bar i'),tr:li.querySelector('.st-trace-btn')}});
-var E={chain:$('stChain'),empty:$('stEmpty'),drivers:$('stDrivers'),noSh:$('stNoShap'),noShMain:$('stNoShapMain'),noShSub:$('stNoShapSub'),sens:$('stSens'),barNote:$('stBarNote'),vessel:$('stVessel'),vName:$('stVName'),vP:$('stVP'),vLvl:$('stVLvl'),vRange:$('stVRange'),terr:$('stTerr'),tCount:$('stTCount'),segLine:$('stSegLine'),dot:$('stDot'),segNums:$('stSegNums'),tNote:$('stTNote'),tBody:$('stTBody'),bull:$('stBull'),rings:$('stRings'),keyAlt:$('stKeyAlt'),keyAltTxt:$('stKeyAltTxt'),view:$('stView'),msg:$('stTraceMsg'),desc:$('signalTraceDesc'),live:$('signalTraceLive')};
+var R=rows.map(function(li){return{li:li,rk:li.querySelector('.st-rk'),go:li.querySelector('.st-feat'),plain:li.querySelector('.st-feat-plain'),val:li.querySelector('.st-val'),num:li.querySelector('.st-num'),dir:li.querySelector('.st-dir'),share:li.querySelector('.st-share'),hint:li.querySelector('.st-hint'),bar:li.querySelector('.st-bar i'),tr:li.querySelector('.st-trace-btn')}});
+var E={chain:$('stChain'),empty:$('stEmpty'),read:$('stRead'),drivers:$('stDrivers'),axis:$('stAxis'),noSh:$('stNoShap'),noShMain:$('stNoShapMain'),noShSub:$('stNoShapSub'),sens:$('stSens'),barNote:$('stBarNote'),vessel:$('stVessel'),vName:$('stVName'),vP:$('stVP'),vLvl:$('stVLvl'),meter:$('stMeter'),band:$('stBand'),base:$('stBase'),mk:$('stMk'),rangeV:$('stRangeV'),vRange:$('stVRange'),baseRow:$('stBaseRow'),baseV:$('stBaseV'),baseSub:$('stBaseSub'),terr:$('stTerr'),tCount:$('stTCount'),segLine:$('stSegLine'),dot:$('stDot'),segNums:$('stSegNums'),tNote:$('stTNote'),tBody:$('stTBody'),bull:$('stBull'),rings:$('stRings'),cadLeg:$('stCadLeg'),tKey:$('stTKey'),keyAlt:$('stKeyAlt'),keyAltTxt:$('stKeyAltTxt'),view:$('stView'),msg:$('stTraceMsg'),desc:$('signalTraceDesc'),live:$('signalTraceLive')};
 var vBtns=[].slice.call(card.querySelectorAll('[data-st-vessel]'));
 var prevSel=null,traced=-1,hlEl=null,hlTimer=null,curRecs=[];
 var reduce=matchMedia('(prefers-reduced-motion: reduce)');
@@ -496,12 +394,15 @@ function setHidden(n,h){if(n&&n.hidden!==h)n.hidden=h}
 function setAttr(n,k,v){if(n&&n.getAttribute(k)!==v)n.setAttribute(k,v)}
 function setCls(n,c,on){if(n)n.classList.toggle(c,!!on)}
 function pctOf(p){var x=Number(p);return Number.isFinite(x)?Math.round(Math.max(0,Math.min(1,x))*100):null}
-function signed(v){v=Number(v);return(v>0?'+':v<0?'-':'')+Math.abs(v).toFixed(3)}
+function fin(x){x=Number(x);return Number.isFinite(x)?x:null}
+function sgn(v,dp){v=Number(v);return(v>0?'+':v<0?'\u2212':'')+Math.abs(v).toFixed(dp)}
 function validSel(){return VESS.indexOf(sel)>=0?sel:'CAD'}
+function vname(vessel){return vessel==='CAD'?'overall CAD':vessel}
+function tgt(vessel){return res&&res.shap&&res.shap.targets&&res.shap.targets[vessel]||null}
 
 /* Real SHAP only: res.shap.targets[vessel].records, existing rank order, top 3. */
 function records(vessel){
-  var t=res&&res.shap&&res.shap.targets&&res.shap.targets[vessel];
+  var t=tgt(vessel);
   if(!t||!Array.isArray(t.records))return[];
   return t.records.filter(function(r){return r&&r.direction!=='none'&&Number.isFinite(Number(r.value))})
     .sort(function(a,b){return a.rank-b.rank}).slice(0,3);
@@ -510,12 +411,29 @@ function segsFor(vessel){
   var S=window.CM_SEGMENTS;if(!Array.isArray(S))return[];
   return S.filter(function(s){return s.vessel===vessel}).map(function(s){return s.n});
 }
-function rangeLine(vessel){
-  var iv=res&&res[vessel]&&res[vessel].interval;
-  if(!iv||!Number.isFinite(Number(iv.lo))||!Number.isFinite(Number(iv.hi)))return'Uncertainty ranges need the API.';
-  var lv=Number(iv.level);
-  return'Range '+pctOf(iv.lo)+'–'+pctOf(iv.hi)+'% ('+Math.round((Number.isFinite(lv)&&lv>0?lv:.8)*100)+'% bootstrap) · '+(iv.range_label||'model range');
+
+/* ---- plain-language wording for one SHAP record ---- */
+function cleanLabel(rec){var l=String(rec.label||rec.feature||'');return l.replace(/\s*\(count[^)]*\)/i,'')}
+function valText(rec){
+  var v=rec.display_value!==undefined&&rec.display_value!==null?String(rec.display_value):'';
+  if(rec.is_default)return'not entered, typical value used';
+  var m=/\(count\s*0\s*[\u2013-]\s*(\d+)\)/i.exec(String(rec.label||''));
+  if(m&&v!=='')v+=' of '+m[1];
+  return v;
 }
+function hintFor(rec){return GLOSS[cleanLabel(rec).toLowerCase()]||''}
+function spaceOf(vessel){var t=tgt(vessel);return t&&t.output_space||''}
+function rawText(rec,space){
+  var v=Number(rec.value);
+  if(space==='probability')return sgn(v*100,1)+' percentage points';
+  return sgn(v,2)+(space==='log-odds'?' log-odds':'');
+}
+function rawTitle(space){
+  if(space==='probability')return'SHAP value: how far this input moved the model output, in percentage points of probability.';
+  if(space==='log-odds')return'SHAP value: how far this input moved the model output, on the log-odds scale the model works in.';
+  return'SHAP value: how far this input moved the model output.';
+}
+function sharePct(rec){var s=fin(rec.share_pct);return s===null?null:Math.round(s)}
 
 /* Locate the existing patient-input control from byCol + the existing UI metadata. null when not unambiguous. */
 function inputRow(feature){
@@ -545,21 +463,87 @@ function selectVessel(vessel){
 }
 
 function traceText(rec,vessel){
-  var item=res&&res[vessel],p=item?pctOf(item.p):null,head='Model trace: '+rec.label+' has a SHAP contribution of '+signed(rec.value)+' for '+vessel+'. ';
-  if(vessel==='CAD')return head+"The overall CAD estimate is "+p+"%. Territory mapping applies to individual vessels. This does not identify a lesion.";
-  return head+"The vessel's estimated probability is "+p+"%. The territory shown is the vessel's typical population territory. This does not identify a lesion.";
+  var item=res&&res[vessel],p=item?pctOf(item.p):null,s=sharePct(rec);
+  var t=cleanLabel(rec)+' ('+valText(rec)+') '+(rec.direction==='up'?'raises':'lowers')+' the '+vname(vessel)+' estimate'+(s!==null?', about '+s+'% of the model\u2019s total push':'')+'. ';
+  t+='The estimate is '+p+'%. ';
+  if(vessel==='CAD')t+='CAD is an overall estimate with no single territory, so pick a vessel to see where it typically supplies the heart.';
+  else t+=vessel+' typically supplies the highlighted heart-wall segments. This is a model link, not a lesion location.';
+  return t;
 }
 
+/* ---- the one-paragraph reading ---- */
+function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
+function phrase(rec){return cleanLabel(rec)+' ('+valText(rec)+')'}
+function listPhrases(list){
+  var out=list.map(phrase);
+  return out.length>1?out.slice(0,-1).join(', ')+' and '+out[out.length-1]:out[0];
+}
+function paintRead(vessel,hasRes){
+  var box=E.read;
+  if(!hasRes){setHidden(box,true);return}
+  var item=res[vessel],p=pctOf(item.p),q=lvl(item.p),frag=document.createDocumentFragment();
+  frag.appendChild(document.createTextNode('The model puts '+vname(vessel)+' at '));
+  frag.appendChild(el('b','',p+'% ('+q[1].toLowerCase()+')'));
+  frag.appendChild(document.createTextNode('. '));
+  if(curRecs.length){
+    var top=curRecs[0],up=top.direction==='up';
+    frag.appendChild(el('b','',cleanLabel(top)));
+    frag.appendChild(document.createTextNode(' ('+valText(top)+') had the biggest effect: it '));
+    frag.appendChild(el('span',up?'up':'dn',up?'raised the estimate':'lowered the estimate'));
+    frag.appendChild(document.createTextNode('. '));
+    var rest=curRecs.slice(1),ups=rest.filter(function(r){return r.direction==='up'}),dns=rest.filter(function(r){return r.direction==='down'});
+    if(ups.length){frag.appendChild(document.createTextNode('Also raising the estimate: '+listPhrases(ups)+'. '))}
+    if(dns.length){frag.appendChild(document.createTextNode('Also lowering the estimate: '+listPhrases(dns)+'. '))}
+  }else if(!xOnline()){
+    frag.appendChild(document.createTextNode('The inputs behind this estimate need the Python API to be shown.'));
+  }
+  box.textContent='';box.appendChild(frag);setHidden(box,false);
+}
+
+/* ---- estimate strip: zones, bootstrap range, SHAP starting point ---- */
+function rangeInfo(vessel){
+  var iv=res&&res[vessel]&&res[vessel].interval;
+  if(!iv)return null;
+  var lo=fin(iv.lo),hi=fin(iv.hi);if(lo===null||hi===null)return null;
+  var lv=fin(iv.level);lv=Math.round((lv&&lv>0?lv:.8)*100);
+  return{lo:lo,hi:hi,level:lv,n:fin(iv.n_models),label:String(iv.range_label||'')};
+}
+function baseP(vessel){
+  var t=tgt(vessel),b=t?fin(t.base_probability):null;
+  return(b!==null&&b>=0&&b<=1)?b:null;
+}
+function pos(p){return(Math.max(0,Math.min(1,p))*100).toFixed(2)+'%'}
 function paintVessel(vessel,hasRes){
   var item=hasRes?res[vessel]:null,p=item?pctOf(item.p):null;
-  setText(E.vName,vessel==='CAD'?'Overall CAD':vessel);
+  setText(E.vName,VFULL[vessel]);
   if(p===null){
-    setText(E.vP,'—');E.vessel.style.setProperty('--vp','0%');setText(E.vLvl,'● Neutral state');E.vLvl.style.color='var(--muted)';
-    setText(E.vRange,'Run a prediction to see the estimate.');return;
+    setText(E.vP,'\u2014');setText(E.vLvl,'\u25CF Neutral state');E.vLvl.style.color='var(--muted)';
+    setAttr(E.meter,'aria-label','Estimate not available yet');
+    E.mk.style.left='0%';setHidden(E.band,true);setHidden(E.base,true);setHidden(E.baseRow,true);
+    setText(E.rangeV,'\u2014');setText(E.vRange,'Run a prediction to see the estimate.');return;
   }
   var q=lvl(item.p);
-  setText(E.vP,p+'%');E.vessel.style.setProperty('--vp',Math.max(2,Math.min(100,Number(p)||0))+'%');E.vessel.style.setProperty('--vc',q[2]);setText(E.vLvl,q[0]+' '+q[1]);E.vLvl.style.color=q[2];
-  setText(E.vRange,vessel==='CAD'?'Overall estimate · territory mapping applies to individual vessels.':rangeLine(vessel));
+  setText(E.vP,p+'%');setText(E.vLvl,q[0]+' '+q[1]);E.vLvl.style.color=q[2];
+  E.vessel.style.setProperty('--vc',q[2]);
+  E.mk.style.left=pos(item.p);
+  var ri=rangeInfo(vessel),label='Estimate '+p+' percent.';
+  if(ri){
+    var lo=Math.min(ri.lo,ri.hi),hi=Math.max(ri.lo,ri.hi);
+    setHidden(E.band,false);E.band.style.left=pos(lo);E.band.style.width=Math.max(.8,(Math.min(1,hi)-Math.max(0,lo))*100).toFixed(2)+'%';
+    setText(E.rangeV,pctOf(lo)+'\u2013'+pctOf(hi)+'%');
+    var cap=ri.label?ri.label.charAt(0).toUpperCase()+ri.label.slice(1)+'. ':'';
+    setText(E.vRange,cap+ri.level+'% of '+(ri.n?ri.n+' ':'')+'models re-trained on resampled data land in this range.');
+    label+=' Model range '+pctOf(lo)+' to '+pctOf(hi)+' percent.';
+  }else{
+    setHidden(E.band,true);setText(E.rangeV,'\u2014');setText(E.vRange,'Model ranges need the Python API.');
+  }
+  var b=baseP(vessel);
+  if(b!==null&&xOnline()){
+    setHidden(E.base,false);E.base.style.left=pos(b);setHidden(E.baseRow,false);
+    setText(E.baseV,pctOf(b)+'%');setText(E.baseSub,'What the model predicts before it sees this patient\u2019s inputs.');
+    label+=' Starting point '+pctOf(b)+' percent.';
+  }else{setHidden(E.base,true);setHidden(E.baseRow,true)}
+  setAttr(E.meter,'aria-label',label+' Zones: low under 40 percent, moderate 40 to 64, high 65 and up.');
 }
 
 /* ---- Typical territory: AHA 17-segment bullseye + ring-grouped chips (data: window.CM_SEGMENTS, no new numbers) ---- */
@@ -588,36 +572,48 @@ function buildBullseye(){
       var g=mk('g',{'data-n':num}),pe=mk('path',{d:path,'class':'sg'}),t=mk('title',{});
       t.textContent='Segment '+num+', '+sg.name;pe.appendChild(t);g.appendChild(pe);
       var mid=rg.k==='apex'?[BC,BC]:polar((rg.r0+rg.r1)/2,c),tx=mk('text',{x:mid[0],y:mid[1],'class':'sn'});tx.textContent=num;g.appendChild(tx);
-      svg.appendChild(g);bullNodes[num]={p:pe,t:tx};
+      svg.appendChild(g);bullNodes[num]={p:pe,t:tx,title:t,vessel:sg.vessel,name:sg.name};
     }
   });
   [['ANT',BC,6],['INF',BC,144],['SEP',8,BC],['LAT',142,BC]].forEach(function(l){var t=mk('text',{x:l[1],y:l[2],'class':'ol'});t.textContent=l[0];svg.appendChild(t)});
   E.bull.appendChild(svg);return true;
 }
 function paintTerritory(vessel,hasRes){
-  var item=hasRes?res[vessel]:null,col='var(--muted)';
+  var item=hasRes?res[vessel]:null,col='var(--muted)',S=window.CM_SEGMENTS||[];
+  if(!bullBuilt)bullBuilt=buildBullseye();
   if(vessel==='CAD'){
-    setText(E.tCount,'Territory mapping applies to individual vessels.');
-    setHidden(E.segLine,true);setHidden(E.view,true);setHidden(E.tBody,true);terrKey='';
-    setText(E.tNote,'Select LAD, LCX or RCA above to follow the trace to its typical territory.');return;
+    setText(E.tCount,'CAD is an overall estimate, so it has no single territory.');
+    setText(E.tNote,'Pick a vessel to follow the trace. Each colour shows which vessel typically supplies that part of the heart wall.');
+    setHidden(E.segLine,true);setHidden(E.view,true);
+    VESS.slice(1).forEach(function(v){setText($('stPick'+v),segsFor(v).length+' segments')});
+    if(!bullBuilt||!E.tBody){return}
+    setHidden(E.tBody,false);setHidden(E.rings,true);setHidden(E.tKey,true);setHidden(E.cadLeg,false);E.bull.classList.add('pick');
+    var key='CAD';if(key===terrKey)return;terrKey=key;
+    Object.keys(bullNodes).forEach(function(k){
+      var b=bullNodes[k];b.p.setAttribute('class','sg on');b.t.setAttribute('class','sn on');
+      b.p.style.setProperty('--st-fill',VVAR[b.vessel]||'var(--muted)');
+      b.title.textContent='Segment '+k+', '+b.name+'. Typically supplied by '+b.vessel+'. Select to follow '+b.vessel+'.';
+    });
+    return;
   }
-  var S=window.CM_SEGMENTS||[],segs=segsFor(vessel);
-  setText(E.tCount,segs.length+' typical myocardial segments');
-  setText(E.segNums,segs.join(' · '));setHidden(E.segLine,!segs.length);
+  var segs=segsFor(vessel);
+  setText(E.tCount,'Typically supplies '+segs.length+' of 17 heart-wall segments.');
+  setText(E.segNums,segs.join(' \u00B7 '));setHidden(E.segLine,!segs.length);
   if(item&&pctOf(item.p)!==null)col=lvl(item.p)[2];
   E.terr.style.setProperty('--st-fill',col);
   if(E.dot.style.background)E.dot.style.background='';
-  setText(E.tNote,'Typical population territory (AHA 17-segment model). Colour follows the vessel estimate; no combined segment risk is shown.');
+  setText(E.tNote,'Standard 17-segment heart model, coloured by the vessel estimate. It shows the usual pattern, not where a blockage is.');
   setText(E.view,'View '+vessel+' territory');setHidden(E.view,false);
-  if(!bullBuilt)bullBuilt=buildBullseye();
   if(!bullBuilt||!E.tBody)return;
-  setHidden(E.tBody,false);
-  var key=vessel+'|'+col;if(key===terrKey)return;terrKey=key;
+  setHidden(E.tBody,false);setHidden(E.rings,false);setHidden(E.tKey,false);setHidden(E.cadLeg,true);E.bull.classList.remove('pick');
+  var key2=vessel+'|'+col;if(key2===terrKey)return;terrKey=key2;
   var alts=S.filter(function(x){return altList(x).indexOf(vessel)>=0&&x.vessel!==vessel}).map(function(x){return x.n});
   Object.keys(bullNodes).forEach(function(k){
-    var n=+k,on=segs.indexOf(n)>=0,alt=alts.indexOf(n)>=0;
-    bullNodes[k].p.setAttribute('class','sg'+(on?' on':alt?' alt':''));
-    bullNodes[k].t.setAttribute('class','sn'+(on?' on':''));
+    var n=+k,on=segs.indexOf(n)>=0,alt=alts.indexOf(n)>=0,b=bullNodes[k];
+    b.p.style.removeProperty('--st-fill');
+    b.p.setAttribute('class','sg'+(on?' on':alt?' alt':''));
+    b.t.setAttribute('class','sn'+(on?' on':''));
+    b.title.textContent='Segment '+k+', '+b.name;
   });
   var html='';
   RING_DEF.forEach(function(rg){
@@ -642,13 +638,19 @@ if(E.rings){
 if(E.bull){
   E.bull.addEventListener('mouseover',function(e){var g=e.target.closest&&e.target.closest('g[data-n]');if(g)terrHl(+g.dataset.n,true)});
   E.bull.addEventListener('mouseout',function(e){var g=e.target.closest&&e.target.closest('g[data-n]');if(g)terrHl(+g.dataset.n,false)});
+  E.bull.addEventListener('click',function(e){
+    if(validSel()!=='CAD')return;
+    var g=e.target.closest&&e.target.closest('g[data-n]');if(!g)return;
+    var b=bullNodes[+g.dataset.n];if(b&&b.vessel)selectVessel(b.vessel);
+  });
 }
 
+/* ---- the three drivers ---- */
 function paintDrivers(vessel,hasRes){
   var online=hasRes&&xOnline();
   curRecs=online?records(vessel):[];
   var showRows=!hasRes||curRecs.length>0;
-  setHidden(E.drivers,!showRows);
+  setHidden(E.drivers,!showRows);setHidden(E.axis,!curRecs.length);
   setHidden(E.noSh,showRows);
   setHidden(E.barNote,!curRecs.length);
   setHidden(E.sens,true);
@@ -662,44 +664,54 @@ function paintDrivers(vessel,hasRes){
       setText(E.noShSub,'');
     }
   }
-  var maxAbs=0;curRecs.forEach(function(r){maxAbs=Math.max(maxAbs,Math.abs(Number(r.value)))});
+  var maxAbs=0,space=spaceOf(vessel),t=tgt(vessel);curRecs.forEach(function(r){maxAbs=Math.max(maxAbs,Math.abs(Number(r.value)))});
   R.forEach(function(r,i){
     var rec=curRecs[i];
     if(!hasRes){
-      setHidden(r.li,false);setText(r.go.textContent,'');setHidden(r.go,true);setHidden(r.plain,false);setText(r.plain,'—');
-      setText(r.val,'');setText(r.num,'—');setText(r.dir,'');r.bar.style.width='0';setHidden(r.tr,true);setCls(r.li,'st-on',false);return;
+      setHidden(r.li,false);setText(r.go.textContent,'');setHidden(r.go,true);setHidden(r.plain,false);setText(r.plain,'\u2014');
+      setText(r.val,'');setText(r.num,'\u2014');setText(r.dir,'');setText(r.share,'');setText(r.hint,'');r.bar.style.width='0';setHidden(r.tr,true);setCls(r.li,'st-on',false);return;
     }
     if(!rec){setHidden(r.li,true);setCls(r.li,'st-on',false);return}
     setHidden(r.li,false);
-    var row=inputRow(rec.feature),label=rec.label||rec.feature;
+    var row=inputRow(rec.feature),label=cleanLabel(rec),s=sharePct(rec);
     setText(r.go,label);setText(r.plain,label);
     setHidden(r.go,!row);setHidden(r.plain,!!row);
     setAttr(r.go,'aria-label','Show the '+label+' input in the patient form');
     setText(r.rk,String(rec.rank));
-    setText(r.val,(rec.display_value!==undefined&&rec.display_value!==null?String(rec.display_value):'—')+(rec.is_default?' · default value':''));
-    setText(r.num,signed(rec.value));
-    setText(r.dir,rec.direction==='up'?'▲ raises model output':'▼ lowers model output');
+    setText(r.val,valText(rec));
+    setText(r.num,rawText(rec,space));setAttr(r.num,'title',rawTitle(space));
+    setText(r.dir,rec.direction==='up'?'\u25B2 Raises the estimate':'\u25BC Lowers the estimate');
+    setText(r.share,s!==null?s+'% of the model\u2019s total push':'');
+    setText(r.hint,hintFor(rec));
     setAttr(r.li,'data-dir',rec.direction);
-    var w=maxAbs>0?Math.max(4,Math.abs(Number(rec.value))/maxAbs*100):0;
+    var w=maxAbs>0?Math.max(3,Math.abs(Number(rec.value))/maxAbs*50):0;
     var ws=w.toFixed(1)+'%';if(r.bar.style.width!==ws)r.bar.style.width=ws;
     setHidden(r.tr,false);
+    setText(r.tr,traced===i?'Tracing':'Trace');
+    setAttr(r.tr,'title','Follow this input to the '+vname(vessel)+' estimate and its typical territory');
     setAttr(r.tr,'aria-label','Trace '+label+' to the '+vessel+' estimate and its typical territory');
     setAttr(r.tr,'aria-pressed',traced===i?'true':'false');
     setCls(r.li,'st-on',traced===i);
   });
+  /* footnote: how much of the model's push these three cover, and what the bars mean */
+  if(curRecs.length){
+    var cov=0,haveCov=true;curRecs.forEach(function(r){var s=fin(r.share_pct);if(s===null)haveCov=false;else cov+=s});
+    var n=t&&fin(t.n_features),txt='';
+    if(haveCov)txt+='These '+curRecs.length+' inputs account for '+Math.round(cov)+'% of the total push'+(n?' across all '+n+' inputs':'')+'. ';
+    txt+='Bars compare each input with the strongest one. SHAP shows what moved the model, not what caused the disease.';
+    setText(E.barNote,txt);
+  }
 }
 
 function descText(vessel,hasRes){
   if(!hasRes)return'Cardiac Signal Trace. No prediction has been run yet.';
   var item=res[vessel],p=item?pctOf(item.p):null;
-  var d='Cardiac Signal Trace for '+(vessel==='CAD'?'overall CAD':vessel)+'. Estimated probability '+p+' percent. ';
-  var iv=item&&item.interval;
-  if(vessel!=='CAD'||true){
-    if(iv&&Number.isFinite(Number(iv.lo))&&Number.isFinite(Number(iv.hi)))d+='Model range '+pctOf(iv.lo)+' to '+pctOf(iv.hi)+' percent. ';
-    else d+='Uncertainty ranges need the API. ';
-  }
+  var d='Cardiac Signal Trace for '+vname(vessel)+'. Estimated probability '+p+' percent. ';
+  var ri=rangeInfo(vessel);
+  if(ri)d+='Model range '+pctOf(Math.min(ri.lo,ri.hi))+' to '+pctOf(Math.max(ri.lo,ri.hi))+' percent. ';
+  else d+='Uncertainty ranges need the API. ';
   if(curRecs.length){
-    var names=curRecs.map(function(r){return r.label});
+    var names=curRecs.map(function(r){return cleanLabel(r)});
     d+='Top model contributors are '+(names.length>1?names.slice(0,-1).join(', ')+' and '+names[names.length-1]:names[0])+'. ';
   }else if(!xOnline())d+='SHAP attribution unavailable offline. ';
   if(vessel==='CAD')d+='Territory mapping applies to individual vessels.';
@@ -712,7 +724,7 @@ function announce(vessel){
   var t=(vessel==='CAD'?'Overall CAD':vessel)+' selected. Estimated probability '+p+' percent. ';
   if(vessel==='CAD')t+='Territory mapping applies to individual vessels.';
   else{var n=segsFor(vessel).length;t+=(NUMW[n]||n)+' typical myocardial territory segments.'}
-  if(curRecs.length){t+=' Top model contributor is '+curRecs[0].label+', with a '+(curRecs[0].direction==='up'?'positive':'negative')+' SHAP contribution.'}
+  if(curRecs.length){t+=' Top model contributor is '+cleanLabel(curRecs[0])+', which '+(curRecs[0].direction==='up'?'raises':'lowers')+' the estimate.'}
   E.live.textContent=t;
 }
 
@@ -723,9 +735,10 @@ window.cmSignalTracePaint=function(){
   if(changed){traced=-1;clearHl()}
   vBtns.forEach(function(b){setAttr(b,'aria-pressed',b.dataset.stVessel===vessel?'true':'false')});
   setHidden(E.empty,hasRes);
+  paintDrivers(vessel,hasRes);
   paintVessel(vessel,hasRes);
   paintTerritory(vessel,hasRes);
-  paintDrivers(vessel,hasRes);
+  paintRead(vessel,hasRes);
   if(traced>=0&&!curRecs[traced])traced=-1;
   var on=traced>=0;
   setCls(E.chain,'st-tracing',on);setCls(E.vessel,'st-on',on);setCls(E.terr,'st-on',on&&vessel!=='CAD');
@@ -738,6 +751,7 @@ window.cmSignalTracePaint=function(){
 card.addEventListener('click',function(e){
   var t=e.target.closest&&e.target.closest('button');if(!t||!card.contains(t))return;
   if(t.dataset.stVessel){selectVessel(t.dataset.stVessel);return}
+  if(t.dataset.stPick){selectVessel(t.dataset.stPick);return}
   if(t.hasAttribute('data-st-view')){
     var vv=validSel();if(vv==='CAD')return;
     selectVessel(vv);

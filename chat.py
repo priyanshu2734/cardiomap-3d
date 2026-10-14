@@ -123,29 +123,6 @@ Dashboard features you can explain (they are part of this app):
 
 Do not claim a feature does not exist if it is described in this section. Never mention features that are not listed here, and never say a feature was removed.
 
-Heart Function Lab (a separate page of this app, at /heart-function; it is part of CardioMap, so questions about it are on topic):
-
-It is a simplified teaching model on a 3D reference heart. It is not patient-specific, not clinical, and nothing in it is a measured blockage. Its parts:
-
-- Coronary arteries: pick LAD, LCX or RCA on the 3D heart.
-- Add a blockage, watch the flow: one narrowing slider per artery (percent diameter narrowing), plus an optional second narrowing in series, and Rest / Exercise buttons. Demand is 1x resting flow at rest and 3.5x in exercise. Delivered flow is the smaller of demand and the artery's peak capacity. Each artery gets a state: "Flow maintained", "Reserve reduced" (still meets demand but little spare capacity is left) or "Flow limiting" (flow falls short of demand). An artery can meet demand at rest yet fail in exercise, because the small vessels downstream can only widen so far.
-- Wall effect: from 50% narrowing upward the part of the heart wall that artery generally feeds turns darker and squeezes slightly less; in Exercise this starts at a smaller narrowing.
-- Live ECG: an illustrative single-lead trace whose ST segment lowers as flow reserve is lost. It is not a real tracing.
-- Compare two settings: store setting A (for example Rest) and compare it with B (for example Exercise) for the same narrowings.
-- Model estimate: the dashboard's LAD / LCX / RCA probabilities shown inside the lab, with an 80% uncertainty sweep. The lab only reads them; the model does not decide the blockage.
-- Physics vs data: a flow-versus-narrowing curve for the selected artery (capacity, Rest and Exercise delivered flow, with rest and exercise thresholds) and a cohort check that counts how the 303 dataset patients split at 50% recorded narrowing. Physics shows what narrowing does in theory; data shows what was recorded in the cohort.
-- Cardiac cycle: illustrative Wiggers-style pressure, volume and ECG traces drawn from heart rate, EF and systolic pressure.
-- Setup: "Your values" use the dashboard heart rate (PR) and ejection fraction (EF-TTE) when usable, otherwise reference values (72 bpm, 60% EF); anatomy options let the user set teaching right/left dominance, branches and collateral flow (up to 35% of demand).
-
-INTERNAL NOTES, never recite or paraphrase the next block to the user. Use it only when the user asks about their current lab state.
-How to read heart_function_lab in the session data:
-
-- It is the lab's live state: mode (rest or exercise), selected_vessel, vessels (per artery: narrowing_pct, second_narrowing_pct, state, flow_pct_of_demand, reserve_left_pct, meets_demand), teaching_dominance, teaching_collateral_pct, physiology (heart rate, EF, cardiac output and whether each came from the dashboard or a reference value) and dashboard_estimate_in_lab.
-- For questions about the lab, answer from these fields. Narrowing values are slider settings the user chose, not findings about a patient. If every narrowing_pct is 0, say no blockage has been added yet.
-- If heart_function_lab is absent, say the lab state is not in the session data and ask the user to open the Heart Function Lab (moving a slider updates it), then reopen the assistant. You can still explain how the lab works from this section.
-- Never present lab output as a diagnosis or as a real person's blood flow.
-- For a general "how does the lab work" question: give a one-sentence summary, then 4 to 6 short bullets (artery choice, blockage slider with Rest/Exercise, flow states, wall effect and ECG, compare, model estimate), then offer to go deeper on any part. Do not list every part, do not quote field names, and do not describe how you read session data.
-
 How to read the session data for these features:
 
 - not_measured_inputs lists inputs the user has NOT supplied; the model filled them with training medians. Never say "all inputs are supplied" when this list is non-empty. In the inputs field, such entries are marked "not measured".
@@ -280,30 +257,6 @@ def _facts(ctx):
             L.append("The Next-best-test ranking is NOT in the session data yet "
                      "(dashboard still computing, or the API was offline). Say so and ask the user "
                      "to re-run the prediction on the dashboard.")
-        hf = ctx.get("heart_function_lab")
-        if isinstance(hf, dict) and isinstance(hf.get("vessels"), dict):
-            L.append(f"HEART FUNCTION LAB (teaching model, not a patient finding): mode {hf.get('mode')}, "
-                     f"selected artery {hf.get('selected_vessel') or 'none'}.")
-            added = False
-            for v, r in hf["vessels"].items():
-                if not isinstance(r, dict):
-                    continue
-                n1, n2 = r.get("narrowing_pct") or 0, r.get("second_narrowing_pct") or 0
-                if n1 or n2:
-                    added = True
-                    L.append(f"  {v}: narrowing {n1}%" + (f" plus second {n2}%" if n2 else "")
-                             + f" -> {r.get('state')}, flow {r.get('flow_pct_of_demand')}% of demand, "
-                               f"reserve left {r.get('reserve_left_pct')}%.")
-            if not added:
-                L.append("  No narrowing has been added yet (all sliders at 0%).")
-            ph = hf.get("physiology") or {}
-            if ph:
-                fc = hf.get("flow_conditions") or {}
-                if fc:
-                    L.append(f"  Flow conditions (teaching what-ifs, {'reference values' if fc.get('reference') else 'custom'}): exercise intensity {fc.get('exercise_intensity_x')}x resting demand, mean aortic pressure {fc.get('mean_aortic_pressure_mmhg')} mmHg, narrowing length {fc.get('narrowing_length_mm')} mm, hematocrit {fc.get('hematocrit_pct')}%.")
-                L.append(f"  Physiology: heart rate {ph.get('heart_rate_bpm')} bpm ({ph.get('heart_rate_source')}), "
-                         f"EF {ph.get('ef_pct')}% ({ph.get('ef_source')}), cardiac output {ph.get('cardiac_output_l_min')} L/min. "
-                         f"Teaching dominance {hf.get('teaching_dominance')}, collateral {hf.get('teaching_collateral_pct')}%.")
         if not L:
             return ""
         return ("\n\nSESSION SUMMARY (authoritative and current. If earlier chat messages disagree "
@@ -335,7 +288,7 @@ def system(ctx, mem=None):
                     break
                 slim.pop(k, None)
             keep = {"estimates", "next_best_test",
-                    "not_measured_inputs", "selected_vessel", "heart_function_lab"}
+                    "not_measured_inputs", "selected_vessel"}
             while len(dump(slim)) > CTX_CHARS:
                 cand = [k for k in slim if k not in keep]
                 if not cand:

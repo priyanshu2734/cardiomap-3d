@@ -19,3 +19,20 @@ Verification: `python tests/visual_qa/provenance_card.py` (stub THREE; 1360/768/
 ## Contrast check (measured)
 Light theme: body text 5.3:1, headings 13.5:1, links raised from 3.5:1 to 5.6:1 (#066a80). Dark theme: text 8.6:1, links 11.6:1.
 Real FastAPI `/provenance` was NOT run (fastapi is not installed in the build sandbox and there is no network). Test it with `uvicorn app:app` and open the card.
+
+## Renovation: moved to the Trust Center
+- The card was removed from `index.html` (dashboard) and rebuilt as `<section id="provenance">` in `trust_center.html`, after "Interpretation & limitations".
+- New layout: at-a-glance stats (303 records, 4 targets, 17 segments, 2 anatomy sources), six source cards (dataset + citation from README, model outputs, SHAP, Cerqueira segment map, HRA, BodyParts3D with CC BY 4.0 badges), and a build-manifest table with file role, size, short SHA-256, per-row "Copy full hash", and "Export manifest JSON".
+- Manifest loads once from `GET /provenance` when the section nears the viewport; offline shows a message plus Retry. Rendered with textContent only. Backend unchanged.
+- Still no DOI links (none verified). Checked in a browser at 1360/390 px, light/dark, API up/down. Real FastAPI was not run (not installable here); a stand-in server with the same hashing was used.
+
+## Hover colour + primary buttons (static/cm-interaction.css)
+- New last-loaded stylesheet linked on every page that loads cardiomap.css / cardiomap-app.css.
+- One hover style for ordinary buttons, tabs, nav links, menu items, tiles: soft theme tint + readable ink (no bright teal->mint gradient with white text, no near-black slab). Global-driver tiles tint with their own colour.
+- cursor:pointer on all clickable things; not-allowed when disabled.
+- `#run` (Run prediction) and `#repBtn` (Research case PDF), plus any `.pri` button: ready = solid gradient + lit dot; hover = brighter + lift; pressed = inset; disabled/busy = flat muted with slow stripe sheen and dim dot (reads as "off"). Reduced-motion respected.
+- Verified in headless Chromium (light/dark): computed hover colours, button states screenshots. Not verified against the live backend.
+- Fix: `app.py` serves /static through an allow-list; `cm-interaction.css` was missing from it (404 in the real app). Added. Any new static file must be added there.
+- Off state of `.pri` buttons now has a dashed border so it is distinct from the ready state even without colour.
+- Busy/disabled primary buttons: stripes removed. Now a calm solid teal tint with a small spinner in place of the dot (static under reduced motion).
+- Busy state: the circle/spinner is hidden; only the calm tinted button and its label remain.

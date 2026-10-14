@@ -7,3 +7,6 @@ global_shap.json
 .research_lab_cache/
 
 env
+.env
+.env.*
+!.env.example

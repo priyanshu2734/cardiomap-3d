@@ -7,7 +7,7 @@ var T=[{n:"Dashboard",h:"/app/"},
  {n:"Labs",g:[["Digital Twin Lab","/digital-twin","Explore the coronary twin"],["AI Trust Stress Test","/stress-test","Probe sensitivity to inputs"]]},
  {n:"Explain",g:[["AI Detective","/detective","Why did the model say this?"],["Architecture Map","/architecture","How CardioMap works end to end"]]},
  {n:"Trust",g:[["Trust Center","/trust-center","Metrics, ROC and calibration"],["Validation Report","/validation","Cross-validation results and methods"]]},
- {n:"Research",g:[["Cardiac Research Lab","/research-lab","Pre-angiography triage experiments"],["Heart Function Lab","/heart-function","Beating reference heart and vessel teaching model"],["Research Evidence Library","/evidence","Source-grounded answers and file hashes"]]}];
+ {n:"Research",g:[["Cardiac Research Lab","/research-lab","Pre-angiography triage experiments"],["Research Evidence Library","/evidence","Source-grounded answers and file hashes"]]}];
 var p=location.pathname.replace(/\/$/,"")||"/",al={"/app":"/app","/":"/app"};p=al[p]||p;
 var on=function(h){return h.replace(/\/$/,"")===p||(h=="/app/"&&p=="/app")};
 var ic=function(d){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>'};

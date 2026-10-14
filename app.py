@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import create_model, Field, ConfigDict
-import core, model_cache, chat, report, evidence, provenance, trust_stress, case_replay, whatif_search, nexttest, research_lab, heart_function, heart_cohort
+import core, model_cache, chat, report, evidence, provenance, trust_stress, case_replay, whatif_search, nexttest, research_lab
 H = Path(__file__).parent
 app = FastAPI(title="CardioMap 3D", version="2.4")
 app.add_middleware(CORSMiddleware, allow_origins=os.getenv("CARDIOMAP_ORIGINS", "http://localhost:8000,http://127.0.0.1:8000").split(","),
@@ -127,8 +127,6 @@ app.include_router(case_replay.router)
 app.include_router(whatif_search.router)
 app.include_router(nexttest.make_router())
 app.include_router(research_lab.make_router())
-app.include_router(heart_function.make_router())
-app.include_router(heart_cohort.make_router())
 # Serve only index.html (never the whole folder: it holds .env, data and the model).
 @app.get("/app", include_in_schema=False)
 @app.get("/app/", include_in_schema=False)
@@ -146,9 +144,6 @@ def history_page(): return FileResponse(H / "history.html")
 @app.get("/research-lab/", include_in_schema=False)
 def research_lab_page(): return FileResponse(H / "research_lab.html")
 
-@app.get("/heart-function", include_in_schema=False)
-@app.get("/heart-function/", include_in_schema=False)
-def heart_function_page(): return FileResponse(H / "heart_function.html")
 
 @app.get("/validation", include_in_schema=False)
 def validation_lab(): return FileResponse(H / "validation.html")
@@ -196,7 +191,7 @@ def what_next_page(): return FileResponse(H / "what_next.html")
 @app.get("/static/{name}", include_in_schema=False)
 def static_asset(name: str):
     """Shared design system files only (an allow-list: never the whole folder)."""
-    if name not in {"cardiomap.css", "cardiomap-app.css", "cardiomap-pro.css", "shell.js", "pro.js", "bg.js", "heart-dashboard.css", "heart-dashboard.js", "yesno.css", "yesno.js", "case-handoff.js", "embed-host.js", "global-drivers.css", "global-drivers.js", "history.js", "coronary-flow.js", "heart-flowfx.js", "heart-realism.js", "heart-effects.js", "heart-physio.js", "heart-segments.js", "heart-uncertainty.js", "heart-wiggers.js", "heart-compare.js", "coronary-flow2.js", "heart-anatomy.js", "heart-conditions.js", "heart-chambers.js"}: raise HTTPException(404, "Not found")
+    if name not in {"cardiomap.css", "cardiomap-app.css", "cardiomap-pro.css", "shell.js", "pro.js", "bg.js", "heart-dashboard.css", "heart-dashboard.js", "yesno.css", "yesno.js", "case-handoff.js", "embed-host.js", "global-drivers.css", "global-drivers.js", "history.js", "cm-interaction.css"}: raise HTTPException(404, "Not found")
     return FileResponse(H / "static" / name, media_type="text/css" if name.endswith(".css") else "application/javascript")
 
 @app.get("/static/models/{name}", include_in_schema=False)

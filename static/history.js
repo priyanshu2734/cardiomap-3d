@@ -7,12 +7,12 @@ if(window.cmHistory)return;
 var KEY="cm-history-v1",MAX=500,TG=["CAD","LAD","LCX","RCA"],DRAG_MS=4000,DEDUPE_LOOKBACK=10;
 var KINDS={"/predict":"predict","/api/stress-test/run":"stress","/api/case-replay/run":"replay","/nexttest/rank":"nexttest","/whatif/search":"whatif-search"};
 var SECTIONS={"/app":"Dashboard","/":"Dashboard","/whatif":"What-If Simulator","/digital-twin":"Digital Twin Lab","/app/digital_twin":"Digital Twin Lab",
- "/detective":"AI Detective","/stress-test":"AI Trust Stress Test","/case-replay":"Case Replay","/what-next":"What Next","/signal-trace":"Signal Trace","/research-lab":"Cardiac Research Lab","/heart-function":"Heart Function Lab"};
-var KIND_LABEL={"predict":"Prediction","stress":"Stress-test baseline","replay":"Replay run","nexttest":"Next-test baseline","whatif-search":"What-if search baseline","research":"Research Lab run","heartfn":"Heart function run"};
+ "/detective":"AI Detective","/stress-test":"AI Trust Stress Test","/case-replay":"Case Replay","/what-next":"What Next","/signal-trace":"Signal Trace","/research-lab":"Cardiac Research Lab"};
+var KIND_LABEL={"predict":"Prediction","stress":"Stress-test baseline","replay":"Replay run","nexttest":"Next-test baseline","whatif-search":"What-if search baseline","research":"Research Lab run"};
 
 function path(){return location.pathname.replace(/\/$/,"")||"/"}
 function sectionOf(p){return SECTIONS[p]||p.replace(/^\//,"").replace(/[-_]/g," ")||"Dashboard"}
-function list(){try{var a=JSON.parse(localStorage.getItem(KEY));return Array.isArray(a)?a:[]}catch(e){return[]}}
+function list(){try{var a=JSON.parse(localStorage.getItem(KEY));return Array.isArray(a)?a.filter(function(x){return x&&x.kind!=="heartfn"}):[]}catch(e){return[]}}
 function save(a){a=a.slice(0,MAX);
  try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){try{localStorage.setItem(KEY,JSON.stringify(a.slice(0,Math.floor(MAX/4))))}catch(x){}}}
 function num(x){return typeof x=="number"&&isFinite(x)?x:null}
@@ -25,7 +25,7 @@ function record(kind,inputs,res,extra){
  Object.keys(inputs).forEach(function(k){var x=num(inputs[k]);if(x!==null)clean[k]=x});
  TG.forEach(function(t){var s=res[t],p=s&&num(s.p);if(p===null||p===undefined)return;
   r[t]={p:p};var lo=num(s.lo),hi=num(s.hi);if(lo!==null&&hi!==null){r[t].lo=lo;r[t].hi=hi}any=true});
- if(!any&&kind!="heartfn")return;   /* a Heart Function run is logged even when no model estimate was available */
+ if(!any)return;
  var p=path(),e={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),t:Date.now(),path:p,section:sectionOf(p),
   kind:kind,inputs:clean,res:r};
  if(extra){

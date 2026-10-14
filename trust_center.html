@@ -138,7 +138,58 @@ body.cm-lab .tw{padding:6px 10px}
 body.cm-lab .aud-tbl td:first-child,body.cm-lab .aud-tbl th:first-child{padding-left:16px}
 @media(max-width:560px){body.cm-lab .trust-matrix{grid-template-columns:56px 1fr 1fr;gap:8px}body.cm-lab .trust-cell{padding:14px 8px;min-height:80px}body.cm-lab .trust-matrix-wrap{padding:18px!important}}
 body.cm-lab .trust-svg-wrap .area{fill:rgba(10,143,166,.12)}html[data-theme=dark] .trust-svg-wrap .area{fill:rgba(20,214,196,.14)}html[data-theme=dark] .trust-svg-wrap .legend-box rect{fill:rgba(9,18,36,.72);stroke:rgba(120,190,230,.25)}body.cm-lab .trust-svg-wrap .grid{stroke:rgba(10,143,166,.12)}</style>
-<link rel="stylesheet" href="/static/yesno.css?v=20261004a"></head>
+<link rel="stylesheet" href="/static/yesno.css?v=20261004a"><style id="cm-prov-css">
+/* Data Provenance & References (moved from the dashboard) */
+.pv{--pv-link:#066a80;margin-top:16px;padding:24px}
+body.cm-lab .pv:hover{border-color:var(--cm-edge);box-shadow:var(--cm-shadow)}
+html[data-theme=dark] .pv{--pv-link:#7ee8ec}
+.pv-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px}
+.pv-eyebrow{font:700 11px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--pv-link)}
+body.cm-lab .pv-head h2{margin:4px 0 6px;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em}
+.pv-head p{margin:0;max-width:64ch;font-size:13.5px}
+body.cm-lab a.pv-jump{flex:none;display:inline-flex;gap:6px;align-items:center;padding:8px 14px;border-radius:999px;border:1px solid var(--cm-line);background:var(--cm-card);color:var(--pv-link);font:600 13px Inter,sans-serif;text-decoration:none}
+body.cm-lab a.pv-jump:hover{background:var(--cm-hov);color:#fff}
+.pv-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 16px;padding:0;list-style:none}
+.pv-stats li{padding:12px 16px;border-radius:16px;background:var(--cm-card2);border:1px solid var(--cm-line);display:flex;flex-direction:column;gap:2px}
+.pv-stats b{font:700 26px/1.1 Sora,Inter,sans-serif;color:var(--cm-ink);font-variant-numeric:tabular-nums}
+.pv-stats span{font-size:12px;color:var(--cm-muted)}
+.pv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pv-card{display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:16px;background:var(--cm-card2);border:1px solid var(--cm-line);min-width:0}
+.pv-ch{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.pv-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--cm-soft);color:var(--pv-link)}
+.pv-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pv-kind{font:700 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--cm-muted)}
+.pv-lic{margin-left:auto;padding:3px 9px;border-radius:999px;border:1px solid var(--cm-line);font:600 11px Inter,sans-serif;color:var(--cm-ink)}
+body.cm-lab .pv-card h3{margin:0;font-size:15px}
+body.cm-lab .pv-card p{margin:0;font-size:13px;line-height:1.55}
+body.cm-lab .pv-card p.pv-cite{margin-top:4px;padding-left:10px;border-left:3px solid var(--cm-line);font-size:12px}
+.pv code{font:12px ui-monospace,Consolas,monospace;padding:1px 5px;border-radius:6px;background:var(--cm-soft);color:var(--cm-ink)}
+.pv-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto!important;padding-top:8px}
+body.cm-lab .pv a:not(.pv-jump){display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;border:1px solid var(--cm-line);background:var(--cm-soft);color:var(--pv-link);font:600 12.5px Inter,sans-serif;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+body.cm-lab .pv a:not(.pv-jump):hover,body.cm-lab .pv a:not(.pv-jump):focus-visible{background:var(--cm-hov);color:#fff;border-color:var(--cm-accent);text-decoration:none}
+.pv a:focus-visible,.pv button:focus-visible,.pv-wrap:focus-visible{outline:2px solid var(--cm-accent);outline-offset:2px}
+.pv-manifest{margin-top:14px;padding:18px;border-radius:16px;background:var(--cm-card2);border:1px solid var(--cm-line)}
+.pv-mhead{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
+body.cm-lab .pv-mhead h3{margin:0 0 3px}
+body.cm-lab .pv-mhead p{margin:0;font-size:12.5px}
+.pv-actions{display:flex;gap:8px;flex:none}
+body.cm-lab .pv-actions button,body.cm-lab .pv-copy{padding:7px 13px;font-size:12.5px;box-shadow:none}
+.pv-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--cm-line);background:var(--cm-card)}
+.pv-wrap table{width:100%;min-width:560px;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+.pv-wrap th{position:static;text-align:left;padding:9px 12px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--cm-muted);background:var(--cm-card2);border-bottom:1px solid var(--cm-line)}
+.pv-wrap td{padding:9px 12px;border-bottom:1px solid var(--cm-line);color:var(--cm-ink);vertical-align:middle}
+.pv-wrap tr:last-child td{border-bottom:0}
+.pv-wrap td.pv-f{font:600 12.5px ui-monospace,Consolas,monospace}
+.pv-wrap td.pv-r{color:var(--cm-muted)}
+.pv-wrap td.pv-h{font:12px ui-monospace,Consolas,monospace;white-space:nowrap}
+.pv-miss{color:var(--cm-warn-ink);background:var(--cm-warn);padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+body.cm-lab .pv-copy{margin-left:8px;padding:3px 9px;font-size:11px;border-radius:999px}
+.pv-limits{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pv-limits li{padding:2px 0 2px 10px;border-left:3px solid var(--cm-line);font-size:12px;line-height:1.5}
+@media(max-width:900px){.pv-grid{grid-template-columns:repeat(2,1fr)}.pv-limits{grid-template-columns:1fr}.pv-stats{grid-template-columns:repeat(2,1fr)}.pv-head{flex-direction:column;align-items:flex-start}}
+@media(max-width:560px){.pv-grid{grid-template-columns:1fr}.pv-mhead{flex-direction:column}}
+</style>
+<link rel="stylesheet" href="/static/cm-interaction.css?v=20261012d"></head>
 <body class="cm-lab">
 <main>
 
@@ -188,7 +239,61 @@ body.cm-lab .trust-svg-wrap .area{fill:rgba(10,143,166,.12)}html[data-theme=dark
       <li><b>Generalization is unknown.</b> Performance may differ across populations, settings, and data collection processes.</li>
     </ul></div>
   </div>
-  <p class="trust-footnote" id="trustSource">Metrics shown from the project’s bundled evaluation artifact. Connect the backend to load its current metrics file.</p>
+  <section class="panel trust-panel pv" id="provenance" aria-labelledby="pvTitle">
+  <div class="pv-head">
+    <div><span class="pv-eyebrow">Sources &amp; lineage</span><h2 id="pvTitle">Data Provenance &amp; References</h2><p>Where the data, model, explanations, segment map and 3D anatomy come from, and a live fingerprint of the files this build is running.</p></div>
+    <a class="pv-jump" href="/validation">Open Validation report <span aria-hidden="true">→</span></a>
+  </div>
+  <ul class="pv-stats" aria-label="Provenance at a glance">
+    <li><b>303</b><span>patient records</span></li>
+    <li><b>4</b><span>targets: CAD, LAD, LCX, RCA</span></li>
+    <li><b>17</b><span>myocardial segments</span></li>
+    <li><b>2</b><span>open anatomy sources</span></li>
+  </ul>
+  <div class="pv-grid">
+    <article class="pv-card"><div class="pv-ch"><i class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></i><span class="pv-kind">Dataset</span></div>
+      <h3>Z-Alizadeh Sani CAD dataset</h3>
+      <p>Extended version from the UCI Machine Learning Repository, 303 patients. Labels: CAD = catheterisation result “CAD”; each vessel = stenotic (at least 50% narrowing). Target fields are excluded from the model inputs.</p>
+      <p class="pv-cite">Alizadehsani R. et al., “A data mining approach for diagnosis of coronary artery disease”, <i>Computer Methods and Programs in Biomedicine</i> 111(1), 2013.</p></article>
+    <article class="pv-card"><div class="pv-ch"><i class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></i><span class="pv-kind">Model</span></div>
+      <h3>Model outputs</h3>
+      <p>Produced by the fitted models in <code>model.joblib</code> and scored in <code>metrics.json</code>. Bootstrap ranges are resampling ranges, not clinical confidence intervals.</p>
+      <p class="pv-links"><a href="#trust-center">Evaluation above</a><a href="/validation">Validation view</a></p></article>
+    <article class="pv-card"><div class="pv-ch"><i class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></i><span class="pv-kind">Explanations</span></div>
+      <h3>SHAP drivers</h3>
+      <p>SHAP explains how the model reached an output. It is an explanation of the model, not evidence of causation.</p></article>
+    <article class="pv-card"><div class="pv-ch"><i class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/><path d="M12 3v18M3 12h18"/></svg></i><span class="pv-kind">Segment map</span></div>
+      <h3>17-segment model</h3>
+      <p>Territory and segment layout follows the standard American Heart Association 17-segment scheme.</p>
+      <p class="pv-cite">Cerqueira M.D. et al., “Standardized myocardial segmentation and nomenclature for tomographic imaging of the heart”, <i>Circulation</i> 2002;105:539-542.</p></article>
+    <article class="pv-card"><div class="pv-ch"><i class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></i><span class="pv-kind">Anatomy</span><span class="pv-lic">CC BY 4.0</span></div>
+      <h3>HuBMAP / Human Reference Atlas</h3>
+      <p>Bundled heart meshes come from the CCF/HRA v1.2 3D reference object library. They are generic reference anatomy, not patient imaging.</p>
+      <p class="pv-links"><a href="https://humanatlas.io/" target="_blank" rel="noopener noreferrer" aria-label="Human Reference Atlas website (opens in a new tab)">Human Reference Atlas ↗</a><a href="https://github.com/hubmapconsortium/ccf-releases/tree/main/v1.2/models" target="_blank" rel="noopener noreferrer" aria-label="HRA v1.2 model files on GitHub (opens in a new tab)">v1.2 models ↗</a></p></article>
+    <article class="pv-card"><div class="pv-ch"><i class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5zM3 7l9 5 9-5M12 12v10"/></svg></i><span class="pv-kind">Anatomy</span><span class="pv-lic">CC BY 4.0</span></div>
+      <h3>BodyParts3D</h3>
+      <p>Optional alternative heart meshes that the 3D viewer can load. The same research-only caveat applies.</p>
+      <p class="pv-links"><a href="https://lifesciencedb.jp/bp3d/" target="_blank" rel="noopener noreferrer" aria-label="BodyParts3D website (opens in a new tab)">BodyParts3D ↗</a></p></article>
+  </div>
+
+  <div class="pv-manifest" id="pvManifest">
+    <div class="pv-mhead">
+      <div><h3>Build manifest</h3><p id="pvStatus" role="status" aria-live="polite">Loading the file fingerprints…</p></div>
+      <div class="pv-actions"><button type="button" id="pvRetry" hidden>Retry</button><button type="button" id="pvExport" disabled>Export manifest JSON</button></div>
+    </div>
+    <div class="pv-wrap" tabindex="0" role="region" aria-label="Build manifest table">
+      <table id="pvTable" hidden><caption class="sr-only">Files inspected by this build: role, size and SHA-256 fingerprint</caption>
+        <thead><tr><th scope="col">File</th><th scope="col">Role</th><th scope="col">Size</th><th scope="col">SHA-256</th></tr></thead><tbody id="pvRows"></tbody></table>
+    </div>
+    <ul class="pv-limits" aria-label="What the manifest does and does not show">
+      <li>Matching hashes show a file is unchanged. They do not show the model is clinically valid.</li>
+      <li>Adding bootstrap replicas changes the <code>model.joblib</code> hash without changing the primary model outputs.</li>
+      <li>No patient inputs, keys or private paths are sent or shown here.</li>
+    </ul>
+  </div>
+</section>
+
+<p class="trust-footnote" id="trustSource">Metrics shown from the project’s bundled evaluation artifact. Connect the backend to load its current metrics file.</p>
 </section>
 
 <div class="panel warn" style="margin-top:18px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start">
@@ -307,5 +412,38 @@ loadAudit();
 let _rz=null;window.addEventListener("resize",()=>{clearTimeout(_rz);_rz=setTimeout(()=>{if(auditData)renderAudit()},200)});
 renderTrust();if(API)loadTrust();
 </script>
+<script id="cm-prov-js">/* Data Provenance & References: loads GET /provenance once, renders with textContent only. */
+(function(){
+var $=function(i){return document.getElementById(i)},tbl=$("pvTable");if(!tbl)return;
+var ROLE={"model.joblib":"Fitted models","data.xlsx":"Source dataset","metrics.json":"Evaluation metrics","export.json":"Export metadata","train.py":"Training code","core.py":"Core code","chat.py":"Assistant code","report.py":"Report code"};
+var manifest=null,state="idle";
+function size(n){return typeof n==="number"?(n>=1048576?(n/1048576).toFixed(1)+" MB":Math.max(1,Math.round(n/1024))+" KB"):"-"}
+function td(tr,t,c){var e=document.createElement("td");if(c)e.className=c;e.textContent=t;tr.appendChild(e);return e}
+function copy(text,btn){var done=function(){var o=btn.textContent;btn.textContent="Copied";setTimeout(function(){btn.textContent=o},1400)};
+ try{navigator.clipboard.writeText(text).then(done,function(){})}catch(e){}}
+function render(m){var b=m.bootstrap_meta,s="App "+(m.app_version||"?")+" · schema "+(m.schema_version||"?");
+ if(b&&b.B)s+=" · bootstrap "+b.B+" resamples"+(typeof b.level==="number"?" at "+Math.round(b.level*100)+"% level":"");
+ if(m.generated_at_utc){var d=new Date(m.generated_at_utc);if(!isNaN(d))s+=" · checked "+d.toUTCString().replace("GMT","UTC")}
+ $("pvStatus").textContent=s;
+ var body=$("pvRows");body.textContent="";
+ (Array.isArray(m.artifacts)?m.artifacts:[]).forEach(function(a){var tr=document.createElement("tr"),name=String(a.artifact||"?");
+  td(tr,name,"pv-f");td(tr,ROLE[name]||"File","pv-r");
+  if(a.sha256){td(tr,size(a.bytes));var h=td(tr,String(a.sha256).slice(0,16)+"…","pv-h");h.title=String(a.sha256);
+   var bt=document.createElement("button");bt.type="button";bt.className="pv-copy";bt.textContent="Copy";bt.setAttribute("aria-label","Copy full SHA-256 of "+name);
+   bt.addEventListener("click",function(){copy(String(a.sha256),bt)});h.appendChild(bt)}
+  else{td(tr,"-");var h2=td(tr,"","pv-h"),sp=document.createElement("span");sp.className="pv-miss";sp.textContent="not found";h2.appendChild(sp)}
+  body.appendChild(tr)});
+ tbl.hidden=false;$("pvExport").disabled=false;$("pvRetry").hidden=true}
+function fail(){state="idle";$("pvStatus").textContent="Manifest not loaded (backend offline). The references above still apply.";$("pvRetry").hidden=false}
+function load(){if(state!=="idle")return;state="busy";$("pvStatus").textContent="Loading the file fingerprints…";
+ var c=new AbortController(),t=setTimeout(function(){c.abort()},5000);
+ fetch(location.origin+"/provenance",{signal:c.signal,cache:"no-store"}).then(function(r){clearTimeout(t);if(!r.ok)throw 0;return r.json()})
+ .then(function(m){manifest=m;state="done";render(m)}).catch(function(){clearTimeout(t);fail()})}
+$("pvRetry").addEventListener("click",load);
+$("pvExport").addEventListener("click",function(){if(!manifest)return;var u=URL.createObjectURL(new Blob([JSON.stringify(manifest,null,2)],{type:"application/json"})),a=document.createElement("a");
+ a.href=u;a.download="cardiomap-provenance-manifest.json";a.click();setTimeout(function(){URL.revokeObjectURL(u)},1200)});
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();load()}},{rootMargin:"300px"});io.observe($("provenance"))}else load();
+})();</script>
+
 <script src="/static/shell.js?v=20261004d"></script>
 <script src="/static/yesno.js?v=20261004a"></script></body></html>
